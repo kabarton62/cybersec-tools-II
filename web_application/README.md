@@ -1,86 +1,79 @@
 # <img src="https://www.tamusa.edu/brandguide/jpeglogos/tamusa_final_logo_bw1.jpg" width="100" height="50"> Web Applications
 
-## Download and extract FileThingie 2.5.7
-Download FileThingie 2.5.7 from Exploit-DB directly to your server using wget and extract the files from the archive. The web application is archived in a .zip file, so unzip will be required to extract the archive. The following commands will install unzip and download the archive from Exploit-DB.
+## Download and extract WordPress
+Download WordPress directly to your server using wget and extract the files from the archive. The web application is archived in a .zip file, so unzip will be required to extract the archive. The following commands will install unzip and download the archive from Exploit-DB.
 ```
 sudo apt update && sudo apt install unzip
-wget https://www.exploit-db.com/apps/71442de71ef46bf3ed53d416ec8bcdbd-filethingie-master.zip
+wget https://wordpress.org/latest.zip
 ```
-Note that 71442de71ef46bf3ed53d416ec8bcdbd-Ticket-Booking-master.zip was downloaded. 71442de71ef46bf3ed53d416ec8bcdbd in the filename is not random, it is the md5 hash value for the file. We can verify that our download was not corrupted by verifying file's hash against this value.
-```
-md5sum 71442de71ef46bf3ed53d416ec8bcdbd-filethingie-master.zip
-```
-A hash value of 71442de71ef46bf3ed53d416ec8bcdbd validates a good copy was downloaded. Any other result means the download is corrupt and the application should be downloaded again.
-
 Once you have a good copy of FileThingie 2.5.7, extract the files from the .zip archive. The directory Ticket-Booking-master/ will be extracted.
 ```
-unzip 4a98716b169f2e384c3b7ca4f0432f4a-Ticket-Booking-master.zip
+unzip latest.zip
 ```
-Let's examine the contents of Ticket-Booking-master/ before we move forward.
-
-```
-$ ls -al Ticket-Booking-master/
-total 84
-drwxrwxr-x 6 kbarton kbarton 4096 Jun 22  2016 .
-drwxr-xr-x 7 kbarton kbarton 4096 Aug 15 16:45 ..
--rw-rw-r-- 1 kbarton kbarton  483 Jun 22  2016 .gitattributes
--rw-rw-r-- 1 kbarton kbarton 2643 Jun 22  2016 .gitignore
--rw-rw-r-- 1 kbarton kbarton 1492 Jun 22  2016 Readme.txt
--rw-rw-r-- 1 kbarton kbarton 5737 Jun 22  2016 book.php
--rw-rw-r-- 1 kbarton kbarton 4761 Jun 22  2016 cancel.php
--rw-rw-r-- 1 kbarton kbarton 2349 Jun 22  2016 cancelled.php
-drwxrwxr-x 2 kbarton kbarton 4096 Jun 22  2016 css
-drwxrwxr-x 2 kbarton kbarton 4096 Jun 22  2016 database
--rw-rw-r-- 1 kbarton kbarton  784 Jun 22  2016 db_login.php
-drwxrwxr-x 2 kbarton kbarton 4096 Jun 22  2016 img
--rw-rw-r-- 1 kbarton kbarton 3422 Jun 22  2016 index.php
-drwxrwxr-x 2 kbarton kbarton 4096 Jun 22  2016 js
--rw-rw-r-- 1 kbarton kbarton 3096 Jun 22  2016 login.php
--rw-rw-r-- 1 kbarton kbarton 4682 Jun 22  2016 register.php
--rw-rw-r-- 1 kbarton kbarton 4539 Jun 22  2016 seat.php
-```
-
-Ticket-Booking-master/ contains 4 directories and 11 files. Two files (.gitattributes and .gitignore) are hidden files used for a Git repository. We are not interested in those file. We see several files with extension **.php**. That suggests the application depends on PHP, so we will need to install PHP with our webserver. Readme files often include installation instructions, so let's start there. **Read Ticket-Booking-master/Readme.txt**.
+Let's examine the contents of wordpress/ before we move forward.
 
 ```
-Steps to set up this website in WAMP.
-
-1) Create user in WAMP.
-eg.
-grant all privileges on *.* to 'abhijeet'@localhost identified by 'abhijeet';
-Note: Change the username & password in db_login.php according to your username & password.
-
-
-2) Create database with name 'book'.
-
-3) Import tables in 'book' database. Go to import tab in WAMP & give path of below file to import.
-Ticket-Booking\database\book.sql
-
-4) Please replace below email to email of your website admin, so that admin will receive email on every seat book.
-File: Ticket-Booking/register.php
-Replce below
-mail ("openingknots@gmail.com", "New ticket booked", $email_content);
-
-By
-mail ("admin-email@gmail.com", "New ticket booked", $email_content);
-5) Done.
+$ ls -al wordpress/
+total 212
+-rw-r--r--  1 kbarton kbarton   405 Feb  6  2020 index.php
+-rw-r--r--  1 kbarton kbarton 19915 Jan  1  2022 license.txt
+-rw-r--r--  1 kbarton kbarton  7401 Mar 22 21:11 readme.html
+-rw-r--r--  1 kbarton kbarton  7165 Jan 21  2021 wp-activate.php
+drwxr-xr-x  9 kbarton kbarton  4096 Jul 12 16:16 wp-admin
+-rw-r--r--  1 kbarton kbarton   351 Feb  6  2020 wp-blog-header.php
+-rw-r--r--  1 kbarton kbarton  2338 Nov  9  2021 wp-comments-post.php
+-rw-r--r--  1 kbarton kbarton  3001 Dec 14  2021 wp-config-sample.php
+drwxr-xr-x  4 kbarton kbarton  4096 Jul 12 16:16 wp-content
+-rw-r--r--  1 kbarton kbarton  3943 Apr 28 09:49 wp-cron.php
+drwxr-xr-x 26 kbarton kbarton 12288 Jul 12 16:16 wp-includes
+-rw-r--r--  1 kbarton kbarton  2494 Mar 19 20:31 wp-links-opml.php
+-rw-r--r--  1 kbarton kbarton  3973 Apr 12 01:47 wp-load.php
+-rw-r--r--  1 kbarton kbarton 48498 Apr 29 14:36 wp-login.php
+-rw-r--r--  1 kbarton kbarton  8577 Mar 22 16:25 wp-mail.php
+-rw-r--r--  1 kbarton kbarton 23706 Apr 12 09:26 wp-settings.php
+-rw-r--r--  1 kbarton kbarton 32051 Apr 11 11:42 wp-signup.php
+-rw-r--r--  1 kbarton kbarton  4748 Apr 11 11:42 wp-trackback.php
+-rw-r--r--  1 kbarton kbarton  3236 Jun  8  2020 xmlrpc.php
 ```
-**WAMP** is Apache, MySQL and PHP on Windows. We are building the applicaion on Linux, not Windows, so we will build a LAMP (Linux, Apache, MySQL, PHP) server instead of a WAMP server. 
 
+wordpress/ contains 2 directories and 16 files. We see several files with extension **.php**. That suggests the application depends on PHP, so we will need to install PHP with our webserver. File readme.html confirms the requirement for PHP and MySQL or MariaDB.
+
+We are building the applicaion on Linux, so we will build a LAMP (Linux, Apache, MySQL, PHP) server. 
+
+Let's look at wp-config-sample.php before we start building our LAMP server. File wp-config-sample.php is a sample configuration file. Read the file with line numbers. Below is an extract of wp-config-sample.php that shows database settings. Note that we must provide a username, password and database name. 
+```
+cat wp-config-sample.php -n
+
+ 21  // ** Database settings - You can get this info from your web host ** //
+    22  /** The name of the database for WordPress */
+    23  define( 'DB_NAME', 'database_name_here' );
+    24
+    25  /** Database username */
+    26  define( 'DB_USER', 'username_here' );
+    27
+    28  /** Database password */
+    29  define( 'DB_PASSWORD', 'password_here' );
+    30
+    31  /** Database hostname */
+    32  define( 'DB_HOST', 'localhost' );
+    33
+    34  /** Database charset to use in creating database tables. */
+    35  define( 'DB_CHARSET', 'utf8' );
+    ```
 ## Install Apache2, MySQL and PHP
-The installation instructions tell us to:
+Installation requires us to:
 1. Create a database user and login 
-2. Update db_login.php with the database username and password
-3. Create a database named _book_
-4. Import the tables for db _book_ from _Ticket-Booking\database\book.sql_
+2. Copy wp-config-sample.php to wp-config.php
+3. Create a database
+4. Update wp-config.php with the database name, username and password
 
 In order to configure the database, we need to first install a database server. We've already run updates on our server, so now install Apache2, PHP and PHP modules, and MySQL server. 
 ```
 # Install apache2. The -y option says to install apache2 without asking if you really want to install apache2.
 sudo apt install -y apache2 
 
-# Install php, php-cli and libapache2-mod-php. Libapache2-mod-php is needed if we have to manually enable PHP in Apache2. Php-cli is a PHP CLI utility.
-sudo apt install -y php php-cli libapache2-mod-php 
+# Install php, php-cli, php-mysql and libapache2-mod-php. Libapache2-mod-php is needed if we have to manually enable PHP in Apache2. Php-cli is a PHP CLI utility.
+sudo apt install -y php php-cli libapache2-mod-php php-mysql
 sudo systemctl restart apache2
 
 # Install mysql-server.
@@ -168,33 +161,32 @@ h2 {font-size: 125%;}
 ```
 
 ## Prepare database
-Recall that Readme.txt instructed us to:
+Recall we need to prepare the server:
 1. Create a mysql user
-2. Create a database named **book**
-3. Import tables into database **book**
-4. Update db_login.php with mysql user's username & password
+2. Create a database named **wp**
+3. Create and ppdate wp-config.php with database name and mysql user's username & password
 
 ### Create mysql user and database
 A **sql shell** is used to run sql querries in the MySQL server. The following commands:
 1. Get a sql shell
-2. Create a mysql user (username is bookuser, password is weakpass)
+2. Create a mysql user (username is wpuser, password is weakpass)
 3. Create a database book
-4. Grants privileges on database book to bookuser
+4. Grants privileges on database book to wpuser
 5. Verifies database book was created
 
 ```
 sudo mysql
-mysql> CREATE USER 'bookuser'@'localhost' IDENTIFIED BY 'weakpass';
-mysql> create database book;
-mysql> GRANT ALL PRIVILEGES ON book.* TO 'bookuser'@'localhost';
+mysql> CREATE USER 'wpuser'@'localhost' IDENTIFIED BY 'weakpass';
+mysql> create database wp;
+mysql> GRANT ALL PRIVILEGES ON wp.* TO 'wpuser'@'localhost';
 mysql> show databases;
 exit
 ```
 
-Now, let's verify that **bookuser** can login to **book**. Make sure that you have exited the first sql shell (root user). After successfully logging in, run **SELECT DATABASE()** to verify that you are using **book** and **SELECT USER()** to show current user. All SQL queries should end with a semi-colon (;). 
+Now, let's verify that **wpuser** can login to **wp**. Make sure that you have exited the first sql shell (root user). After successfully logging in, run **SELECT DATABASE()** to verify that you are using **wp** and **SELECT USER()** to show current user. All SQL queries should end with a semi-colon (;). 
 
 ```
-mysql -u bookuser -p book
+mysql -u wpuser -p wp
 
 Enter password: weakpass
 
@@ -202,7 +194,7 @@ mysql> SELECT DATABASE();
 +------------+
 | DATABASE() |
 +------------+
-| book       |
+| wp       |
 +------------+
 1 row in set (0.00 sec)
 
@@ -210,7 +202,7 @@ mysql> SELECT USER();
 +--------------------+
 | USER()             |
 +--------------------+
-| bookuser@localhost |
+| wpuser@localhost |
 +--------------------+
 1 row in set (0.00 sec)
 
