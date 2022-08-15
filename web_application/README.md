@@ -87,7 +87,7 @@ sudo systemctl restart apache2
 sudo apt install -y mysql-server
 ```
 
-## Verify Apache2, MySQL and PHP are installed
+## Verify that Apache2, MySQL and PHP are installed and running
 Assuming you did not get errors, Apache2, MySQL and PHP should now be installed, but let's verify the services are installed and running. There are multiple ways to verify these services, but one quick way is to simply verify that TCP ports 80 (Apache2) and 3306 (MySQL) are LISTENing. This will require net-tools, which may not be installed. The following installs net-tools and uses netstat to look at listening services.
 ```
 sudo apt install net-tools
@@ -96,3 +96,40 @@ sudo netstat -antp|grep LISTEN
   tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN      870/sshd: /usr/sbin 
   tcp6       0      0 :::80                   :::*                    LISTEN      23218/apache2       
 ```
+
+On Ubuntu and most Debian-based web servers will use /var/www/html as the default webroot. The webroot shoud currently have the default Apache2 index.html. Verify that by examining the webroot content and browsing to http://localhost. 
+```
+ls /var/www/html
+  drwxr-xr-x 3 root    root     4096 Aug 10 19:23 .
+  drwxr-xr-x 3 root    root     4096 Aug 10 19:21 ..
+  -rw-r--r-- 1 root    root    10918 Aug 10 19:21 index.html
+
+curl http://localhost
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <!--
+    Modified from the Debian original for Ubuntu
+    Last updated: 2016-11-16
+    See: https://launchpad.net/bugs/1288690
+  -->
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Apache2 Ubuntu Default Page: It works</title>
+    <style type="text/css" media="screen">
+ ------ TRUNCATED -----   
+ ```
+This demonstrates that:
+ - MySQL TCP 3306 is listening and bound to the loopback interface (127.0.0.1)
+ - Apache2 is listening and serving the default Apache2 page on TCP 80
+
+We do not know the status of php, so let's test it. The following commands:
+1. Delete the default Apache2 page from the webroot
+2. Creates a new index page (index.php) in the webroot
+3. Adds a PHP script to index.php that renders detailed information on the PHP installation
+
+```
+
+
+
+sudo echo "<?php phphinfo(); ?>" > /var/www/html/index.php
