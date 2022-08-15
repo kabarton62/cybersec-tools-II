@@ -166,3 +166,45 @@ h2 {font-size: 125%;}
 ------ TRUNCATED -------
 
 ```
+
+## Prepare database
+Recall that Readme.txt instructed us to:
+1. Create a mysql user
+2. Create a database named **book**
+3. Import tables into database **book**
+4. Update db_login.php with mysql user's username & password
+
+### Create mysql user
+A **sql shell** is used to run sql querries in the MySQL server. The following commands:
+1. Get a sql shell
+2. Create a mysql user (username is bookuser, password is weakpass)
+3. Create a database book
+4. Grants privileges on database book to bookuser
+5. Verifies database book was created
+
+```
+sudo mysql
+mysql> CREATE USER 'bookuser'@'localhost' IDENTIFIED BY 'weakpass';
+mysql> create database book;
+mysql> GRANT ALL PRIVILEGES ON book.* TO 'bookuser'@'localhost';
+mysql> show databases;
+exit
+```
+
+Now, let's verify that **bookuser** can login to **book**. Make sure that you have exited the first sql shell (root user). After successfully logging in, run **SELECT DATABASE()** to verify that you are using **book**. All SQL queries should end with a semi-colon (;). 
+
+```
+mysql -u bookuser -p book
+
+Enter password: weakpass
+
+mysql> SELECT DATABASE();
++------------+
+| DATABASE() |
++------------+
+| book       |
++------------+
+1 row in set (0.00 sec)
+
+mysql> 
+```
