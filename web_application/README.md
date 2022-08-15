@@ -125,11 +125,44 @@ This demonstrates that:
 
 We do not know the status of php, so let's test it. The following commands:
 1. Delete the default Apache2 page from the webroot
-2. Creates a new index page (index.php) in the webroot
-3. Adds a PHP script to index.php that renders detailed information on the PHP installation
+2. Changes user to root so you can create a file in the webroot
+3. Creates a new index page (index.php) in the webroot
+4. Adds a PHP script to index.php that renders detailed information on the PHP installation
+5. Exits root user
 
 ```
+sudo rm /var/www/html/index.html
+sudo su
+echo "<?php phpinfo(); ?>" > /var/www/html/index.php
+exit
+```
+If you read /var/www/html/index.php, it will have just a single line of code. However, that single line will return a full page of data through a browser **if PHP is enabled in Apache2**, but just the string <?php phpinfo(); ?> if PHP is not enabled. Verify that PHP is enabled by browsing to the localhost.
 
+PHP enabled in Apache2 will look like:
+```
+curl localhost
 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<style type="text/css">
+body {background-color: #fff; color: #222; font-family: sans-serif;}
+pre {margin: 0; font-family: monospace;}
+a:link {color: #009; text-decoration: none; background-color: #fff;}
+a:hover {text-decoration: underline;}
+table {border-collapse: collapse; border: 0; width: 934px; box-shadow: 1px 2px 3px #ccc;}
+.center {text-align: center;}
+.center table {margin: 1em auto; text-align: left;}
+.center th {text-align: center !important;}
+td, th {border: 1px solid #666; font-size: 75%; vertical-align: baseline; padding: 4px 5px;}
+th {position: sticky; top: 0; background: inherit;}
+h1 {font-size: 150%;}
+h2 {font-size: 125%;}
+.p {text-align: left;}
+.e {background-color: #ccf; width: 300px; font-weight: bold;}
+.h {background-color: #99c; font-weight: bold;}
+.v {background-color: #ddd; max-width: 300px; overflow-x: auto; word-wrap: break-word;}
+.v i {color: #999;}
 
-sudo echo "<?php phphinfo(); ?>" > /var/www/html/index.php
+------ TRUNCATED -------
+
+```
