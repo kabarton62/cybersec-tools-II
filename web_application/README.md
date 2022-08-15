@@ -174,7 +174,7 @@ Recall that Readme.txt instructed us to:
 3. Import tables into database **book**
 4. Update db_login.php with mysql user's username & password
 
-### Create mysql user
+### Create mysql user and database
 A **sql shell** is used to run sql querries in the MySQL server. The following commands:
 1. Get a sql shell
 2. Create a mysql user (username is bookuser, password is weakpass)
@@ -191,7 +191,7 @@ mysql> show databases;
 exit
 ```
 
-Now, let's verify that **bookuser** can login to **book**. Make sure that you have exited the first sql shell (root user). After successfully logging in, run **SELECT DATABASE()** to verify that you are using **book**. All SQL queries should end with a semi-colon (;). 
+Now, let's verify that **bookuser** can login to **book**. Make sure that you have exited the first sql shell (root user). After successfully logging in, run **SELECT DATABASE()** to verify that you are using **book** and **SELECT USER()** to show current user. All SQL queries should end with a semi-colon (;). 
 
 ```
 mysql -u bookuser -p book
@@ -206,5 +206,60 @@ mysql> SELECT DATABASE();
 +------------+
 1 row in set (0.00 sec)
 
+mysql> SELECT USER();
++--------------------+
+| USER()             |
++--------------------+
+| bookuser@localhost |
++--------------------+
+1 row in set (0.00 sec)
+
 mysql> 
 ```
+### Import tables to database book
+Exit the sql shell and import tables into database book from Ticket-Booking-master/database/book.sql. Then verify that the tables were imported to the database.
+```
+mysql -u bookuser -p book < Ticket-Booking-master/database/book.sql
+
+mysql -u bookuser -p book
+mysql> show tables;
++----------------+
+| Tables_in_book |
++----------------+
+| register       |
+| seat           |
++----------------+
+2 rows in set (0.00 sec)
+```
+### Update Ticket-Booking-master/db_login.php
+```
+nano Ticket-Booking-master/db_login.php
+
+  GNU nano 4.8                                                                            Ticket-Booking-master/db_login.php                                                                                      
+<!--
+
+<Ticket-Booking>
+Copyright (C) <2013>  
+<Abhijeet Ashok Muneshwar>
+<openingknots@gmail.com>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+ any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+-->
+
+<?php
+        $db_host='localhost';
+        $db_username='bookuser';
+        $db_password='weakpass';
+?>
