@@ -67,6 +67,7 @@ mail ("admin-email@gmail.com", "New ticket booked", $email_content);
 ```
 **WAMP** is Apache, MySQL and PHP on Windows. We are building the applicaion on Linux, not Windows, so we will build a LAMP (Linux, Apache, MySQL, PHP) server instead of a WAMP server. 
 
+## Install Apache2, MySQL and PHP
 The installation instructions tell us to:
 1. Create a database user and login 
 2. Update db_login.php with the database username and password
@@ -84,4 +85,14 @@ sudo systemctl restart apache2
 
 # Install mysql-server.
 sudo apt install -y mysql-server
+```
+
+## Verify Apache2, MySQL and PHP are installed
+Assuming you did not get errors, Apache2, MySQL and PHP should now be installed, but let's verify the services are installed and running. There are multiple ways to verify these services, but one quick way is to simply verify that TCP ports 80 (Apache2) and 3306 (MySQL) are LISTENing. This will require net-tools, which may not be installed. The following installs net-tools and uses netstat to look at listening services.
+```
+sudo apt install net-tools
+sudo netstat -antp|grep LISTEN
+**tcp        0      0 127.0.0.1:3306          0.0.0.0:*               LISTEN      81237/mysqld        **
+tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN      870/sshd: /usr/sbin 
+**tcp6       0      0 :::80                   :::*                    LISTEN      23218/apache2       **
 ```
