@@ -92,7 +92,7 @@ Assuming you did not get errors, Apache2, MySQL and PHP should now be installed,
 ```
 sudo apt install net-tools
 sudo netstat -antp|grep LISTEN
-**tcp        0      0 127.0.0.1:3306          0.0.0.0:*               LISTEN      81237/mysqld        **
-tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN      870/sshd: /usr/sbin 
-**tcp6       0      0 :::80                   :::*                    LISTEN      23218/apache2       **
+  tcp        0      0 127.0.0.1:3306          0.0.0.0:*               LISTEN      81237/mysqld        
+  tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN      870/sshd: /usr/sbin 
+  tcp6       0      0 :::80                   :::*                    LISTEN      23218/apache2       
 ```
