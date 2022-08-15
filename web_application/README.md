@@ -83,7 +83,7 @@ sudo apt install -y mysql-server
 ```
 
 ## Verify that Apache2, MySQL and PHP are installed and running
-Assuming you did not get errors, Apache2, MySQL and PHP should now be installed, but let's verify the services are installed and running. There are multiple ways to verify these services, but one quick way is to simply verify that TCP ports 80 (Apache2) and 3306 (MySQL) are LISTENing. This will require net-tools, which may not be installed. The following installs net-tools and uses netstat to look at listening services.
+Assuming you did not get errors, Apache2, MySQL and PHP should now be installed, but let's verify the services are installed and running. There are multiple ways to verify these services, but one quick way is to simply verify that TCP ports 80 (Apache2) and 3306 (MySQL) are listening. This will require net-tools, which may not be installed. The following installs net-tools and uses netstat to look at listening services.
 ```
 sudo apt install net-tools
 sudo netstat -antp|grep LISTEN
@@ -92,7 +92,7 @@ sudo netstat -antp|grep LISTEN
   tcp6       0      0 :::80                   :::*                    LISTEN      23218/apache2       
 ```
 
-On Ubuntu and most Debian-based web servers will use /var/www/html as the default webroot. The webroot shoud currently have the default Apache2 index.html. Verify that by examining the webroot content and browsing to http://localhost. 
+Ubuntu and most Debian-based web servers will use /var/www/html as the default webroot. The webroot shoud currently have the default Apache2 index.html. Verify that by examining the webroot content and browsing to http://localhost. 
 ```
 ls /var/www/html
   drwxr-xr-x 3 root    root     4096 Aug 10 19:23 .
