@@ -264,4 +264,153 @@ Grant http access only to trusted IP addresses. In this case, grant access to yo
 3. **Make sure you save whatever username and password you create for the admin user.**
 4. Follow the link to the login and login as your admin user. **Capture a screenshot of your admin Dashboard.**
 
+## Digging a little deeper into MySQL
+Recall that we created two users in this exercise. The MySQL user was wp and you created a WordPress admin user. The MySQL user is used by WordPress to bind to the MySQL server, the WordPress admin user is used to login to the WordPress application. Let's examine MySQL to understand where those user accounts are stored.
 
+Get a mysql shell as root and look at the existing databases:
+```
+sudo mysql
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
+| wp                 |
++--------------------+
+5 rows in set (0.01 sec)
+
+mysql> 
+```
+The database mysql stores the credentials for MySQL user wp. The database wp stores the credentials for the WordPress admin user. Let's first find the MySQL user.
+```
+mysql> use mysql
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> show tables;
++------------------------------------------------------+
+| Tables_in_mysql                                      |
++------------------------------------------------------+
+| columns_priv                                         |
+| component                                            |
+| db                                                   |
+| default_roles                                        |
+| engine_cost                                          |
+| func                                                 |
+| general_log                                          |
+| global_grants                                        |
+| gtid_executed                                        |
+| help_category                                        |
+| help_keyword                                         |
+| help_relation                                        |
+| help_topic                                           |
+| innodb_index_stats                                   |
+| innodb_table_stats                                   |
+| password_history                                     |
+| plugin                                               |
+| procs_priv                                           |
+| proxies_priv                                         |
+| replication_asynchronous_connection_failover         |
+| replication_asynchronous_connection_failover_managed |
+| replication_group_configuration_version              |
+| replication_group_member_actions                     |
+| role_edges                                           |
+| server_cost                                          |
+| servers                                              |
+| slave_master_info                                    |
+| slave_relay_log_info                                 |
+| slave_worker_info                                    |
+| slow_log                                             |
+| tables_priv                                          |
+| time_zone                                            |
+| time_zone_leap_second                                |
+| time_zone_name                                       |
+| time_zone_transition                                 |
+| time_zone_transition_type                            |
+| user                                                 |
++------------------------------------------------------+
+37 rows in set (0.00 sec)
+
+mysql> show columns in user;
++--------------------------+-----------------------------------+------+-----+-----------------------+-------+
+| Field                    | Type                              | Null | Key | Default               | Extra |
++--------------------------+-----------------------------------+------+-----+-----------------------+-------+
+| Host                     | char(255)                         | NO   | PRI |                       |       |
+| User                     | char(32)                          | NO   | PRI |                       |       |
+--------------------------------------------------------------------------------------------------------------
+| authentication_string    | text                              | YES  |     | NULL                  |       |
++--------------------------+-----------------------------------+------+-----+-----------------------+-------+
+
+mysql> select user,host,authentication_string from user;
++------------------+-----------+------------------------------------------------------------------------+
+| user             | host      | authentication_string                                                  |
++------------------+-----------+------------------------------------------------------------------------+
+| debian-sys-maint | localhost | $A$005$k1@0<f,h        'SxpaiTEba/vT23mwTiKRgq2yL/VKXND0PyfSBLy0OkT1UUn7bI0 |
+| mysql.infoschema | localhost | $A$005$THISISACOMBINATIONOFINVALIDSALTANDPASSWORDTHATMUSTNEVERBRBEUSED |
+| mysql.session    | localhost | $A$005$THISISACOMBINATIONOFINVALIDSALTANDPASSWORDTHATMUSTNEVERBRBEUSED |
+| mysql.sys        | localhost | $A$005$THISISACOMBINATIONOFINVALIDSALTANDPASSWORDTHATMUSTNEVERBRBEUSED |
+| root             | localhost |                                                                        |
+| wpuser           | localhost | $A$005$rZrauyOjx~N|-9n3nYHP9B7vwUIIzikD4CDy8hwwfA0OkiECiRtiCu/5 |
++------------------+-----------+------------------------------------------------------------------------+
+6 rows in set (0.00 sec)
+```
+
+So, we see the wpuser credentials are stored in table **user** of database **mysql**. Now, let's find the WordPress admin credentials. Those credentials will be stored in the **wp** database, so let's drill into that database.
+
+```
+mysql> use wp;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> show tables;
++-----------------------+
+| Tables_in_wp          |
++-----------------------+
+| wp_commentmeta        |
+| wp_comments           |
+| wp_links              |
+| wp_options            |
+| wp_postmeta           |
+| wp_posts              |
+| wp_term_relationships |
+| wp_term_taxonomy      |
+| wp_termmeta           |
+| wp_terms              |
+| wp_usermeta           |
+| wp_users              |
++-----------------------+
+12 rows in set (0.00 sec)
+
+mysql> show columns in wp_users;
++---------------------+-----------------+------+-----+---------------------+----------------+
+| Field               | Type            | Null | Key | Default             | Extra          |
++---------------------+-----------------+------+-----+---------------------+----------------+
+| ID                  | bigint unsigned | NO   | PRI | NULL                | auto_increment |
+| user_login          | varchar(60)     | NO   | MUL |                     |                |
+| user_pass           | varchar(255)    | NO   |     |                     |                |
+| user_nicename       | varchar(50)     | NO   | MUL |                     |                |
+| user_email          | varchar(100)    | NO   | MUL |                     |                |
+| user_url            | varchar(100)    | NO   |     |                     |                |
+| user_registered     | datetime        | NO   |     | 0000-00-00 00:00:00 |                |
+| user_activation_key | varchar(255)    | NO   |     |                     |                |
+| user_status         | int             | NO   |     | 0                   |                |
+| display_name        | varchar(250)    | NO   |     |                     |                |
++---------------------+-----------------+------+-----+---------------------+----------------+
+10 rows in set (0.00 sec)
+
+mysql> select user_login,user_pass from wp_users;
++------------+------------------------------------+
+| user_login | user_pass                          |
++------------+------------------------------------+
+| admin      | $P$B0/UtscN4tlhbHViXE.i.IRYS1p0kc. |
++------------+------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> 
+```
+**Capture a screenshot of your Wordpress users**
