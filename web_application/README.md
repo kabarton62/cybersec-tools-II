@@ -76,7 +76,7 @@ The installation instructions tell us to:
 In order to configure the database, we need to first install a database server. We've already run updates on our server, so now install Apache2, PHP and PHP modules, and MySQL server. 
 ```
 # Install apache2. The -y option says to install apache2 without asking if you really want to install apache2.
-apt install -y apache2 
+sudo apt install -y apache2 
 
 # Install php, php-cli and libapache2-mod-php. Libapache2-mod-php is needed if we have to manually enable PHP in Apache2. Php-cli is a PHP CLI utility.
 sudo apt update
