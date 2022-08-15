@@ -59,7 +59,8 @@ cat wp-config-sample.php -n
     33
     34  /** Database charset to use in creating database tables. */
     35  define( 'DB_CHARSET', 'utf8' );
-    ```
+```
+
 ## Install Apache2, MySQL and PHP
 Installation requires us to:
 1. Create a database user and login 
@@ -68,6 +69,7 @@ Installation requires us to:
 4. Update wp-config.php with the database name, username and password
 
 In order to configure the database, we need to first install a database server. We've already run updates on our server, so now install Apache2, PHP and PHP modules, and MySQL server. 
+
 ```
 # Install apache2. The -y option says to install apache2 without asking if you really want to install apache2.
 sudo apt install -y apache2 
@@ -208,114 +210,45 @@ mysql> SELECT USER();
 
 mysql> 
 ```
-### Import tables to database book
-Exit the sql shell and import tables into database book from Ticket-Booking-master/database/book.sql. Then verify that the tables were imported to the database.
+### Copy wp-config-sample.php to wp-config.php
+Exit the sql shell and create wp-config.php.
 ```
-mysql -u bookuser -p book < Ticket-Booking-master/database/book.sql
-
-mysql -u bookuser -p book
-mysql> show tables;
-+----------------+
-| Tables_in_book |
-+----------------+
-| register       |
-| seat           |
-+----------------+
-2 rows in set (0.00 sec)
+cp wordpress/wp-config.sample.php wordpress/wp-config.php
 ```
-### Update Ticket-Booking-master/db_login.php
+### Update wordpress/wp-config.php
 Next, use a text editor such as nano or vim to edit db_login.php. Add the mysql user and password that you created and granted privileges to on database book.
 ```
-nano Ticket-Booking-master/db_login.php
 
-  GNU nano 4.8                                                                            Ticket-Booking-master/db_login.php                                                                                      
-<!--
+// ** Database settings - You can get this info from your web host ** //
+/** The name of the database for WordPress */
+define( 'DB_NAME', 'wp' );
 
-<Ticket-Booking>
-Copyright (C) <2013>  
-<Abhijeet Ashok Muneshwar>
-<openingknots@gmail.com>
+/** Database username */
+define( 'DB_USER', 'wpuser' );
 
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
- any later version.
+/** Database password */
+define( 'DB_PASSWORD', 'weakpass' );
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
+/** Database hostname */
+define( 'DB_HOST', 'localhost' );
 
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
+/** Database charset to use in creating database tables. */
+define( 'DB_CHARSET', 'utf8' );
 
--->
-
-<?php
-        $db_host='localhost';
-        $db_username='bookuser';
-        $db_password='weakpass';
-?>
+/** The database collate type. Don't change this if in doubt. */
+define( 'DB_COLLATE', '' );
 ```
 ## Move the web application to a subdirectory in the webroot.
-Last, move all content from Ticket-Booking-master/ to /var/www/html/ticket/. Technically, we could deploy the application in the webroot itself, but moving the application to another directory will help understand how a single web server could host multiple websites or applications.
+Last, move all content from wordpress/ to /var/www/html/wordpress/. Technically, we could deploy the application in the webroot itself, but moving the application to another directory will help understand how a single web server could host multiple websites or applications.
 ```
-sudo mv Ticket-Booking-master/ /var/www/html/ticket
-sudo chown -R www-data:www-data /var/www/html/ticket
+sudo mv wordpress/ /var/www/html/wordpress
+sudo chown -R www-data:www-data /var/www/html/wordpress
 ls -lR /var/www/html
 ```
+## Set-up the WordPress site
+Now, let's use a GUI-based browser to set-up WordPress. To do so, we need to either install a VPN or configure our GCP firewall to allow access to http from a trusted source. Ticket-Booking 1.4 is vulnerable. **DO NOT ALLOW HTTP ACCESS TO THE WORLD **.
 
-All files and directories in /var/www/html/ticket should now be owned by www-data, so let's see if we can browse the application. We'll first try it from the localhost using curl, then we'll look at options to use GUI-based browser.
-```
-curl localhost/ticket/
-<!--
-
-<Ticket-Booking>
-Copyright (C) <2013>  
-<Abhijeet Ashok Muneshwar>
-<openingknots@gmail.com>
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
- any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
--->
-
-<!DOCTYPE HTML>
-
-<!--
-
-<Ticket-Booking>
-Copyright (C) <2013>  
-<Abhijeet Ashok Muneshwar>
-<openingknots@gmail.com>
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
- any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
--->
-```
-Now, let's look at the login page using a GUI-based browser. To do so, we need to either install a VPN or configure our GCP firewall to allow access to http from a trusted source. Ticket-Booking 1.4 is vulnerable. **DO NOT ALLOW HTTP ACCESS TO THE WORLD **.
-
+### Prepare the GCP firewall
 Grant http access only to trusted IP addresses. In this case, grant access to your home network's public IP, or some other trusted IP address.
 1. Browse to ipchicken.com. Note your public IP address.
 2. In GCP console, go to **VPC Network** > **Firewall** > **CREATE FIREWALL RULE**
@@ -325,5 +258,13 @@ Grant http access only to trusted IP addresses. In this case, grant access to yo
 - Source IPv4 ranges: YOUR PUBLIC IP
 - Specified protocols and ports: TCP 80
 
-## Understanding login function
-Ticket-Booking 1.4 does not render correctly. The most likely reason is some Windows-related dependency, but we are not terribly worried about making the entire application work. 
+## Install WordPress using the installation script
+Determine the public IP address for your GCP instance and browse to **http://your-public-ip/wordpress**. You will be redirected to http://your-public-ip/wordpress/wp-admin/install.php. 
+
+Click English (or whatever language you prefer) and follow the installation instructions.
+
+**Make sure you save whatever username and password you create for the admin user.**
+
+Follow the link to the login and login as your admin user. **Capture a screenshot of your admin Dashboard.**
+
+
