@@ -1,18 +1,18 @@
 # <img src="https://www.tamusa.edu/brandguide/jpeglogos/tamusa_final_logo_bw1.jpg" width="100" height="50"> Web Applications
 
-## Download and extract Ticket-Booking 1.4
-Download Ticket-Booking 1.4 from Exploit-DB directly to your server using wget and extract the files from the archive. The web application is archived in a .zip file, so unzip will be required to extract the archive. The following commands will install unzip and download the archive from Exploit-DB.
+## Download and extract FileThingie 2.5.7
+Download FileThingie 2.5.7 from Exploit-DB directly to your server using wget and extract the files from the archive. The web application is archived in a .zip file, so unzip will be required to extract the archive. The following commands will install unzip and download the archive from Exploit-DB.
 ```
 sudo apt update && sudo apt install unzip
-wget https://www.exploit-db.com/apps/4a98716b169f2e384c3b7ca4f0432f4a-Ticket-Booking-master.zip
+wget https://www.exploit-db.com/apps/71442de71ef46bf3ed53d416ec8bcdbd-filethingie-master.zip
 ```
-Note that 4a98716b169f2e384c3b7ca4f0432f4a-Ticket-Booking-master.zip was downloaded. 4a98716b169f2e384c3b7ca4f0432f4a in the filename is not random, it is the md5 hash value for the file. We can verify that our download was not corrupted by verifying file's hash against this value.
+Note that 71442de71ef46bf3ed53d416ec8bcdbd-Ticket-Booking-master.zip was downloaded. 71442de71ef46bf3ed53d416ec8bcdbd in the filename is not random, it is the md5 hash value for the file. We can verify that our download was not corrupted by verifying file's hash against this value.
 ```
-md5sum 4a98716b169f2e384c3b7ca4f0432f4a-Ticket-Booking-master.zip
+md5sum 71442de71ef46bf3ed53d416ec8bcdbd-filethingie-master.zip
 ```
-A hash value of 4a98716b169f2e384c3b7ca4f0432f4a validates a good copy was downloaded. Any other result means the download is corrupt and the application should be downloaded again.
+A hash value of 71442de71ef46bf3ed53d416ec8bcdbd validates a good copy was downloaded. Any other result means the download is corrupt and the application should be downloaded again.
 
-Once you have a good copy of Ticket-Booking 1.4, extract the files from the .zip archive. The directory Ticket-Booking-master/ will be extracted.
+Once you have a good copy of FileThingie 2.5.7, extract the files from the .zip archive. The directory Ticket-Booking-master/ will be extracted.
 ```
 unzip 4a98716b169f2e384c3b7ca4f0432f4a-Ticket-Booking-master.zip
 ```
@@ -232,6 +232,7 @@ mysql> show tables;
 2 rows in set (0.00 sec)
 ```
 ### Update Ticket-Booking-master/db_login.php
+Next, use a text editor such as nano or vim to edit db_login.php. Add the mysql user and password that you created and granted privileges to on database book.
 ```
 nano Ticket-Booking-master/db_login.php
 
@@ -263,3 +264,74 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         $db_username='bookuser';
         $db_password='weakpass';
 ?>
+```
+## Move the web application to a subdirectory in the webroot.
+Last, move all content from Ticket-Booking-master/ to /var/www/html/ticket/. Technically, we could deploy the application in the webroot itself, but moving the application to another directory will help understand how a single web server could host multiple websites or applications.
+```
+sudo mv Ticket-Booking-master/ /var/www/html/ticket
+sudo chown -R www-data:www-data /var/www/html/ticket
+ls -lR /var/www/html
+```
+
+All files and directories in /var/www/html/ticket should now be owned by www-data, so let's see if we can browse the application. We'll first try it from the localhost using curl, then we'll look at options to use GUI-based browser.
+```
+curl localhost/ticket/
+<!--
+
+<Ticket-Booking>
+Copyright (C) <2013>  
+<Abhijeet Ashok Muneshwar>
+<openingknots@gmail.com>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+ any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+-->
+
+<!DOCTYPE HTML>
+
+<!--
+
+<Ticket-Booking>
+Copyright (C) <2013>  
+<Abhijeet Ashok Muneshwar>
+<openingknots@gmail.com>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+ any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+-->
+```
+Now, let's look at the login page using a GUI-based browser. To do so, we need to either install a VPN or configure our GCP firewall to allow access to http from a trusted source. Ticket-Booking 1.4 is vulnerable. **DO NOT ALLOW HTTP ACCESS TO THE WORLD **.
+
+Grant http access only to trusted IP addresses. In this case, grant access to your home network's public IP, or some other trusted IP address.
+1. Browse to ipchicken.com. Note your public IP address.
+2. In GCP console, go to **VPC Network** > **Firewall** > **CREATE FIREWALL RULE**
+3. Set the following parameters:
+- Name: home-http
+- Tagets: All instances in the network
+- Source IPv4 ranges: YOUR PUBLIC IP
+- Specified protocols and ports: TCP 80
+
+## Understanding login function
+Ticket-Booking 1.4 does not render correctly. The most likely reason is some Windows-related dependency, but we are not terribly worried about making the entire application work. 
