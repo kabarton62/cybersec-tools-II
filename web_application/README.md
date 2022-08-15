@@ -259,12 +259,9 @@ Grant http access only to trusted IP addresses. In this case, grant access to yo
 - Specified protocols and ports: TCP 80
 
 ## Install WordPress using the installation script
-Determine the public IP address for your GCP instance and browse to **http://your-public-ip/wordpress**. You will be redirected to http://your-public-ip/wordpress/wp-admin/install.php. 
-
-Click English (or whatever language you prefer) and follow the installation instructions.
-
-**Make sure you save whatever username and password you create for the admin user.**
-
-Follow the link to the login and login as your admin user. **Capture a screenshot of your admin Dashboard.**
+1. Determine the public IP address for your GCP instance and browse to **http://your-public-ip/wordpress**. You will be redirected to http://your-public-ip/wordpress/wp-admin/install.php. 
+2. Click English (or whatever language you prefer) and follow the installation instructions.
+3. **Make sure you save whatever username and password you create for the admin user.**
+4. Follow the link to the login and login as your admin user. **Capture a screenshot of your admin Dashboard.**
 
 
