@@ -6,7 +6,7 @@ Download WordPress directly to your server using wget and extract the files from
 sudo apt update && sudo apt install unzip
 wget https://wordpress.org/latest.zip
 ```
-Once you have a good copy of FileThingie 2.5.7, extract the files from the .zip archive. The directory Ticket-Booking-master/ will be extracted.
+Once you have a good copy of WorPress, extract the files from the .zip archive. The directory Twordpress/ will be extracted.
 ```
 unzip latest.zip
 ```
