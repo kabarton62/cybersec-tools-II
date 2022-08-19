@@ -85,4 +85,43 @@ In this case, an automated tools might see 404 response codes dev/ or uploads/ o
 
 **A note about _wordlists_ and forced browsing.** Forced browsing can only discover a resource if there is a word in the wordlist that matches the resource. Therefore, you must understand the limitations of your wordlist and perhaps use larger or multiple wordlists when running forced browsing attacks. There are times when a custom wordlist may be necessary.
 
+## Challenge 1: Prepare the lab environment
+Metasploitable2 includes multiple web applications. Some are linked directly to the web server's home page. The home page itself is an index page (i.e., index.html, index.htm, index.php, etc) in the webroot. Directions to deploy a Metasploitable2 Docker container are provided in the course, but the following command would bind ports from the Metasploitable2 Docker container to the host. The command could be modified to exclude binding services that we are not testing right now. Importantly, the command binds TCP 80 (httpd) on Metasploitable 2 to TCP 9000 on the host.
+
+```
+sudo docker run -p 2222:22 -p 20:20 -p 21:21 -p 2323:23 -p 25:25 -p 514:514 -p 2049:2049 -p 3632:3632 -p 9000:80 --name metasploitable2 --hostname metasploitable2 -it -d tleemcjr/metasploitable2:latest sh -c "/bin/services.sh && bash"
+```
+
+Either a firewall rule must allow access from trusted sources or you must deploy a VPN to your network or the host running the Metasploitable2 Docker container. OpenVPN instructions are provided in the course and GCP firewall configuration was previously covered. **DO NOT EXPOSE ANY METASPLOITABLE2 SERVICES TO UNTRUSTED USERS.**
+
+Last, a Kali or other machine with the following tools is required:
+- OWASP Zap
+- dirbuster
+- dirb
+- gobuster
+- curl 
+- traditional GUI-based browser
+
+## Challenge 2: Browse to Metasploitable2
+Demonstrate that you can browse to Metasploitable2. Note: we bound httpd from Metasploitable2 to TCP 9000 on the host, so we cannot browse to the default httpd port (TCP 80). The following URL will direct us to TCP 9000 on IP address 50.50.50.50. Modify the URL to browse to your Metasploitable2.
+```
+http://50.50.50.50:9000
+```
+Following is an example of the Metasploitable2 home page:
+
+<img src="../images/metasploitable2_home.png" width="600" height="600">
+<sub><i>Figure 1. Metasploitable2 Home Page</i></sub>
+
+**Capture a screenshot of the Metasploitable2 home page.**
+
+## Challenge 2: Examine links and web server directories
+Start by examining the five links TWiki, phpMyAdmin, Mutillidae, DVWA and WebDav. Report the URLs discovered for each link in Table 4.
+
+|Link|___ ___ URL ___ ___ |
+|---|---|
+|TWiki||
+|phpMyAdmin||
+|Mutillidae||
+|DVWA||
+|WebDAV||
 
