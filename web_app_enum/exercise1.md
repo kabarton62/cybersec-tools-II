@@ -125,3 +125,18 @@ Start by examining the five links TWiki, phpMyAdmin, Mutillidae, DVWA and WebDav
 |DVWA||
 |WebDAV||
 
+<sub>**Table 4, URLs to Metasploitable2 links**</sub>
+
+**Complete Table 4 and prepare the completed table for submission.**
+
+Next, get a shell on Metasploitable2 (i.e., using **docker exec**, **ssh**, or any other technique that gets you a shell) and examine the webroot **/var/www**. Compare the directories discovered in the webroot to those discovered by examining the links on Metasploitable2's home page. **Report your findings. Were the directories discovered through the links in the webroot? Are there directories that were not disclosed through the links?**
+
+Finally, examine /var/www for robots.txt. Note that robots.txt does not exist in /var/www. Therefore, we would expect that an attempt to browse to http://your-host/robots.txt would return a Not Found error. So, give it a try. 
+1. Use your browser to browse to /robots.txt.
+2. From the host, use **curl** to browse to /robots.txt.
+
+```
+curl localhost:9000/robots.txt
+```
+
+**Capture a screenshot of the response from the attempt to curl to /robots.txt.**
