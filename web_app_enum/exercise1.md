@@ -164,4 +164,36 @@ dirb http://your-host:9000/
 ```
 
 ### gobuster scan
-Gobuster is similar to dirb but uses different syntax. You may also have to install gobuster in Kali, as it is not included in modern Kali Linux default installations.
+Gobuster is similar to dirb but uses different syntax. You may also have to install gobuster in Kali, as it is not included in modern Kali Linux default installations. Before we run a gobuster scan, we first need to talk about wordlists. Dirb has its own default wordlist, gobuster does not have a default wordlist. Kali has several wordlists that can be found in the directory /usr/share/wordlists. They include wordlists for password cracking, directory enumeration, user enumeration, directory traversal, SQLi, and other purposes. 
+
+You will find your own preferred wordlists for different purposes. My favorite for directory enumeration /usr/share/wordlists/dirbuster/directory-list-lowercase-2.3-medium.txt. Compare dirb's default wordlist to /usr/share/wordlists/dirbuster/directory-list-lowercase-2.3-medium.txt. The command **wc -l** shows the total number of lines in a text file. Each line in a wordlist is a _word_, so the number of lines equals the number of words.
+
+```
+$ wc -l /usr/share/wordlists/dirb/common.txt 
+4614 /usr/share/wordlists/dirb/common.txt
+
+$ wc -l /usr/share/wordlists/dirbuster/directory-list-lowercase-2.3-medium.txt 
+207643 /usr/share/wordlists/dirbuster/directory-list-lowercase-2.3-medium.txt
+```
+As you can see, /usr/share/wordlists/dirbuster/directory-list-lowercase-2.3-medium.txt is much larger (almost 50 times more words) than dirb's default wordlist. Recall that in order to detect a resource with forced browsing we have to query that resource. If we are using a wordlist that doesn't contain the necessary word, we'll miss resources that exist. Dirb is convenient and may very well discover important resources, but it is often worth the time to run a scan with a larger wordlist, such as /usr/share/wordlists/dirbuster/directory-list-lowercase-2.3-medium.txt.
+
+Gobuster also supports directory enumeration attacks using multiple _threads_. Threads enable gobuster to run concurrent requests which can significantly increase the speed of the scan. However, threads also increase the risk that the scan can interrupt server operation by consuming critical resources (CPU, RAM) on the target web server. 
+
+**Complete a gobuster scan of Metasploitable2 using the wordlist /usr/share/wordlists/dirbuster/directory-list-lowercase-2.3-medium.txt.** Command syntax for gobuster is differnt than dirb. Use gobuster errors and the gobuster --help.
+
+**Note: gobuster's help menu does not include the option for url (yes, an option is required).** Fuzz the url option. **Fuzz** means to try different inputs to see what happens. Examine the other options and guess what option might be used for **url**.
+
+**Report the directories discovered by gobuster that were not discovered for the default dirb scan.**
+
+### dirbuster
+The next tool we are going to cover is **dirbuster**. Dirbuster is similar to gobuster (supports multiple threads and requires a wordlist to be specified) but dirbuster has a GUI. Because dirbuster has a GUI, it can display results in multiple formats, including list format and a very convenient tree view. Run a dirbuster scan and examine the results.
+
+**Capture a screenshot of dirbuster's _Results-Tree View_ tab.**
+
+## Challenge 5: Extra-mile - wfuzz scan (2 pts)
+
+Wfuzz is a powerful HTTP _fuzzing_ tool. Dirb, gobuster and dirbuster are all fuzzing tools, but focus on directory enumeration. Wfuzz is usefull for online password attacks and directory enumeration, and includes support for encoding and hashing. It's a great tool to know. Complete a directory enumeration attack against Metasploitable2 using wfuzz.
+
+An important option to consider is in wfuzz is what results to suppress. The --hc option lets you _hide_ specific codes, while the --sc option lets you _show_ specific codes. Since we are interested in any result other than response code 404, the preferred option would be **--hc 404**.
+
+**Capture a screenshoot of wfuzz results from a directory enumeration scan.** 
