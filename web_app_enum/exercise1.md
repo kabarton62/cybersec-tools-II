@@ -140,3 +140,20 @@ curl localhost:9000/robots.txt
 ```
 
 **Capture a screenshot of the response from the attempt to curl to /robots.txt.**
+
+## Challenge 3: OWASP Zap
+
+Start OWASP Zap in Kali.
+
+**Applications** > **Web Application Analysis** > **owasp-zap**
+Enter the URL to Metasploitable2 and click **Attack**.
+
+Observe the Sites window. The links disclosed on the Metasploitable2 home page will be reported, and their subdirectories are at least partially discovered. However, note that the additional directories we saw in Metasploitable2's webroot are not discovered.
+
+OWASP Zap will also report various alerts.
+
+Inspect the different tabs in OWASP Zap, such as Request and Response, Alerts, Spider, etc.
+
+## Challenge 4: Forced browsing with dirbuster, dirb, and gobuster
+
+###
