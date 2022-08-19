@@ -156,4 +156,12 @@ Inspect the different tabs in OWASP Zap, such as Request and Response, Alerts, S
 
 ## Challenge 4: Forced browsing with dirbuster, dirb, and gobuster
 
-###
+### dirb scan
+
+Start with a default dirb scan. By default, dirb will /usr/share/dirb/wordlists/common.txt as the wordlist. Note the resources discovered by dirb and compare those to resources discovered by OWASP Zap.
+```
+dirb http://your-host:9000/
+```
+
+### gobuster scan
+Gobuster is similar to dirb but uses different syntax. You may also have to install gobuster in Kali, as it is not included in modern Kali Linux default installations.
