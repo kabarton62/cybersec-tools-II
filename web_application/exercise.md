@@ -1,6 +1,6 @@
 # <img src="https://www.tamusa.edu/brandguide/jpeglogos/tamusa_final_logo_bw1.jpg" width="100" height="50"> Web Applications
 
-## Download and extract WordPress
+## Challenge 1: Download and extract WordPress
 Download WordPress directly to your server using wget and extract the files from the archive. The web application is archived in a .zip file, so unzip will be required to extract the archive. The following commands will install unzip and download the archive from Exploit-DB.
 ```
 sudo apt update && sudo apt install unzip
@@ -61,7 +61,7 @@ cat wp-config-sample.php -n
     35  define( 'DB_CHARSET', 'utf8' );
 ```
 
-## Install Apache2, MySQL and PHP
+## Challenge 2: Install Apache2, MySQL and PHP
 Installation requires us to:
 1. Create a database user and login 
 2. Copy wp-config-sample.php to wp-config.php
@@ -82,7 +82,7 @@ sudo systemctl restart apache2
 sudo apt install -y mysql-server
 ```
 
-## Verify that Apache2, MySQL and PHP are installed and running
+## Challenge 3: Verify that Apache2, MySQL and PHP are installed and running
 Assuming you did not get errors, Apache2, MySQL and PHP should now be installed, but let's verify the services are installed and running. There are multiple ways to verify these services, but one quick way is to simply verify that TCP ports 80 (Apache2) and 3306 (MySQL) are listening. This will require net-tools, which may not be installed. The following installs net-tools and uses netstat to look at listening services.
 ```
 sudo apt install net-tools
@@ -162,7 +162,7 @@ h2 {font-size: 125%;}
 
 ```
 
-## Prepare database
+## Challenge 4: Prepare database
 Recall we need to prepare the server:
 1. Create a mysql user
 2. Create a database named **wp**
@@ -238,14 +238,14 @@ define( 'DB_CHARSET', 'utf8' );
 /** The database collate type. Don't change this if in doubt. */
 define( 'DB_COLLATE', '' );
 ```
-## Move the web application to a subdirectory in the webroot.
+## Challenge 5: Move the web application to a subdirectory in the webroot.
 Last, move all content from wordpress/ to /var/www/html/wordpress/. Technically, we could deploy the application in the webroot itself, but moving the application to another directory will help understand how a single web server could host multiple websites or applications.
 ```
 sudo mv wordpress/ /var/www/html/wordpress
 sudo chown -R www-data:www-data /var/www/html/wordpress
 ls -lR /var/www/html
 ```
-## Set-up the WordPress site
+## Challenge 6: Set-up the WordPress site
 Now, let's use a GUI-based browser to set-up WordPress. To do so, we need to either install a VPN or configure our GCP firewall to allow access to http from a trusted source. Ticket-Booking 1.4 is vulnerable. **DO NOT ALLOW HTTP ACCESS TO THE WORLD **.
 
 ### Prepare the GCP firewall
@@ -258,13 +258,13 @@ Grant http access only to trusted IP addresses. In this case, grant access to yo
 - Source IPv4 ranges: YOUR PUBLIC IP
 - Specified protocols and ports: TCP 80
 
-## Install WordPress using the installation script
+## Challenge 7: Install WordPress using the installation script
 1. Determine the public IP address for your GCP instance and browse to **http://your-public-ip/wordpress**. You will be redirected to http://your-public-ip/wordpress/wp-admin/install.php. 
 2. Click English (or whatever language you prefer) and follow the installation instructions.
 3. **Make sure you save whatever username and password you create for the admin user.**
 4. Follow the link to the login and login as your admin user. **Capture a screenshot of your admin Dashboard.**
 
-## Digging a little deeper into MySQL
+## Challenge 8: Digging a little deeper into MySQL
 Recall that we created two users in this exercise. The MySQL user was wp and you created a WordPress admin user. The MySQL user is used by WordPress to bind to the MySQL server, the WordPress admin user is used to login to the WordPress application. Let's examine MySQL to understand where those user accounts are stored.
 
 Get a mysql shell as root and look at the existing databases:
