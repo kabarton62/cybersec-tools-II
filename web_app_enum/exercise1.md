@@ -18,7 +18,7 @@ In general, a 404 response code means a requrested resource does not exist. Any 
 ## Web application organization on a web server
 Before we look at the tools used to enumerate web application resources, let's first discuss how web applications and their resources are separated and organized on a web server. A **web server** is the application used to serve resources to clients. You installed Apache2 in previous assignments. Apache2 is a very popular web service. Other web servers include Nginx, IIS, Lighttpd, and Apache Tomcat. Even Python can be used to create a simple HTTP server. 
 
-An important detail to understand is that a single web server can simultaneously serve multiple web applications or websites. A web application or website is fundamentally a group of _resources_ that operate together to create a single application or site. A single application or site consists of application's/site's root directory, subdirectories, and files stored in those directories. Multiple applications or sites can be served on the same web server by storing the application/site root directories in the webroot or some subdirectory of the webroot. Table 2 illustrates how three web applications could be served on a single web server.
+An important detail to understand is that a single web server can simultaneously serve multiple web applications or websites. A web application or website is fundamentally a group of _resources_ that operate together to create a single application or site. A single application or website consists of application's/site's root directory, subdirectories, and files stored in those directories. Multiple applications or sites can be served on the same web server by storing the application/site root directories in the webroot or some subdirectory of the webroot. Table 2 illustrates how three web applications could be served on a single web server.
 
 |Description|Application/Site <br />webroot = /var/www/html|Application Subdirectory|Resource|
 |---|---|---|---|
@@ -36,5 +36,53 @@ An important detail to understand is that a single web server can simultaneously
 |October CMS|webroot/october/tests/|bootstrap.php|
 
 <sub>**Table 2, Web Application Segmentation**</sub>
+
+Table 2 partially illustrates the installation of three web applications on a single web server. WordPress is installed in the webroot, phpMyAdmin is in the subdirectory phpmyadmin/, and October CMS is in the subdirectory october/. Table 3 shows the URLs that would be used to browse to each application.
+
+|Application|URL|
+|---|---|
+|WordPress blog|http://localhost/|
+|phpMyAdmin|http://localhost/phpmyadmin/|
+|October CMS|http://localhost/october/|
+
+<sub>**Table 3, Sample Web Application URLs**</sub>
+
+So, why is this important? Let's assume in this example that the WordPress site is intended for public access and public use. Perhaps a DNS record points to the WordPress site and it is regularly visited by public users, but the October CMS and phpMyAdmin sites are not intended for public use. The system administrator has not provided any DNS records to point to those applications and no URLs are provided on the server to point a user to either application. It might seem that the phpMyAdmin and October CMS applications are _hidden_ from the public. That might be true, as long as no user discovered the subdirectories phpmyadmin/ or october/. 
+
+The following section discusses the ways an attacker or web application tester could discover these _hidden_ resources.
+
+## Web resource enumeration
+
+There are three basic methods to discover _hidden_ web resources.
+1. Website scraping
+2. Robots.txt
+3. Forced browsing
+
+### Website scraping
+Web scraping is an automated method to search for and extract specific data types from a website. A bot can crawl a website searching for links that may point to _hidden_ resources on a web server. These links may be found on rendered pages of the site, comments embedded within pages, or by examining redirects from the website or javascript embedded within the site.
+
+**OWASP Zap** is a powerful example of this type of tool.
+
+### Robots.txt
+A robots.txt file is used to manage web crawler (i.e., search engine crawlers) on a website. Robots.txt informs web crawlers what resources should be crawled and what resources should be exclude from crawling activity. Below is a sample robots.txt file:
+```
+User-agent: Googlebot
+Disallow: /october/
+Disallow: /phpmyadmin/
+
+User-agent: *
+Allow: /
+
+Sitemap: http://www.example.com/sitemap.xml
+```
+
+The above example would direct Googlebot to avoid crawling resources in October CMS and phpMyAdmin applications, but allow all bots to crawl the WordPress application. This is great ... for well-behaved bots. However, it also discloses the existence of web resources in the directories october/ and phpmyadmin/. To discover this information, a web application tester or attacker would simply have to browse to robots.txt. Robots.txt files could exist in multiple directories, but the most common place to find robots.txt is the webroot. Therefore, a user could check for the existance and content of robots.txt simply by browsing to the resource. For example, http://localhost/robots.txt would disclose the contents of robots.txt in our example. As a minimum, each individual web application or website should be inspected for a robots.txt file.
+
+### Forced browsing
+Recall from Table 3 that we could find the three web applications simply by browsing to URLs that hold those applications, even scraping the web server or checking for robots.txt did not reveal the _hidden_ resources. **Forced browsing uses a brute force attack to test for resources that are not otherwise disclosed.** A tool, such as dirb, gobuster, dirbuster or wfuzz crafts and sends HTTP requests using a _wordlist_. The wordlist would include possible resource names, such as files or directories. An automated tool sends HTTP requests testing for the existence of resources on a web server. For example, 404 response codes suggests a resource does not exist. Response codes such as 200, 301, and 403 indicate that a resource exists, or likely exists.
+
+In this case, an automated tools might see 404 response codes dev/ or uploads/ on our web server, but 200 or 403 response codes for october/ and phpmyadmin/. 
+
+**A note about _wordlists_ and forced browsing.** Forced browsing can only discover a resource if there is a word in the wordlist that matches the resource. Therefore, you must understand the limitations of your wordlist and perhaps use larger or multiple wordlists when running forced browsing attacks. There are times when a custom wordlist may be necessary.
 
 
