@@ -6,6 +6,8 @@ b=$(printf "%s\n\n")
 echo -e "${R}${S}Installing Net-tools and nano{N}"
 sudo apt update
 sudo apt install net-tools nano -y
+echo ""
+echo -e "${R}${S}RESULTS:${N}"
 
 echo -e "${R}${S}OS:${N}"
 cat /etc/lsb-release
