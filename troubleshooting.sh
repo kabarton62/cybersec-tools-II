@@ -2,12 +2,14 @@ R='\033[0;31m'
 S=$(tput bold)
 N=$(tput sgr0)
 b=$(printf "%s\n\n")
+q=">/dev/null 2>&1"
 
 echo -e "${R}${S}Installing Net-tools and nano{N}"
-sudo apt update
-sudo apt install net-tools nano -y
-echo ""
+sudo apt update $q && sudo apt install net-tools nano -y $q
+echo $b
+
 echo -e "${R}${S}RESULTS:${N}"
+echo $b
 
 echo -e "${R}${S}OS:${N}"
 cat /etc/lsb-release
@@ -31,7 +33,6 @@ echo $b
 
 echo -e "${R}${S}Username:${N}"
 cat /etc/passwd|grep /home|grep /bin/bash
-#printf "%s\n\n"
 echo $b
 
 echo -e "${R}${S}"Listening Ports"${N}"
