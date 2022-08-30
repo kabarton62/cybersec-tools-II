@@ -4,7 +4,7 @@ N=$(tput sgr0)
 b=$(printf "%s\n\n")
 
 echo -e "${R}${S}Installing Net-tools and nano${N}"
-sudo apt update >/dev/null 2>&1 && sudo apt install net-tools nano -y >/dev/null 2>&1
+sudo apt update >/dev/null && sudo apt install net-tools nano -y >/dev/null 
 echo $b
 
 echo -e "${R}${S}RESULTS:${N}"
