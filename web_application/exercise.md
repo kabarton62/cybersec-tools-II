@@ -166,7 +166,7 @@ h2 {font-size: 125%;}
 Recall we need to prepare the server:
 1. Create a mysql user
 2. Create a database named **wp**
-3. Create and ppdate wp-config.php with database name and mysql user's username & password
+3. Create and update wp-config.php with database name and mysql user's username & password
 
 ### Create mysql user and database
 A **sql shell** is used to run sql querries in the MySQL server. The following commands:
