@@ -2,10 +2,9 @@ R='\033[0;31m'
 S=$(tput bold)
 N=$(tput sgr0)
 b=$(printf "%s\n\n")
-q=">/dev/null 2>&1"
 
 echo -e "${R}${S}Installing Net-tools and nano${N}"
-sudo apt update >/dev/null && sudo apt install net-tools nano -y $q
+sudo apt update >/dev/null 2>&1 && sudo apt install net-tools nano -y >/dev/null 2>&1
 echo $b
 
 echo -e "${R}${S}RESULTS:${N}"
