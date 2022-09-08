@@ -71,6 +71,32 @@ Vulnerabilities are reported with the /test/ directory.
 
 1. **The vulnerabilities reported with the /test/ directory.**
 2. **Search the [reference map](https://cve.mitre.org/data/refs/refmap/source-OSVDB.html) for CVEs that map to the reported OSVDBs. Explain what you found.**
-3. **Manually examine the directory and report your findings.**
+3. **Manually examine the directory /test/ and report your findings.**
 
 ### Challenge 2: legion
+Start legion by running the command **legion**. 
+1. Select the **Hosts** tab and click in the Hosts field. 
+2. Add the IP address for your GCP instance. 
+3. All other settings under hosts can be left as the default settings, or you can try different configurations. 
+4. Click **submit**.
+
+Legion will immediately start scanning the target. Results will be reported accross several tabs. Results can be observed in real-time as the legion continues the vulnerability scan.
+1. Select the **services** tab. Several services will be discovered. Select the discovered services and observe the ports and service versions that were detected for each service.
+2. Select the **tools** tab. Observe the results. The **screenshooter** tool will often produce results. Note the screenshooter results for each port.
+3. Return to **hosts** and select the **CVEs** tab. Scroll to the ExploitDB ID column. Note that most entries say _unknown_. However, there are exceptions. Scroll down and find entries that are exceptions to _unknown_. 
+
+**Record three of the reported Exploitdb IDs.**
+
+Vulnerabilities with Exploitdb IDs are particularly noteworthy. A vulnerability is a weakness that could be exploited. However, not all vulnerabilities have exploits, but the vulnerabilities with an Exploitdb ID do have public exploits. The fact that a public exploit exists for a documented and discovered vulnerability increases the risk associated with that vulnerability.
+
+1. Go to [exploit-db.com](https://www.exploit-db.com/).
+2. Modify the URL to browse to the selected Exploit IDs (EDB-ID). For example, EDB-ID 1500 is found at www.exploit-db.com/exploits/1500.
+3. Complete Table 1, Exploit-DB Results, for the three selected exploits.
+
+|Item|Exploitdb-ID|_ _ _ _ _ _ Title _ _ _ _ _ _|_ _ CVE(s) _ _|
+|:-:|---|---|---|
+|1||||
+|2||||
+|3||||
+
+Table 1, Exploit-DB Results
