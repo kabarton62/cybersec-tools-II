@@ -19,3 +19,16 @@ In our ftp server example, a network vulnerability scanner might:
 
 ### HTTP vulnerability scanning tools
 No tool is guaranteed to detect every vulnerability, and no tool is guaranteed to not report false positives. Therefore, one approach to improve the chances of detecting all existing vulnerabilities (averting false negatives) is to use more than one vulnerability scanner. Reported vulnerabilities require manual verification of each detected vulnerability.
+
+Kali includes a suite of vulnerability scanning tools, including tools that specifically scan web applications for vulnerabilities. As we dig into these tools, remember that web vulnerability scanning tools will attempt to discover vulnerabilities in both the web server (i.e., Apache2, nginx, IIS, etc) and the application itself. The following section cover several tools:
+1. **nikto** - An open source vulnerability scanner included with Kali. Nikto can scan for 6400 potential vulnerabilities. Nikto is not stealthy and can easily be detected. Therefore, it is useful for testing a website under the tester's control, but not the best choice for something such as a penetration test where stealth is important.
+2. **legion** - Legion is GUI-based vulnerability scanner that replaced the longtime favorite **Sparta**. To be fair, Legion is broader in scope than a dedicated web application vulnerability scanner. Sparta was written in Python 2.7. Legion migrates Sparta to Python 3.6. Legion incorporates other security scanning tools, such as nmap, webslayer, SMBenum, hydra, and dozens of auto-scheduled scripts to detect Common Vulnerabilities (CVEs) and Common Platform Enumeration (CPEs). If legion is not installed in your Kali machine, you can install it with:
+```
+sudo apt update && sudo apt install legion
+```
+
+3. **skipfish** - Another free and open source web application security tool that is included with Kali. Skipfish writes the results to an html file that can be viewed with a browser.
+4. **wapiti** - A web application audit tool similar to skipfish. And, similar to skipfish, the results can be written to html and viewed with a browser.
+
+## Operating select vulnerability scanning tools
+
