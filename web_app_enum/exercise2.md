@@ -63,7 +63,7 @@ nikto -host http://150.1.1.1:9000
 ---------------------------------------------------------------------------
 + 1 host(s) tested
 ```
-Note that many of the detected vulnerabilities reference OSVDB. OSVDB is short for Open Source Vulnerability Database. OSVDB was shut down in 2016. Vulnerabilities reported in OSVDB may be found in other vulnerability databases. Mitre runs the National Vulnerability Database (NVD) and provides a [reference map](https://cve.mitre.org/data/refs/refmap/source-OSVDB.html) between OSVDB vulnerabilities and CVEs in the NVD.
+Note that many of the detected vulnerabilities reference OSVDB. OSVDB is short for Open Source Vulnerability Database. OSVDB was shut down in 2016. **Some** vulnerabilities reported in OSVDB may be found in other vulnerability databases. Mitre runs the National Vulnerability Database (NVD) and provides a [reference map](https://cve.mitre.org/data/refs/refmap/source-OSVDB.html) between OSVDB vulnerabilities and CVEs in the NVD.
 
 Vulnerabilities are reported with the /test/ directory.
 
