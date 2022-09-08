@@ -30,5 +30,36 @@ sudo apt update && sudo apt install legion
 3. **skipfish** - Another free and open source web application security tool that is included with Kali. Skipfish writes the results to an html file that can be viewed with a browser.
 4. **wapiti** - A web application audit tool similar to skipfish. And, similar to skipfish, the results can be written to html and viewed with a browser.
 
-## Operating select vulnerability scanning tools
+## Challenge 1: Operating select vulnerability scanning tools
+**Ensure Docker image tleemcjr/metasploitable2 is started and Apache2 on the container is bound to TCP 9000 on the host.** Note: the web applications in Metasploitable2 are intentionally vulnerable. You can anticipate a very extensive list of discovered vulnerabilities. For the following examples, let's assume our Metasploitable2 is at IP address 150.1.1.1.
 
+### nikto
+Scan Metasploitable2 web server using the default nikto scan.
+
+
+```
+nikto -host http://150.1.1.1:9000
+
+- Nikto v2.1.6
+---------------------------------------------------------------------------
++ Target IP:          104.198.70.155
++ Target Hostname:    104.198.70.155
++ Target Port:        9000
++ Start Time:         2022-09-07 20:18:14 (GMT-6)
+---------------------------------------------------------------------------
++ Server: Apache/2.2.8 (Ubuntu) DAV/2
++ Retrieved x-powered-by header: PHP/5.2.4-2ubuntu5.10
++ The anti-clickjacking X-Frame-Options header is not present.
++ The X-XSS-Protection header is not defined. This header can hint to the user agent to protect against some forms of XSS
++ The X-Content-Type-Options header is not set. This could allow the user agent to render the content of the site in a different fashion to the MIME type
++ Server may leak inodes via ETags, header found with file /robots.txt, inode: 620222, size: 134, mtime: Tue Sep  6 10:30:15 2022
++ "robots.txt" contains 3 entries which should be manually viewed.
+
+----- TRUNCATED -----
+
++ OSVDB-3092: /phpMyAdmin/README: phpMyAdmin is for managing MySQL databases, and should be protected or limited to authorized hosts.
++ 8732 requests: 0 error(s) and 28 item(s) reported on remote host
++ End Time:           2022-09-07 20:37:34 (GMT-6) (1160 seconds)
+---------------------------------------------------------------------------
++ 1 host(s) tested
+```
