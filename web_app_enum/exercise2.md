@@ -30,10 +30,10 @@ sudo apt update && sudo apt install legion
 3. **skipfish** - Another free and open source web application security tool that is included with Kali. Skipfish writes the results to an html file that can be viewed with a browser.
 4. **wapiti** - A web application audit tool similar to skipfish. And, similar to skipfish, the results can be written to html and viewed with a browser.
 
-## Challenge 1: Operating select vulnerability scanning tools
+## Operating select vulnerability scanning tools
 **Ensure Docker image tleemcjr/metasploitable2 is started and Apache2 on the container is bound to TCP 9000 on the host.** Note: the web applications in Metasploitable2 are intentionally vulnerable. You can anticipate a very extensive list of discovered vulnerabilities. For the following examples, let's assume our Metasploitable2 is at IP address 150.1.1.1.
 
-### nikto
+### Challenge 1: nikto
 Scan Metasploitable2 web server using the default nikto scan.
 
 
@@ -68,8 +68,9 @@ Note that many of the detected vulnerabilities reference OSVDB. OSVDB is short f
 Vulnerabilities are reported with the /test/ directory.
 
 **Report:**
-**1. The vulnerabilities reported with the /test/ directory.**
-**2. Search the [reference map](https://cve.mitre.org/data/refs/refmap/source-OSVDB.html) for CVEs that map to the reported OSVDBs. Explain what you found.**
-**3. Manually examine the directory and report your findings.**
 
-### legion
+1. **The vulnerabilities reported with the /test/ directory.**
+2. **Search the [reference map](https://cve.mitre.org/data/refs/refmap/source-OSVDB.html) for CVEs that map to the reported OSVDBs. Explain what you found.**
+3. **Manually examine the directory and report your findings.**
+
+### Challenge 2: legion
