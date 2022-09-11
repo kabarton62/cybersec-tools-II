@@ -131,7 +131,26 @@ Dict size : 128 words (128 new), 11 extensions, 256 candidates
 Signatures : 77 total   
 ```
 
-**Complete a skipfish scan against Metasploitable2. Browse to the results homepage and capture a screenshot of the results homepage.** The scan will take time to complete. You can open another terminal tab (**CTRL+SHIFT+T**) and proceed to the next challenge while the skipfish scan continues to run.
+Complete a skipfish scan against Metasploitable2. **Browse to the results homepage and capture a screenshot of the results homepage.** The scan will take time to complete (probably more than an hour). You can open another terminal tab (**CTRL+SHIFT+T**) and proceed to the next challenge while the skipfish scan continues to run.
+
+**Summarize the high impact Issues found.**
+
+### Challenge 4: wapiti
+
+Wapiti takes a different approach to vulnerability scanning. Wapiti does not directly attempt to identify known vulnerabilities but scans applications for points where data can be injected. Once found, wapiti fuzzes inputs to discover common vulnerability types such as cross-site scripting, database injection, file disclosure. The following example runs a default wapiti scan against the localhost, but with verbosity.
+```
+wapiti -v 1 -u http://localhost
 
 
-
+     __      __               .__  __  .__________
+    /  \    /  \_____  ______ |__|/  |_|__\_____  \
+    \   \/\/   /\__  \ \____ \|  \   __\  | _(__  <
+     \        /  / __ \|  |_> >  ||  | |  |/       \
+      \__/\  /  (____  /   __/|__||__| |__/______  /
+           \/        \/|__|                      \/
+Wapiti-3.0.4 (wapiti.sourceforge.io)
+[*] You are lucky! Full moon tonight.
+[*] Resuming scan from previous session, please wait
+[+] GET http://localhost/ (0)
+```
+Complete a wapiti scan against Metasploitable2. Again, this scan will take time to complete. Let it run. Progress can be monitored by using a verbosity option in the scan.
