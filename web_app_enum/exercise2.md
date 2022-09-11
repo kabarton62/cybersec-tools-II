@@ -27,7 +27,7 @@ Kali includes a suite of vulnerability scanning tools, including tools that spec
 sudo apt update && sudo apt install legion
 ```
 
-3. **skipfish** - Another free and open source web application security tool that is included with Kali. Skipfish writes the results to an html file that can be viewed with a browser.
+3. **skipfish** - Another free and open source web application security tool that is included with Kali. Skipfish is an active web application security tool that writes the results to an html file that can be viewed with a browser.
 4. **wapiti** - A web application audit tool similar to skipfish. And, similar to skipfish, the results can be written to html and viewed with a browser.
 
 ## Operating select vulnerability scanning tools
@@ -100,3 +100,38 @@ Vulnerabilities with Exploitdb IDs are particularly noteworthy. A vulnerability 
 |3||||
 
 Table 1, Exploit-DB Results
+
+### Challenge 3: skipfish
+Skipfish supports numerous options, such as user authentication, crawl scope, reporting options, dictionary management, and performance settings. The full list of options can be viewed with help menu (**skipfish -h**). You should review these options. However, the following example runs a default skipfish scan against the localhost. 
+
+```
+skipfish -o /tmp/skipfish_results http://localhost
+
+skipfish version 2.10b by lcamtuf@google.com
+- 104.198.70.155 - 
+
+Scan statistics:
+
+Scan time : 0:11:09.444
+HTTP requests : 24954 (37.4/s), 59708 kB in, 10476 kB out (104.8 kB/s)
+Compression : 1320 kB in, 4780 kB out (56.7% gain)
+HTTP faults : 0 net errors, 0 proto errors, 0 retried, 0 drops
+TCP handshakes : 264 total (96.6 req/conn)
+TCP faults : 0 failures, 0 timeouts, 3 purged
+External links : 1360 skipped
+Reqs pending : 561
+
+Database statistics:  
+Pivots: 184 total, 82 done (44.57%)
+In progress : 84 pending, 14 init, 3 attacks, 1 dict
+Missing nodes : 14 spotted
+Node types : 2 serv, 24 dir, 4 file, 60 pinfo, 45 unkn, 50 par, 0 val
+Issues found : 105 info, 0 warn, 19 low, 128 medium, 1 high impact
+Dict size : 128 words (128 new), 11 extensions, 256 candidates
+Signatures : 77 total   
+```
+
+**Complete a skipfish scan against Metasploitable2. Browse to the results homepage and capture a screenshot of the results homepage.** The scan will take time to complete. You can open another terminal tab (**CTRL+SHIFT+T**) and proceed to the next challenge while the skipfish scan continues to run.
+
+
+
