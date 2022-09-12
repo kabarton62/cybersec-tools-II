@@ -132,11 +132,15 @@ Signatures : 77 total
 ```
 
 Start a skipfish scan against Metasploitable2. The scan will take hours to complete. 
-**Leave the scan running and capture a screenshot showing that the scan is running.** 
+**Leave the scan running and capture a screenshot showing that the scan is running.** Stop the scan after 30 minutes with **CTRL-C**.
 
 Open another terminal (**CTRL+SHIFT+T**) and proceed to the next challenge while the skipfish scan continues to run.
 
-Examine the skipfish scan results after the scan finishes.
+Examine the skipfish scan results after the scan finishes. Open a browser in Kali and browse to index.html in the directory for the skipfish results. For example: 
+
+/tmp/skipfish_results/index.html
+
+Examine the critical vulnerabilities (those with the red icon).
 
 ### Challenge 4: wapiti
 
@@ -160,4 +164,4 @@ Start a wapiti scan against Metasploitable2. Again, this scan will take hours to
 
 **Capture a screenshot showing the wapiti scan running.**
 
-Examine wapiti scan results after the scan completes.
+Wapiti is difficult to stop. Use CTRL-C to stop the scan. Expect to be presented with an option to stop the scan and generate a report (option "r"). Attempt to generate the report but if that attempt fails, use multiple CTRL-C inputs to kill the wapiti scan after 30 minutes of scanning.
