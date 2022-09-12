@@ -11,16 +11,16 @@ File Transfer Protocol (ftp) is used to transfer files between an ftp server and
 In this scenario, the software for the ftp server itself does not have vulnerabilities, but the _configuration of the ftp server_ is vulnerable. The ftp server's configuration error cannot be remediated with a patch. Fixing the vulnerability requires system administrators to change the server's configuration, such as properly restricting access to directories that would be safe for untrusted users to access.
 
 ### Vulnerability scanning
-[Vulnerability scanning](https://csrc.nist.gov/glossary/term/vulnerability_scanning) identifies host attributes to detect vulnerabilities. Although a vulnerability scanner could be run internally on the target host/server, most vulnerability scanners are network tools used to scan network devices to identify documented vulnerabilities. Network vulnerability scanners send requests to network devices to detect behavior that fingerprints the existence of vulnerabilities.
+[Vulnerability scanning](https://csrc.nist.gov/glossary/term/vulnerability_scanning) identifies host attributes to detect vulnerabilities. Although a vulnerability scanner could be run internally on the target host/server, many vulnerability scanners are network tools used to scan network devices to identify documented vulnerabilities. Network vulnerability scanners send requests to network devices to detect behavior that fingerprints the existence of vulnerabilities.
 
 In our ftp server example, a network vulnerability scanner might:
-1. Detect that a user can authenticate as _annonymous_
+1. Detect that a user can authenticate as _annonymous_.
 2. Once authenticated, test if the logged in user can change directories, access some common directory (i.e., /tmp or /etc or /), or attempt to change directories to a parent directory. A vulnerability scanner might report the ftp server vulnerable to [CVE-1999-0497](https://cve.mitre.org/cgi-bin/cvename.cgi?name=1999-0497). 
 
 ### HTTP vulnerability scanning tools
 No tool is guaranteed to detect every vulnerability, and no tool is guaranteed to not report false positives. Therefore, one approach to improve the chances of detecting all existing vulnerabilities (averting false negatives) is to use more than one vulnerability scanner. Reported vulnerabilities require manual verification of each detected vulnerability.
 
-Kali includes a suite of vulnerability scanning tools, including tools that specifically scan web applications for vulnerabilities. As we dig into these tools, remember that web vulnerability scanning tools will attempt to discover vulnerabilities in both the web server (i.e., Apache2, nginx, IIS, etc) and the application itself. The following section cover several tools:
+Kali includes a suite of vulnerability scanning tools, including tools that specifically scan web applications for vulnerabilities. As we dig into these tools, remember that web vulnerability scanning tools will attempt to discover vulnerabilities in both the web server (i.e., Apache2, nginx, IIS, etc) and the application itself. The following section covers several tools:
 1. **nikto** - An open source vulnerability scanner included with Kali. Nikto can scan for 6400 potential vulnerabilities. Nikto is not stealthy and can easily be detected. Therefore, it is useful for testing a website under the tester's control, but not the best choice for something such as a penetration test where stealth is important.
 2. **legion** - Legion is GUI-based vulnerability scanner that replaced the longtime favorite **Sparta**. To be fair, Legion is broader in scope than a dedicated web application vulnerability scanner. Sparta was written in Python 2.7. Legion migrates Sparta to Python 3.6. Legion incorporates other security scanning tools, such as nmap, webslayer, SMBenum, hydra, and dozens of auto-scheduled scripts to detect Common Vulnerabilities (CVEs) and Common Platform Enumeration (CPEs). If legion is not installed in your Kali machine, you can install it with:
 ```
@@ -131,9 +131,12 @@ Dict size : 128 words (128 new), 11 extensions, 256 candidates
 Signatures : 77 total   
 ```
 
-Complete a skipfish scan against Metasploitable2. **Browse to the results homepage and capture a screenshot of the results homepage.** The scan will take time to complete (probably more than an hour). You can open another terminal tab (**CTRL+SHIFT+T**) and proceed to the next challenge while the skipfish scan continues to run.
+Start a skipfish scan against Metasploitable2. The scan will take hours to complete. 
+**Leave the scan running and capture a screenshot showing that the scan is running.** 
 
-**Summarize the high impact Issues found.**
+Open another terminal (**CTRL+SHIFT+T**) and proceed to the next challenge while the skipfish scan continues to run.
+
+Examine the skipfish scan results after the scan finishes.
 
 ### Challenge 4: wapiti
 
@@ -153,4 +156,8 @@ Wapiti-3.0.4 (wapiti.sourceforge.io)
 [*] Resuming scan from previous session, please wait
 [+] GET http://localhost/ (0)
 ```
-Complete a wapiti scan against Metasploitable2. Again, this scan will take time to complete. Let it run. Progress can be monitored by using a verbosity option in the scan.
+Start a wapiti scan against Metasploitable2. Again, this scan will take hours to complete. Let it run. Progress can be monitored by using a verbosity option in the scan. 
+
+**Capture a screenshot showing the wapiti scan running.**
+
+Examine wapiti scan results after the scan completes.
