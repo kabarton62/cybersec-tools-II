@@ -112,4 +112,8 @@ Follow the installation prompts to complete WordPress installation.
 |**Your Email**|admin@local.net|
 |**Search Engine Visibility**|Select check box to discourage search engines|
 
+Click **Install WordPress**.
 
+Finally, login as admin using the password you selected. Click **Login**.
+
+<img src="images/wp_install-complt.png" width="900" height="900">
