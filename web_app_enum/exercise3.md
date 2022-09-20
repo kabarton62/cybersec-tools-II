@@ -7,6 +7,25 @@ Wpscan is a dedicated WordPress vulnerability scanner capable of detecting known
 
 Wfuzz is an http/https fuzzing tool that can be used for directory or resource enumeration and web application password attacks. This exercises focuses on web application password attacks using wfuzz.
 
+## Collect information needed for installation
+### Rockyou.txt
+Kali Linux comes with a well-known list of compromised passwords, rockyou.txt. Initially, rockyou.txt is compressed in rockyou.txt.gz. We need to install **gunzip** and extract rockyou.txt before we can use it.
+
+```
+sudo apt update && sudo apt install gunzip -y
+sudo gunzip /usr/share/wordlists/rockyou.txt.gz
+```
+
+Next, select a password from rockyou.txt. Technically, you could select any password in the file, but the further down the list you go to find a password, the longer it will take to crack that password. Therefore, we are going to look at passwords near the top of the list. The options below will return select passwords within the first 1500 lines of rockyou.txt. **Choose a password that will be used to for the WordPress admin account**.
+
+```
+head -n 1500 /usr/share/wordlists/rockyou.txt | grep marl
+head -n 1500 /usr/share/wordlists/rockyou.txt | grep fat
+head -n 1500 /usr/share/wordlists/rockyou.txt | grep goo
+```
+
+Next, we need the IP addresses for the wordpress and mysql containers. The IP addresses are configured in docker-compose.yml (see Challenge 1). **Examine docker-compose.yml and note the IP address for each container**.
+
 ## Building the lab
 
 ### Challenge 1: Build Wordpress
@@ -81,3 +100,16 @@ Challenge 1 started two services, a web service and its backend mysql service. H
 <img src="images/wp_install.png" width="900" height="900">
 
 Follow the installation prompts to complete WordPress installation.
+
+**WordPress installation details:**
+
+|||
+|---|---|
+|**Site Title**|Your choice|
+|**Username**|admin|
+|**Password**|Password chosen from rockyou.txt|
+|**Confirm Password**|Select checkbox to confirm weak password|
+|**Your Email**|admin@local.net|
+|**Search Engine Visibility**|Select check box to discourage search engines|
+
+
