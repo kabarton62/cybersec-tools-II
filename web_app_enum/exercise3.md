@@ -107,7 +107,7 @@ Follow the installation prompts to complete WordPress installation.
 |---|---|
 |**Site Title**|Your choice|
 |**Username**|admin|
-|**Password**|Password chosen from rockyou.txt|
+|**Password**|_Password chosen from rockyou.txt_|
 |**Confirm Password**|Select checkbox to confirm weak password|
 |**Your Email**|admin@local.net|
 |**Search Engine Visibility**|Select check box to discourage search engines|
@@ -162,7 +162,7 @@ Test the new SQL user before installing CMS Made Simple 2.2.5. **Get a shell in 
 
 ```
 sudo docker exec -it wordpress bash
-apt update && apt install mysql-client -y
+apt update && apt install mysql-client unzip -y
 
 mysql -u cms-user -p -h 172.19.0.4
 Enter password: 
@@ -183,8 +183,37 @@ Database changed
 
 mysql> exit
 ```
+We are ready to install CMS Made Simple 2.2.5. The applications will be downloaded from [exploit-db.com](https://www.exploit-db.com/exploits/44976).
+**Get a shell in wordpress and ensure you are in directory /var/www/html.**
 
+```
+mkdir /var/www/html/cms && cd /var/www/html/cms
+wget https://www.exploit-db.com/apps/a0cc942960d7e4998e791f911f9d7f6e-cmsms-2.2.5-install.zip
+unzip a0cc942960d7e4998e791f911f9d7f6e-cmsms-2.2.5-install.zip && rm a0cc942960d7e4998e791f911f9d7f6e-cmsms-2.2.5-install.zip
+chown -R www-data:www-data /var/www/html/cms/
+```
+Browse to http://your-Ubuntu-server-IP:10000/cms/cmsms-2.2.5-install.php
 
+<img src="images/cms-install1.png" width="900" height="900">
 
+Continue through the install process. **Ignore the warning about PHP function configuration**.  
 
+Configure the following **Database Information** details:
+|||
+|---|---|
+|**Database Hostname**|mysql|
+|**Database Name**|cms|
+|**User name**|cms-user|
+|**Password**|_The weak password chosen from rockyou.txt_|
 
+Configure the following **Admin Account Information** details: **Before proceeding, select one more password from rockyou.txt**
+|||
+|---|---|
+|**User name**|admin|
+|**Email Address**|admin@local.net|
+|**Password**|_The weak password chosen from rockyou.txt_|
+|**Repeat Password**|_The weak password chosen from rockyou.txt_|
+
+Finish the installation guide and click CMSMS admin panel. **Login as admin and take a screenshot of the CMSMS admin penel.**
+
+<img src="images/cms-install2.png" width="900" height="900">
