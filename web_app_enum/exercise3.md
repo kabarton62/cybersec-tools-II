@@ -114,6 +114,77 @@ Follow the installation prompts to complete WordPress installation.
 
 Click **Install WordPress**.
 
-Finally, login as admin using the password you selected. Click **Login**.
+Finally, login as admin using the password you selected. Click **Login**. **Capture a screenshot of the admin panel.**
 
 <img src="images/wp_install-complt.png" width="900" height="900">
+
+## Install CMS Made Simple
+Install a second web applicaton on the WordPress server, CMS Made Simple 2.2.5. Download CMS Made Simple 2.2.5 from exploit-db and use the installation script to install the application. However, the database needs to be prepared before the application can be installed.
+
+### Challenge 3: Prepare a database and user for CMS Made Simple 2.2.5
+Before starting Challenge 3, **select another password from rockyou.txt**. Substitute that password for _your-password_.
+Get a shell in the mysql server then:
+1. Add a new database
+2. Create a new user 
+3. Grant privileges on the new database to the new user
+
+```
+sudo docker exec -it mysql bash
+
+bash-4.2# mysql -u root -p
+Enter password: root
+
+  Welcome to the MySQL monitor.  Commands end with ; or \g.
+  Your MySQL connection id is 18
+  Server version: 5.7.39 MySQL Community Server (GPL)
+
+  Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+  Oracle is a registered trademark of Oracle Corporation and/or its
+  affiliates. Other names may be trademarks of their respective
+  owners.
+
+  Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create database cms;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> create user 'cms-user'@'172.19.0.3' identified by 'your-password';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> grant all privileges on cms.* to 'cms-user'@'172.19.0.3';
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> exit
+```
+
+Test the new SQL user before installing CMS Made Simple 2.2.5. **Get a shell in wordpress and install mysql-client.**
+
+```
+sudo docker exec -it wordpress bash
+apt update && apt install mysql-client -y
+
+mysql -u cms-user -p -h 172.19.0.4
+Enter password: 
+  Welcome to the MySQL monitor.  Commands end with ; or \g.
+  Your MySQL connection id is 19
+  Server version: 5.7.39 MySQL Community Server (GPL)
+
+  Copyright (c) 2000, 2018, Oracle and/or its affiliates. All rights reserved.
+
+  Oracle is a registered trademark of Oracle Corporation and/or its
+  affiliates. Other names may be trademarks of their respective
+  owners.
+
+  Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> mysql> use cms;
+Database changed
+
+mysql> exit
+```
+
+
+
+
+
