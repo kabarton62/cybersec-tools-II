@@ -361,3 +361,24 @@ Trying admin / marlon Time: 00:00:55 <                                          
  | Username: admin, Password: marlon
 ```
 **Capture a screenshot of the successful wpscan password attack.**
+
+## Wfuzz password attack
+We need to collect some information before starting the password attack against CMS Made Simple 2.2.5. By default, wfuzz will show results from every request. The volume of feedback makes it more difficult to detect the successful result in a password attack. However, wfuzz also supports suppressing results based on text strings or http response codes. To set the criteria to show or hide select results, we need to understand how the application responds to failed login attempts and successful login attempts. 
+
+The next screenshot shows a failed login attempt. Note the page includes the string "User name or password incorrect". The fact that the message does not disclose whether the it is the user name or password that failed is a good security practice that will help defend against user enumeration (identifying valid users). However, we can also use this string, or even just part of this string (i.e., "incorrect") as a text string to suppress invalid results in a password attack. 
+
+<img src="images/cms-failed-login.png" width="900" height="900">
+
+There are times when the text in a response is not different between failed and successful login attempts, such as when either login attempt simply results in an http redirect. In those cases, we need to look for another way to differentiate results between failed and successful login attempts. The following screenshot use Burp Suite, a web application proxy, to examine the http request and response of a failed login attempt. Note, it also shows **parameters** in the http POST request for a login attempt. We need to know these POST request parameters to launch our wfuzz password attack.
+
+<img src="images/cms-failed-login-burp.png" width="900" height="900">
+
+**Note that a login attempt gave an http response code 200**. Also, the http POST request parameters for a login attempt were: 
+
+```
+username=admin&password=vanilla&loginsubmit=Submit
+```
+
+Now, compare the response to a successful login attempt. **The successful login attempt gave an http response code 302**. 
+
+<img src="images/cms-successful-l0gin-burp.png" width="900" height="900">
