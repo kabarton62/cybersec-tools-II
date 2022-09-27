@@ -24,7 +24,7 @@ Challenges 1 and 2 are prerequisites to Challenge 3. Therefore, successfully cap
 
 In Firefox, browse to [PortSwigger Academy](https://portswigger.net/web-security). Select the first HTTP GET request for https://portswigger.net/web-security. 
 
-**Capture a screenshot show the HTTP GET request and response.** 
+**Capture a screenshot showing the HTTP GET request and response.** 
 
 ### Challenge 5: Capture sensitive data
 PortSwigger includes free and paid labs and training. The free labs are an excellent way to learn Burp. Create an account. 
@@ -34,4 +34,4 @@ PortSwigger includes free and paid labs and training. The free labs are an excel
 
 Return to  Burp **Proxy** > **HTTP hisotry** and find the **POST** request to **/users/register**. Examine line 17. Find the POST parameter EmailAddress= and observe the email address you submitted in the registration form.
 
-**Capture a screenshot show the HTTP POST request and response.**
+**Capture a screenshot showing the HTTP POST request and response.**
