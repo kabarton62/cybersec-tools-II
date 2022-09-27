@@ -1,0 +1,22 @@
+# <img src="https://www.tamusa.edu/brandguide/jpeglogos/tamusa_final_logo_bw1.jpg" width="100" height="50"> Burp Suite - Getting Started
+
+## Attacking DVWA with Burp Suite
+Ensure Metasploitable2 is running on your GCP instance. Start the Metasploitable2 Docker container using the following:
+
+```
+sudo docker run -p 2222:22 -p 20:20 -p 21:21 -p 2323:23 -p 25:25 -p 514:514 -p 2049:2049 -p 3632:3632 -p 9000:80 \
+--name metasploitable2 --hostname metasploitable2 -it -d tleemcjr/metasploitable2:latest sh -c "/bin/services.sh && bash"
+```
+
+### Challenge 1: Start and configure Burp Suite to capture DVWA requests
+In the prior exercise, you learned how to configure Burp Suite to capture traffic to a web application while minimizing noise from unwanted traffic. Tasks included:
+1. Configuring a browser to proxy through Burp Suite.
+2. Restricting the **Target** and **Scope**.
+3. Using **Repeater** to modify HTTP request.
+
+**Configure the browser and Burp Suite to capture traffic to DVWA on Metasploitable2. Browse to the DVWA Login page.**
+
+**Capture a screenshot of the HTTP GET request and response in Burp Suite.**
+
+## Using Burp Suite's Intercept function
+In the previous exercise we used the **Repeater** tool edit HTTP requests. Although the Repeater tool allows us to edit requests, the response is not returned to the browser.
