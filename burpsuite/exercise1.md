@@ -22,6 +22,16 @@ Select **Target** > **Scope**. Under **Include in Scope**, click **Add**. Add th
 ### Challenge 4: Capture your first HTTPS request
 Challenges 1 and 2 are prerequisites to Challenge 3. Therefore, successfully capturing an HTTPS request demonstrates that the browser is correctly configured. Start Burp and go to the **Proxy > Intercept** tab. Click the button **Intercept is on**. The button will toggle to **Intercept is off**. Next, click **HTTP history**. Click the **#** column to sort requests in descending order. Descending order places the most recent request at the top of HTTP history.
 
-In Firefox, browse to [PortSwigger Academy](https://portswigger.net/web-security). Select the first HTTP GET request for https://portswigger.net/web-security. **Capture a screenshot show the HTTP GET request and response.** 
+In Firefox, browse to [PortSwigger Academy](https://portswigger.net/web-security). Select the first HTTP GET request for https://portswigger.net/web-security. 
 
-PortSwigger includes free and paid labs and training. The free labs are an excellent way to learn Burp. Create an account.  
+**Capture a screenshot show the HTTP GET request and response.** 
+
+### Challenge 4: Capture sensitive data
+PortSwigger includes free and paid labs and training. The free labs are an excellent way to learn Burp. Create an account. 
+1. Click the button **Signup**.
+2. Copy the URL https://portswigger.net/users/register and add to Scope. 
+3. Create your account.
+
+Return to  Burp **Proxy** > **HTTP hisotry** and find the **POST** request to **/users/register**. Examine line 17. Find the POST parameter EmailAddress= and observe the email address you submitted in the registration form.
+
+**Capture a screenshot show the HTTP POST request and response.**
