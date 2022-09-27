@@ -26,7 +26,7 @@ In Firefox, browse to [PortSwigger Academy](https://portswigger.net/web-security
 
 **Capture a screenshot show the HTTP GET request and response.** 
 
-### Challenge 4: Capture sensitive data
+### Challenge 5: Capture sensitive data
 PortSwigger includes free and paid labs and training. The free labs are an excellent way to learn Burp. Create an account. 
 1. Click the button **Signup**.
 2. Copy the URL https://portswigger.net/users/register and add to Scope. 
