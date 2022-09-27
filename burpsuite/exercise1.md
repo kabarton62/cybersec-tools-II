@@ -41,7 +41,6 @@ Return to  Burp **Proxy** > **HTTP hisotry** and find the **POST** request to **
 
 1. Login to PortSwigger Academy.
 2. Select **Academy** > **All Labs**
-3. Select **Level: Apprentice**. 
-4. Scroll to **OS command injection**, click **OS command injection, simple case** 
-5. Click **Access the lab**
-6. You will be directed to a new URL. **Add the new URL to Scope in Burp**.
+3. Scroll to **OS command injection**, click **OS command injection, simple case** 
+4. Click **Access the lab**
+5. You will be directed to a new URL. **Add the new URL to Scope in Burp**.
