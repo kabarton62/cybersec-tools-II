@@ -37,7 +37,7 @@ Return to  Burp **Proxy** > **HTTP hisotry** and find the **POST** request to **
 **Capture a screenshot showing the HTTP POST request and response.**
 
 ## OS Commnad injection lab
-### Extra-mile Challenge 6: OS command injection, simple case
+### Challenge 6, Extra-mile: OS command injection, simple case
 
 1. Login to PortSwigger Academy.
 2. Select **Academy** > **All Labs**
