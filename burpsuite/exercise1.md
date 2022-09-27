@@ -9,7 +9,7 @@ Configure Firefox in Kali Linux using [these instructions](https://portswigger.n
 ### Challenge 2: Install Burp's CA certificate in Firefox
 Burp Suite includes an internal browser. The internal browser includes Burp's CA certificate and will by default trust Burp. However, we are configuring an external browser, which by default will not trust Burp. Burp's CA certificate must be installed in Firefox to allow Firefox to trust Burp. Figure 1 illustrates how HTTPS works with Burp Suite. The client establishes an HTTPS connection with Burp. The user can modify the HTTPS request in Burp then forward the request to the web server. A new HTTPS connection is established between Burp and the web server. There is not direction HTTPS session between the client and web server. Instead, **there are two independent HTTPS sessions: one between Burp and the client and a second between Burp and the web server**. 
 
-<img src="../images/burp_proxy.png" width="600" height="200">
+<img src="../images/burp_proxy2.png" width="600" height="200">
 Figure 1, Burp Suite Proxy
 
 As a result of the proxying, Burp authenticates the web server and the client authenticates Burp. However, since Burp creates its own CA certificate, the client browser will not trust Burp. Burp's CA certificate needs to be installed in the browser. PortSwigger provides detailed instructions to install Burp's CA certificate for Chrome, Firefox, Safari and IE. Use the [Firefox instructions](https://portswigger.net/burp/documentation/desktop/external-browser-config/certificate/ca-cert-firefox) to install Burp's CA certificate in Kali's Firefox browser.
