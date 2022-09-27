@@ -35,3 +35,13 @@ PortSwigger includes free and paid labs and training. The free labs are an excel
 Return to  Burp **Proxy** > **HTTP hisotry** and find the **POST** request to **/users/register**. Examine line 17. Find the POST parameter EmailAddress= and observe the email address you submitted in the registration form.
 
 **Capture a screenshot showing the HTTP POST request and response.**
+
+## OS Commnad injection lab
+### Extra-mile Challenge 6: OS command injection, simple case
+
+1. Login to PortSwigger Academy.
+2. Select **Academy** > **All Labs**
+3. Select **Level: Apprentice**. 
+4. Scroll to **OS command injection**, click **OS command injection, simple case** 
+5. Click **Access the lab**
+6. You will be directed to a new URL. **Add the new URL to Scope in Burp**.
