@@ -18,7 +18,7 @@ In the prior exercise, you learned how to configure Burp Suite to capture traffi
 
 **Capture a screenshot of the HTTP GET request and response in Burp Suite.**
 
-## Using Burp Suite's Intercept function
+## Using Burp Suite's Intercept tool
 In the previous exercise we used the **Repeater** tool edit HTTP requests. Although the Repeater tool allows us to edit requests, the response is not returned to the browser. **Intercept** is similar to Repeater but will return responses to the browser. Intercept catches the requests and holds it until the user forwards the request. The user can modify the request prior to forwarding the request.
 
 #### Challenge 2: Use Intercept to capture and modify an HTTP request
@@ -42,3 +42,15 @@ Inspect **Intercept** and observe the POST request. **Capture a screenshot of th
 
 Modify the username and password to the correct username/password (admin/password) and **capture a screenshot of the modified request**. click **Forward**.
 
+## Using Burp Suite's Repeater tool
+### Challenge 3: Use Intruder to attack a file inclusion vulnerability
+1. Turn **Intercept** off. 
+2. Select the **File Inclusion** button.
+3. Examine the HTTP GET request to /dvwa/vulnerabilities/fi/?page=include.php. The DVWA page that loads refers to the **?page=** parameter and suggests that a file can be _included_ by tampering with that paramter. Let's give it a try.
+
+Send the HTTP GET request to the Repeater tool and tamper with the request.
+1. Right-click the HTTP GET request.
+2. Select the **Repeater** tool tab.
+3. Change the file include.php in line 1 (GET /dvwa/vulnerabilities/fi/?page=include.php HTTP/1.1) to index.php.
+4. Click **Send**.
+5. 
