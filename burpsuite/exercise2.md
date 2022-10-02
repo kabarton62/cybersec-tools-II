@@ -19,4 +19,4 @@ In the prior exercise, you learned how to configure Burp Suite to capture traffi
 **Capture a screenshot of the HTTP GET request and response in Burp Suite.**
 
 ## Using Burp Suite's Intercept function
-In the previous exercise we used the **Repeater** tool edit HTTP requests. Although the Repeater tool allows us to edit requests, the response is not returned to the browser. **Intercept** is similar to Repeater but will return responses to the browser.
+In the previous exercise we used the **Repeater** tool edit HTTP requests. Although the Repeater tool allows us to edit requests, the response is not returned to the browser. **Intercept** is similar to Repeater but will return responses to the browser. Intercept catches the requests and holds it until the user forwards the request. The user can modify the request prior to forwarding 
