@@ -44,3 +44,4 @@ Return to  Burp **Proxy** > **HTTP hisotry** and find the **POST** request to **
 3. Scroll to **OS command injection**, click **OS command injection, simple case** 
 4. Click **Access the lab**
 5. You will be directed to a new URL. **Add the new URL to Scope in Burp**.
+6. Complete the lab. **Capture a screenshot showing the lab was completed.**
