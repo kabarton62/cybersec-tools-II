@@ -19,4 +19,26 @@ In the prior exercise, you learned how to configure Burp Suite to capture traffi
 **Capture a screenshot of the HTTP GET request and response in Burp Suite.**
 
 ## Using Burp Suite's Intercept function
-In the previous exercise we used the **Repeater** tool edit HTTP requests. Although the Repeater tool allows us to edit requests, the response is not returned to the browser. **Intercept** is similar to Repeater but will return responses to the browser. Intercept catches the requests and holds it until the user forwards the request. The user can modify the request prior to forwarding 
+In the previous exercise we used the **Repeater** tool edit HTTP requests. Although the Repeater tool allows us to edit requests, the response is not returned to the browser. **Intercept** is similar to Repeater but will return responses to the browser. Intercept catches the requests and holds it until the user forwards the request. The user can modify the request prior to forwarding the request.
+
+#### Challenge 2: Use Intercept to capture and modify an HTTP request
+Ensure that **Intercept** is turned on.
+1. Select **Proxy** > **Intercept**
+2. Ensure the **Intercept is on/off** button is set to **Intercept is on**.
+3. Stay on the **Proxy** > **Intercept** tab.
+
+Browse to the DVWA web application. Note that the page will not load in the browser and that the Intercept tab is holding the HTTP GET request to /dvwa/login.php. 
+
+Click **Forward** in the Intercept tab. The DVWA page should load. Some web applications will have multiple requests before the page fully loads. Each request will be captured in Burp and must be manually forwarded.
+
+The correct username and password for DVWA is admin/password (see the small print on DVWA's login page). However, we are going to enter the wrong credentials in the login page and then modify them using Intercept. Enter the following credentials:
+```
+Username: mickey
+Password: mouse
+```
+Click **login**. 
+
+Inspect **Intercept** and observe the POST request. **Capture a screenshot of the POST request with the username/password of mickey/mouse.**
+
+Modify the username and password to the correct username/password (admin/password) and **capture a screenshot of the modified request**. click **Forward**.
+
