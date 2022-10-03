@@ -61,7 +61,7 @@ Attempt to read /etc/passwd using the LFI vulnerability and Burp Suite's Repeate
 
 ## Using Burp Suite's Intruder tool
 ### Challenge 4: Use Intruder to attack a LFI vulnerability 
-We can use this vulnerability to enumerate the number of directories from the current directory (the directory that contains include.php) to the root directory (/). Although we could do the same task manually we will instead use the automated **Intruder** tool to complete the attack.
+We can use this vulnerability to enumerate the number of directories from the current directory (the directory that contains index.php) to the root directory (/). Although we could do the same task manually we will instead use the automated **Intruder** tool to complete the attack.
 
 1. Forward the last HTTP request from Repeater to Intruder.
 2. Go to the Intruder tool tab. You should be directed to the **Positions** tab in Intruder.
@@ -98,3 +98,13 @@ Upgrade-Insecure-Requests: 1
 ../../../../../../../etc/passwd
 ../../../../../../../../etc/passwd
 ```
+
+The following screenshot shows an example of the attack results. Note that beginning at Request 5, all results have the same length (length refers to the bytes in the response). Although the exact meaning of this pattern will vary with the web application and the specific requests against the application, in this case, we can expect the results for each of these requests to be the same.
+
+<img src="../images/burp_intruder-attack-dirEnum.png" width="900" height="900">
+**Figure 1, Burp Suite Intruder Results**
+
+9. Compare Request number 5 and 6, confirm that both requests include the contents of /etc/passwd.
+10. Now, let's answer the question we trying to solve, how many directories precede the current directory. Request number 5 had the payload ../../../../../etc/passwd. We know ../ in Linux moves us up one directory and that /etc/passwd is the absolute file path for /etc/passwd. Absolute file paths are the full file path from the root directory (/). Since there is no directory above the root directory, additional attempts to go up a directory from the root directory are ignored. Therefore, the number of steps back from the current directory to root directory is the fewest directory changes (../) that successfully reads /etc/passwd. In this case, there are five (5) directory changes from the current directory the root directory (../../../../../).
+
+**Capture a screenshot of a successful attack using the Intruder tool.**
