@@ -102,6 +102,7 @@ Upgrade-Insecure-Requests: 1
 The following screenshot shows an example of the attack results. Note that beginning at Request 5, all results have the same length (length refers to the bytes in the response). Although the exact meaning of this pattern will vary with the web application and the specific requests against the application, in this case, we can expect the results for each of these requests to be the same.
 
 <img src="../images/burp_intruder-attack-dirEnum.png" width="900" height="900">
+
 **Figure 1, Burp Suite Intruder Results**
 
 9. Compare Request number 5 and 6, confirm that both requests include the contents of /etc/passwd.
