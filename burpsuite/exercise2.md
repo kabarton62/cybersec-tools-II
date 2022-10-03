@@ -61,6 +61,8 @@ Attempt to read /etc/passwd using the LFI vulnerability and Burp Suite's Repeate
 
 ## Using Burp Suite's Intruder tool
 ### Challenge 4: Use Intruder to attack a LFI vulnerability 
+We can use this vulnerability to enumerate the number of directories from the current directory (the directory that contains include.php) to the root directory (/). Although we could do the same task manually we will instead use the automated **Intruder** tool to complete the attack.
+
 1. Forward the last HTTP request from Repeater to Intruder.
 2. Go to the Intruder tool tab. You should be directed to the **Positions** tab in Intruder.
 3. Note the highlighted items bound by "§". These are the fields that would be tampered with in an automated attack using Intruder. However, we do not want to tamper with the two cookies _security_ or _PHPSESSID_. These two fields need to be deselected.
@@ -86,3 +88,13 @@ Upgrade-Insecure-Requests: 1
 |**Payload type:**|Simple list|
 
 8. Paste the following list in **Payload Options [Simple list]**
+```
+../etc/passwd
+../../etc/passwd
+../../../etc/passwd
+../../../../etc/passwd
+../../../../../etc/passwd
+../../../../../../etc/passwd
+../../../../../../../etc/passwd
+../../../../../../../../etc/passwd
+```
