@@ -43,14 +43,46 @@ Inspect **Intercept** and observe the POST request. **Capture a screenshot of th
 Modify the username and password to the correct username/password (admin/password) and **capture a screenshot of the modified request**. click **Forward**.
 
 ## Using Burp Suite's Repeater tool
-### Challenge 3: Use Intruder to attack a file inclusion vulnerability
-1. Turn **Intercept** off. 
-2. Select the **File Inclusion** button.
-3. Examine the HTTP GET request to /dvwa/vulnerabilities/fi/?page=include.php. The DVWA page that loads refers to the **?page=** parameter and suggests that a file can be _included_ by tampering with that paramter. Let's give it a try.
+### Challenge 3: Use Repeater to attack a local file inclusion (LFI) vulnerability
+1. In Burp Suite, turn **Intercept** off. 
+2. In DVWA, select **DVWA Security**, set the security level to **low** and click **Submit**.
+3. In DVWA, select the **File Inclusion** button.
+4. Return to Burp Suite. Examine the HTTP GET request to /dvwa/vulnerabilities/fi/?page=include.php. The DVWA page that loads refers to the **?page=** parameter and suggests that a file can be _included_ by tampering with that paramter. Let's give it a try.
 
 Send the HTTP GET request to the Repeater tool and tamper with the request.
 1. Right-click the HTTP GET request.
 2. Select the **Repeater** tool tab.
 3. Change the file include.php in line 1 (GET /dvwa/vulnerabilities/fi/?page=include.php HTTP/1.1) to index.php.
-4. Click **Send**.
-5. 
+4. Click **Send** and examine the response. Note that it seems the index.php file attempted to load but resulted in a memory error.
+
+Now, let's try to find a more interesting file, such as a system file. When testing for LFI vulnerabilites it makes sense to search for files that are expected to exist and that all users have read permissions to, such as /etc/hosts, /etc/hostname or /etc/passwd on a Linux system. Start with /etc/passwd.
+
+Attempt to read /etc/passwd using the LFI vulnerability and Burp Suite's Repeater tool. **Capture a screenshot of the HTTP request and response in Burp Suite.**
+
+## Using Burp Suite's Intruder tool
+### Challenge 4: Use Intruder to attack a LFI vulnerability 
+1. Forward the last HTTP request from Repeater to Intruder.
+2. Go to the Intruder tool tab. You should be directed to the **Positions** tab in Intruder.
+3. Note the highlighted items bound by "§". These are the fields that would be tampered with in an automated attack using Intruder. However, we do not want to tamper with the two cookies _security_ or _PHPSESSID_. These two fields need to be deselected.
+4. Click **Clear §**. Ensure the three items are deselected.
+5. Highlight the filename following _?page=_. See the following example.
+
+```
+GET /dvwa/vulnerabilities/fi/?page=§/etc/passwd§ HTTP/1.1
+Host: 104.198.70.155:9000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:104.0) Gecko/20100101 Firefox/104.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Connection: close
+Cookie: security=low; PHPSESSID=edbd66175346dd39eb372485a8f6a8cc
+Upgrade-Insecure-Requests: 1
+```
+6. Next, prepare the _payload_. The payload is the content that will be injected into the _positions_. Select the **Payloads** tab.
+7. The default settings should be:
+|||
+|---|---|
+|**Payload set:**| 1 |
+|**Payload type:**|Simple list|
+
+8. Paste the following list in **Payload Options [Simple list]**
