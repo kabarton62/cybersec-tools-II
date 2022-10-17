@@ -2,7 +2,7 @@
 docker='/usr/bin/sudo /usr/bin/docker'
 compose='/usr/bin/sudo /usr/bin/docker-compose'
 f=docker-compose.yml
-web='ubuntu/apache2:latest'
+web='php:7.0-apache'
 mysql='mysql:5'
 wname='burp3-web'
 hostname='chickenHouse'
@@ -31,11 +31,6 @@ services:
    hostname: $hostname
    depends_on:
     - mysql
-   environment: 
-    - WORDPRESS_DB_HOST=mysql:3306
-    - WORDPRESS_DB_USER=root
-    - WORDPRESS_DB_PASSWORD=root
-    - WORDPRESS_DB_NAME=wordpress
    ports:
     - "$port:80"
    networks:
@@ -65,6 +60,7 @@ $compose up -d
 # Create robots.txt and transfer to web server
 
 cat << EOF > robots.txt
+Ascii hex: so stupid
 557365722d6167656e743a202a200a446973616c6c6f773a202f58385846617354444e4b2f
 EOF
 
@@ -76,13 +72,38 @@ printf "\n${RED}Preparing the web server${NC}\n\n"
 $docker exec -it $wname apt update 
 $docker exec -it $wname apt install unzip wget -y
 $docker exec -it $wname mkdir /var/www/html/$dir2
-$docker exec -it $wname cd /var/www/html/ 
+$docker exec -it $wname cd /
 $docker exec -it $wname wget https://www.exploit-db.com/apps/71442de71ef46bf3ed53d416ec8bcdbd-filethingie-master.zip
-
-$docker exec -it $wname cd /var/www/html/ 
 $docker exec -it $wname unzip *.zip 
-$docker exec -it $wname mv /var/www/html/filethingie-master/ /var/www/html/$dir1/ 
-$docker exec -it $wname rm /var/www/html/71442de71ef46bf3ed53d416ec8bcdbd-filethingie-master.zip 
+$docker exec -it $wname mv filethingie-master/ /var/www/html/$dir1/ 
+$docker exec -it $wname rm 71442de71ef46bf3ed53d416ec8bcdbd-filethingie-master.zip 
+
+cat << EOF > webroot-index.html
+<!DOCTYPE html>
+<html>
+<body>
+<h2>Find things first</h2>
+</body>
+</html>
+
+EOF
+
+$docker cp webroot-index.html $wname:/var/www/html/index.html
+
+cat << EOF > $dir2-index.html
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>base64</h2>
+<p>Base64 Encoded: decode it.
+UW1GelpUWTBJR2x6SUhOdklHVmhjM2tnZEc4Z1kzSmhZMnM9
+</body>
+</html>
+
+EOF
+$docker exec -it $wname mkdir /var/www/html/$dir2
+$docker cp $dir2-index.html $wname:/var/www/html/$dir2/index.html
 
 cat << EOF > $dir3-index.html
 <!DOCTYPE html>
