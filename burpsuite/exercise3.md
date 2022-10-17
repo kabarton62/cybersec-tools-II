@@ -209,6 +209,7 @@ blue-index.html           deploy.sh           robots.txt          webroot-index.
 ```
 
 ## Burp Suite Decoder Tool
+### Challenge 1: Decode ASCII hex
 [Burp Suite Decoder tool](https://portswigger.net/burp/documentation/desktop/tools/decoder) encodes and decodes data to/from URL, HTML, Base64, ASCII hex, hexadecimal, octal, binary and gzip. Typically, this transforms text data but it can also be used to tranform binary data. Encoded data may not be human readable, but it just encoded, not encrypted. Encryption makes data unreadable with decryption and the required key. Encryption is secure. Encoded data can be decoded simply by running the encoded data through the appropriate algrorithm, but decoding does not require a key.
 
 Burp Suite Decoder tool also performs hashing. Hashing functions are one-way lossy compression functions that create a fixed length _hash value_ that is a fignerprint of the input message. Hash values cannot be decoded to recover the original message. Hash functions are lossy, meaning that the original message cannot be calculated from the hash value.
@@ -227,3 +228,14 @@ Multiple rounds of encoding/decoding can be performed and data can be modified b
 <img src="../images/burp-decoder2.png" width="900" height="900">
 
 **Figure 2, Burp Suite Decoder - Multiple Rounds**
+
+### ASCII Hex
+Examine robots.txt in the web root. The contents are obviously not text. Although the encoding is not obvious, it also does not look like URL, HTML or Base64 encoding. One approach is to just send the string to Decoder and attempt to decode the string with various algorithms. 
+1. Find the HTTP Response in Burp Suite's HTTP history. 
+2. Select the encoded string 
+3. Right-click the encoded string and click **Send to Decoder**
+4. Select Decoder and confirm the encoded string is present
+5. Click **Decode as ...** and **ASCII hex**
+
+**Capture a screenshot of the decoded string.**
+
