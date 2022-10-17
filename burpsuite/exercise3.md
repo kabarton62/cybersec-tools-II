@@ -207,3 +207,14 @@ user@server:~/burp3$ ls
 UTLanVxNGYZYL-index.html  customWordlist.txt  docker-compose.yml  softblue-index.html
 blue-index.html           deploy.sh           robots.txt          webroot-index.html
 ```
+
+## Burp Suite Decoder Tool
+[Burp Suite Decoder tool](https://portswigger.net/burp/documentation/desktop/tools/decoder) encodes and decodes data to/from URL, HTML, Base64, ASCII hex, hexadecimal, octal, binary and gzip. Typically, this transforms text data but it can also be used to tranform binary data. Encoded data may not be human readable, but it just encoded, not encrypted. Encryption makes data unreadable with decryption and the required key. Encryption is secure. Encoded data can be decoded simply by running the encoded data through the appropriate algrorithm, but decoding does not require a key.
+
+Burp Suite Decoder tool also performs hashing. Hashing functions are one-way lossy compression functions that create a fixed length _hash value_ that is a fignerprint of the input message. Hash values cannot be decoded to recover the original message. Hash functions are lossy, meaning that the original message cannot be calculated from the hash value.
+
+Two methods are available to send data to Decoder. First, data can be typed or pasted to Decoder. Second, data can be selected in either an HTTP Request or Response using Intercept, HTTP History, Repeater or other Burp Suite tools, right clicking and using Send to Decoder. Figure 1 illustrates decoding ASCII hex.
+
+<img src="../images/burp_decoder.png" width="600" height="200">
+**Figure 1, Burp Suite Decoder**
+
