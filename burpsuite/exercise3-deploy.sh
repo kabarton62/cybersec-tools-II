@@ -64,7 +64,7 @@ EOF
 $docker cp robots.txt $wname:/var/www/html/robots.txt
 
 # Prepare web server container. Install unzip, mysql-client, and download applications.
-printf "\n${RED}Preparing the web server${NC}\n\n"
+printf "\n${RED}Preparing the web server. Installing packages and applications.${NC}\n\n"
 
 $docker exec -it $wname apt update 
 $docker exec -it $wname apt install unzip wget -y
@@ -73,6 +73,15 @@ $docker exec -it $wname wget https://www.exploit-db.com/apps/71442de71ef46bf3ed5
 $docker exec -it $wname unzip *.zip 
 $docker exec -it $wname mv filethingie-master/ /var/www/html/$dir1/ 
 $docker exec -it $wname rm 71442de71ef46bf3ed53d416ec8bcdbd-filethingie-master.zip 
+
+# Configure filethingie index.php, admin user and password
+printf "\n${RED}Configure File Thingie and create a password for the admin user.${NC}\n\n"
+
+$docker exec -it $wname cp /var/www/html/$dir1/ft2.php /var/www/html/$dir1/index.php
+$docker exec -it $wname cp /var/www/html/$dir1/config.sample.php /var/www/html/$dir1/config.php
+$docker exec -it $wname sed -i 's/define("USERNAME", "")/define("USERNAME", "admin")/g' /var/www/html/$dir1/config.php
+$docker exec -it $wname sed -i 's/define("PASSWORD", "")/define("PASSWORD", "24408ce3f09b31f9d3454ee6ea81bb63")/g' /var/www/html/$dir1/config.php
+$docker exec -it $wname chown -R www-data:www-data /var/www/html/$dir1
 
 cat << EOF > webroot-index.html
 <!DOCTYPE html>
@@ -131,13 +140,6 @@ EOF
 
 $docker exec -it $wname mkdir /var/www/html/$dir4
 $docker cp $dir4-index.html $wname:/var/www/html/$dir4/index.html
-
-# Configure filethingie index.php, admin user and password
-$docker exec -it $wname cp /var/www/html/$dir1/ft2.php /var/www/html/$dir1/index.php
-$docker exec -it $wname cp /var/www/html/$dir1/config.sample.php /var/www/html/$dir1/config.php
-$docker exec -it $wname sed -i 's/define("USERNAME", "")/define("USERNAME", "admin")/g' /var/www/html/$dir1/config.php
-$docker exec -it $wname sed -i 's/define("PASSWORD", "")/define("PASSWORD", "24408ce3f09b31f9d3454ee6ea81bb63")/g' /var/www/html/$dir1/config.php
-$docker exec -it $wname chown -R www-data:www-data /var/www/html/$dir1
 
 cat << EOF > customWordlist.txt
 celtic
