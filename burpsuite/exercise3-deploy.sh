@@ -20,7 +20,6 @@ sqlip='172.19.4.4'
 port='8500'
 RED='\033[0;31m'
 NC='\033[0m'
-message1=$(echo 'Finally, a win!'|base64)
 
 # Create docker-compose.yml
 cat << EOF > $f
@@ -63,14 +62,10 @@ EOF
 # Deploy the containers
 $compose up -d 
 
-printf "\n${RED}Containers are running, please wait while mysql-server and apache2 start.${NC}\n\n"
-sleep 20
-
 # Create robots.txt and transfer to web server
 
 cat << EOF > robots.txt
-User-agent: * 
-Disallow: /$dir1/
+557365722d6167656e743a202a200a446973616c6c6f773a202f58385846617354444e4b2f
 EOF
 
 $docker cp robots.txt $wname:/var/www/html/robots.txt
