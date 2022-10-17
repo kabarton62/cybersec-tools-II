@@ -55,6 +55,13 @@ RED='\033[0;31m'
 NC='\033[0m'
 ```
 
+Previous exercises did not require docker-compose, so deploy.sh first ensures docker-compose is installed.
+```
+
+/usr/bin/sudo /usr/bin/apt update
+/usr/bin/sudo /usr/bin/apt install docker-compose
+```
+
 The script uses docker-compose to deploy two containers, a web server and a mysql server. Docker-compose requires a configuration file to deploy the containers and network. Although alternative filenames can be used, docker-compose looks for the file docker-compose.yml by default. The script uses a here-document to create docker-compose.yml. Notice that the docker-compose.yml file uses some of the variables defined at the beginning of the script, including container names, docker-compose.yml filename, port to bind http, and IP addresses for the containers. The mysql root user password is also defined in docker-compose.yml, and could be changed by modifying the enviroment value for MYSQL_ROOT_PASSWORD.
 
 ```
@@ -164,3 +171,39 @@ $docker cp $dir2-index.html $wname:/var/www/html/$dir2/index.html
 
 ## Build the Lab with deploy.sh
 Now that we understand what deploy.sh does, create deploy.sh on your Ubuntu server and execute the script to build the lab. Deploy.sh depends on Docker compute engine and docker-compose. Install those dependencies if they are not already installed. A script to install the required dependencies is provided [here](https://github.com/kabarton62/cybersec-tools-II/blob/main/install.sh).
+
+1. Create a directory to store files for the lab and change directories to that new directory. 
+2. Use a text editor of your choice to create deploy.sh on your Ubuntu server. Copy and paste [the bash script from GitHub ](https://github.com/kabarton62/cybersec-tools-II/blob/main/burpsuite/exercise3-deploy.sh) to **deploy.sh** on your Ubuntu server. 
+3. Finally, execute deploy.sh. The following illustrates the lab being built. Note that several files are created in the directory where deploy.sh is executed (i.e., burp3/).
+
+```
+user@server:~$ mkdir burp3 && cd burp3/
+user@server:~/burp3$ nano deploy.sh
+
+user@server:~/burp3$ bash deploy.sh 
+Creating network "burp3_burpbr" with driver "bridge"
+Pulling web (php:7.0-apache)...
+7.0-apache: Pulling from library/php
+177e7ef0df69: Pull complete
+9bf89f2eda24: Pull complete
+350207dcf1b7: Extracting [=================================================> ]  66.85MB/67.44MB
+a8a33d96b4e7: Download complete
+c0421d5b63d6: Download complete
+f76e300fbe72: Download complete
+af9ff1b9ce5b: Download complete
+d9f072d61771: Download complete
+37007e292198: Download complete
+8ba923990f24: Download complete
+98af8902979a: Download complete
+f1548c2cd376: Download complete
+e1062fd0605a: Download complete
+Status: Downloaded newer image for php:7.0-apache
+Creating burp3-mysql ... done
+Creating burp3-web   ... done
+
+---- TRUNCATED -----
+
+user@server:~/burp3$ ls
+UTLanVxNGYZYL-index.html  customWordlist.txt  docker-compose.yml  softblue-index.html
+blue-index.html           deploy.sh           robots.txt          webroot-index.html
+```
