@@ -18,6 +18,9 @@ port='8500'
 RED='\033[0;31m'
 NC='\033[0m'
 
+/usr/bin/sudo /usr/bin/apt update
+/usr/bin/sudo /usr/bin/apt install docker-compose
+
 # Create docker-compose.yml
 cat << EOF > $f
 version: '2'
