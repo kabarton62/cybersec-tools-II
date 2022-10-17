@@ -55,3 +55,109 @@ RED='\033[0;31m'
 NC='\033[0m'
 ```
 
+The script uses docker-compose to deploy two containers, a web server and a mysql server. Docker-compose requires a configuration file to deploy the containers and network. Although alternative filenames can be used, docker-compose looks for the file docker-compose.yml by default. The script uses a here-document to create docker-compose.yml. Notice that the docker-compose.yml file uses some of the variables defined at the beginning of the script, including container names, docker-compose.yml filename, port to bind http, and IP addresses for the containers. The mysql root user password is also defined in docker-compose.yml, and could be changed by modifying the enviroment value for MYSQL_ROOT_PASSWORD.
+
+```
+# Create docker-compose.yml
+cat << EOF > $f
+version: '2'
+services:
+ web:
+   container_name: $wname
+   image: $web
+   hostname: $hostname
+   depends_on:
+    - mysql
+   ports:
+    - "$port:80"
+   networks:
+     burpbr:
+       ipv4_address: $webip
+ mysql:
+   container_name: $sqlname
+   image: $mysql
+   environment: 
+    - MYSQL_ROOT_PASSWORD=root
+   networks: 
+     burpbr:
+       ipv4_address: $sqlip
+networks:
+  burpbr:
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 172.19.4.0/24
+         gateway: 172.19.4.1
+EOF
+```
+
+The following command deploys the containers using docker-compose.
+```
+# Deploy the containers
+$compose up -d 
+```
+
+Next, we create robots.txt with a here-document and copy it to the webroot in the web server.
+
+```
+# Create robots.txt and transfer to web server
+
+cat << EOF > robots.txt
+Ascii hex: so stupid
+557365722d6167656e743a202a200a446973616c6c6f773a202f58385846617354444e4b2f
+EOF
+
+$docker cp robots.txt $wname:/var/www/html/robots.txt
+```
+
+Next, we install some packages in the web server (unzip, wget), download and extract File Thingie, and configure File Thingie. Note, the **printf** command is used to print a couple of comments showing actions being completed in the script. These are informational but could help us troubleshoot the script if we had problems executing the script.
+```
+# Prepare web server container. Install unzip, mysql-client, and download applications.
+printf "\n${RED}Preparing the web server. Installing packages and applications.${NC}\n\n"
+
+$docker exec -it $wname apt update 
+$docker exec -it $wname apt install unzip wget -y
+$docker exec -it $wname cd /
+$docker exec -it $wname wget https://www.exploit-db.com/apps/71442de71ef46bf3ed53d416ec8bcdbd-filethingie-master.zip
+$docker exec -it $wname unzip *.zip 
+$docker exec -it $wname mv filethingie-master/ /var/www/html/$dir1/ 
+$docker exec -it $wname rm 71442de71ef46bf3ed53d416ec8bcdbd-filethingie-master.zip 
+
+# Configure filethingie index.php, admin user and password
+printf "\n${RED}Configure File Thingie and create a password for the admin user.${NC}\n\n"
+
+$docker exec -it $wname cp /var/www/html/$dir1/ft2.php /var/www/html/$dir1/index.php
+$docker exec -it $wname cp /var/www/html/$dir1/config.sample.php /var/www/html/$dir1/config.php
+$docker exec -it $wname sed -i 's/define("USERNAME", "")/define("USERNAME", "admin")/g' /var/www/html/$dir1/config.php
+$docker exec -it $wname sed -i 's/define("PASSWORD", "")/define("PASSWORD", "24408ce3f09b31f9d3454ee6ea81bb63")/g' /var/www/html/$dir1/config.php
+$docker exec -it $wname chown -R www-data:www-data /var/www/html/$dir1
+```
+
+The remainder of the script creates additional directories and index files for each directory, then copies those index files to each directory. Examples of two index files are shown below.
+
+```
+cat << EOF > webroot-index.html
+<!DOCTYPE html>
+<html>
+<body>
+<h2>Find things first</h2>
+</body>
+</html>
+EOF
+
+$docker cp webroot-index.html $wname:/var/www/html/index.html
+
+cat << EOF > $dir2-index.html
+<!DOCTYPE html>
+<html>
+<body>
+<h2>base64</h2>
+<p>Base64 Encoded: decode it.
+UW1GelpUWTBJR2x6SUhOdklHVmhjM2tnZEc4Z1kzSmhZMnM9
+</body>
+</html>
+EOF
+
+$docker exec -it $wname mkdir /var/www/html/$dir2
+$docker cp $dir2-index.html $wname:/var/www/html/$dir2/index.html
+```
