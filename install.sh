@@ -13,7 +13,8 @@ sudo apt install -y \
   docker-ce \
   nmap \
   net-tools \
-  bridge-utils
+  bridge-utils \
+  docker-compose
 
 # Install containerlab
 sudo bash -c "$(curl -sL https://get-clab.srlinux.dev)"
