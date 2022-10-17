@@ -12,6 +12,7 @@ dir1='X8XFasTDNK'
 dir2='softblue'
 dir3='blue'
 dir4='UTLanVxNGYZYL'
+hashf='84d961568a65073a3bcf0eb216b2a576'
 webip='172.19.4.3'
 sqlip='172.19.4.4'
 port='8500'
@@ -142,7 +143,7 @@ cat << EOF > $dir4-index.html
 EOF
 
 $docker exec -it $wname mkdir /var/www/html/$dir4
-$docker cp $dir4-index.html $wname:/var/www/html/$dir4/index.html
+$docker cp $dir4-index.html $wname:/var/www/html/$dir4/$hashf.html
 
 cat << EOF > customWordlist.txt
 celtic
