@@ -215,6 +215,15 @@ Burp Suite Decoder tool also performs hashing. Hashing functions are one-way los
 
 Two methods are available to send data to Decoder. First, data can be typed or pasted to Decoder. Second, data can be selected in either an HTTP Request or Response using Intercept, HTTP History, Repeater or other Burp Suite tools, right clicking and using Send to Decoder. Figure 1 illustrates decoding ASCII hex.
 
-<img src="../images/burp_decoder.png" width="600" height="200">
+<img src="../images/burp-decoder.png" width="900" height="900">
+
 **Figure 1, Burp Suite Decoder**
 
+Multiple rounds of encoding/decoding can be performed and data can be modified before or after encoding/decoding. Figure 2 illustrates
+1. decoding ASCII hex
+2. encoding the result of round 1 as Base64
+3. encoding the result of round 2 as URL
+
+<img src="../images/burp-decoder2.png" width="900" height="900">
+
+**Figure 2, Burp Suite Decoder - Multiple Rounds**
