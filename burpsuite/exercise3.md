@@ -1,8 +1,8 @@
 # <img src="https://www.tamusa.edu/brandguide/jpeglogos/tamusa_final_logo_bw1.jpg" width="100" height="50"> Burp Suite - Decoder and Comparer Tools; User and Proxy Options
 
-## Build the Lab
+## Understanding deploy.sh
 Deploy a testing environment using Docker containers. A bash script that automates the deployment of the lab environment is provided [here](https://github.com/kabarton62/cybersec-tools-II/blob/main/burpsuite/exercise3-deploy.sh). Start by reviewing the bash script.
-Lines 1 through 3 include the **shebang** and defome two variables, **$docker** and **$compose**. The shebang must be the first line.
+Lines 1 through 3 include the **shebang (#!/bin/bash)** and define two variables, **$docker** and **$compose**. The shebang must be the first line.
 ```
 #!/bin/bash
 docker='/usr/bin/sudo /usr/bin/docker'
@@ -161,3 +161,6 @@ EOF
 $docker exec -it $wname mkdir /var/www/html/$dir2
 $docker cp $dir2-index.html $wname:/var/www/html/$dir2/index.html
 ```
+
+## Build the Lab with deploy.sh
+Now that we understand what deploy.sh does, create deploy.sh on your Ubuntu server and execute the script to build the lab. Deploy.sh depends on Docker compute engine and docker-compose. Install those dependencies if they are not already installed. A script to install the required dependencies is provided [here](https://github.com/kabarton62/cybersec-tools-II/blob/main/install.sh).
