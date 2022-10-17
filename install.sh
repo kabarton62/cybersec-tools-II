@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Install nmap, net-tools, bridge-utils, docker and containerlab on Ubuntu
+# Install nmap, net-tools, bridge-utils, docker, docker-compose and containerlab on Ubuntu
 
 # Install prerequisites
 sudo apt install apt-transport-https ca-certificates bridge-utils
