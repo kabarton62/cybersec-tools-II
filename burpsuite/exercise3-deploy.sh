@@ -71,7 +71,6 @@ printf "\n${RED}Preparing the web server${NC}\n\n"
 
 $docker exec -it $wname apt update 
 $docker exec -it $wname apt install unzip wget -y
-$docker exec -it $wname mkdir /var/www/html/$dir2
 $docker exec -it $wname cd /
 $docker exec -it $wname wget https://www.exploit-db.com/apps/71442de71ef46bf3ed53d416ec8bcdbd-filethingie-master.zip
 $docker exec -it $wname unzip *.zip 
