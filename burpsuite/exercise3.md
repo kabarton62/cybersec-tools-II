@@ -229,7 +229,7 @@ Multiple rounds of encoding/decoding can be performed and data can be modified b
 
 **Figure 2, Burp Suite Decoder - Multiple Rounds**
 
-### ASCII Hex
+### Challenge 1: ASCII Hex
 Examine robots.txt in the web root. The contents are obviously not text. Although the encoding is not obvious, it also does not look like URL, HTML or Base64 encoding. One approach is to just send the string to Decoder and attempt to decode the string with various algorithms. 
 1. Find the HTTP Response in Burp Suite's HTTP history. 
 2. Select the encoded string 
@@ -238,4 +238,29 @@ Examine robots.txt in the web root. The contents are obviously not text. Althoug
 5. Click **Decode as ...** and **ASCII hex**
 
 **Capture a screenshot of the decoded string.**
+
+### Challenge 2: Hash Functions
+Challenge 1 discloses a directory. Browse to that directory and crack the **admin** password. The catch is that the system admin was concerned about storing plaintext passwords in the application, so she hashed the password before storing it. The password is in customWordlist.txt. Crack the password.
+
+Use Payload Processing in the Intruder tool to complete the password attack.
+1. Under Payload Processing, click **Add**
+2. Select **Rule Type** > **Hash** > **MD5** > **OK**
+3. Start the attack
+
+**Report the plaintext and hash for the passowrd.**
+
+### Challenge 3: Base64, URL and HTLML 
+Use dirb and dirbuster to discover additional directories. Two directories can be discovered with directory enumeration wordlists in Kali. Decode the strings discovered in the index files.
+
+**Report the discovered directories and plaintext strings decoded from the index files.**
+
+### Challenge 4: Discover Hidden Resources
+The system administrator attempted to hide a file by using a md5 hash value as part of the file name. The file extension is .html, but the filename has been changed to a hash value of a password in customWordlist.txt.
+
+1. Browse to http://ip-address:8500/UTLanVxNGYZYL/
+2. Note that you receive a permission denied response. The directory does not have an index file (i.e., index.html). You must browse to an existing resource in that directory to get a response. The successful URL will look something like http://ip-address:8500/UTLanVxNGYZYL/fea0f1f6fede90bd0a925b4194deac11.html. 
+3. Find the hidden file and decode the content.
+
+**Report the URL to the hidden file and plaintext of the file content.**
+
 
