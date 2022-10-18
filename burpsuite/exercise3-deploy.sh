@@ -20,7 +20,7 @@ RED='\033[0;31m'
 NC='\033[0m'
 
 /usr/bin/sudo /usr/bin/apt update
-/usr/bin/sudo /usr/bin/apt install docker-compose
+/usr/bin/sudo /usr/bin/apt install docker-compose -y
 
 # Create docker-compose.yml
 cat << EOF > $f
