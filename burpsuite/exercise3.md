@@ -263,4 +263,13 @@ The system administrator attempted to hide a file by using a md5 hash value as p
 
 **Report the URL to the hidden file and plaintext of the file content.**
 
+## Burp Suite Comparer Tool
+The [Burp Suite Comparer tool](https://portswigger.net/burp/documentation/desktop/tools/comparer) compare and highlights the difference between any two data items. For example, consider a password attack against some web application that has a nuanced difference between successful and failed login attempts. Spotting the successful login attempt from manual examination may be difficult. Comparer would highlight the difference between a successful and failed attempt. A web application tester could use the results to improve testing processes.
 
+### Challenge 5: Compare Failed and Successful Login Attempts
+You executed a password attack against a web application in Challenge 2, Hash Functions. The successful password was a hash value of a password from customWordlist.txt. You discovered the plaintext password and the password hash. Login attempts using the plaintext password will result in failed attempts, login attempts with the password hash will be successful. 
+1. Attempt to login with both the plaintext password and the password hash. 
+2. Send reponses from both attempts to **Comparer**.
+3. Select the **Comparer** tab.
+4. Under **Compare**, select **Words**.
+5. Summarize the content in the two responses reported as **Modified**, **Deleted**, and **Added**. Explain the indicators of a successful login attempt vs a failed login attempt.
