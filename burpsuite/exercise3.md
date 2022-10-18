@@ -273,3 +273,24 @@ You executed a password attack against a web application in Challenge 2, Hash Fu
 3. Select the **Comparer** tab.
 4. Under **Compare**, select **Words**.
 5. Summarize the content in the two responses reported as **Modified**, **Deleted**, and **Added**. Explain the indicators of a successful login attempt vs a failed login attempt.
+
+## Destroy the Lab Network
+Recall that the lab network was deployed with **docker-compose**. Docker-compose will also be used to destroy the lab network. 
+1. Return to ~/burp3.
+2. Verify that **docker-compose.yml** is present in the directory.
+3. Destroy the Docker containers and network with:
+
+```
+sudo docker-compose down
+Stopping burp3-web   ... done
+Stopping burp3-mysql ... done
+Removing burp3-web   ... done
+Removing burp3-mysql ... done
+Removing network burp3_burpbr
+```
+
+Last, remove ~/burp3 and its contents.
+```
+cd ~
+rm -r ~/burp3
+```
