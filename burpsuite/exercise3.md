@@ -247,7 +247,7 @@ Use Payload Processing in the Intruder tool to complete the password attack.
 2. Select **Rule Type** > **Hash** > **MD5** > **OK**
 3. Start the attack
 
-**Report the plaintext and hash for the passowrd.**
+**Report the plaintext and hash for the password.**
 
 ### Challenge 3: Base64, URL and HTLML 
 Use dirb and dirbuster to discover additional directories. Two directories can be discovered with directory enumeration wordlists in Kali. Decode the strings discovered in the index files.
