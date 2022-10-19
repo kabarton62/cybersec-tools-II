@@ -26,4 +26,11 @@ Students complete black-box testing against instructor developed and deployed ta
 
 ## Part 3, Burp Suite: [burpsuite](https://github.com/kabarton62/cybersec-tools-II/tree/main/burpsuite)
 
+### [Exercise 3-1](https://github.com/kabarton62/cybersec-tools-II/blob/main/burpsuite/exercise1.md)
+Exercise 1 walks students through Burp Suite configuration. Students are introduced to target and scope configuration.
 
+### [Exercise 3-2](https://github.com/kabarton62/cybersec-tools-II/blob/main/burpsuite/exercise2.md)
+Exercise 2 introduces the Repeater and Intruder tools. These tools are used to complete a Local File Inclusion (LFI) attack againsta a Metasploitable2 container.
+
+### [Exercise 3-3](https://github.com/kabarton62/cybersec-tools-II/blob/main/burpsuite/exercise3.md)
+Exercise 3 introduces the Decoder and Comparer tools. Students [deploy an Ubuntu web server using a bash script](https://github.com/kabarton62/cybersec-tools-II/blob/main/burpsuite/exercise3-deploy.sh). The exercise explains the bash script function. The web server includes configurations that require the use of Burp Suite Decoder tools. The Comparer tool is also introduced. 
