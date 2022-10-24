@@ -123,3 +123,11 @@ Creating startrek_payroll_mysql ... done
 Creating startrek_payroll_php   ... done
 Recreating startrek_payroll_nginx ... done
 ```
+
+Verify the project is running by browsing to the application. See Figure 2.
+
+<img src="../images/payroll_login.png" width="800" height="900">
+
+**Figure 2, Payroll Login**
+
+**Capture a screenshot of the Payroll Login page.**
