@@ -35,5 +35,7 @@ Exercise 2 introduces the Repeater and Intruder tools. These tools are used to c
 ### [Exercise 3-3](https://github.com/kabarton62/cybersec-tools-II/blob/main/burpsuite/exercise3.md)
 Exercise 3 introduces the Decoder and Comparer tools. Students [deploy an Ubuntu web server using a bash script](https://github.com/kabarton62/cybersec-tools-II/blob/main/burpsuite/exercise3-deploy.sh). The exercise explains the bash script function. The web server includes configurations that require the use of Burp Suite Decoder tools. The Comparer tool is also introduced. 
 
-## Part 4, SQL Injection: [sqli](https://github.com/kabarton62/cybersec-tools-II/blob/main/sqli/exercise1.md)
+## Part 4, SQL Injection: [sqli](https://github.com/kabarton62/cybersec-tools-II/blob/main/sqli/)
+
+### [Exercise 4-1](https://github.com/kabarton62/cybersec-tools-II/blob/main/sqli/exercise1.md)
 Exercise 1 introduces students who do not have experience with SQL queries to basic queries needed to understand SQL injection (SQLi).
