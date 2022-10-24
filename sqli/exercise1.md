@@ -131,3 +131,184 @@ Verify the project is running by browsing to the application. See Figure 2.
 **Figure 2, Payroll Login**
 
 **Capture a screenshot of the Payroll Login page.**
+
+## SQL Query
+### Challenge 3: Getting a SQL Shell
+
+We will start by running some basic SQL queries inside our database server using a **SQL shell**. A SQL shell looks very similar to a Bash shell but is used to run SQL queries rather the Bash commands. We need to know the MySQL root user's password to authenticate to MySQL. Recall that the password was set in docker-compose.yml. It is also disclosed in app/index.php. 
+
+**Login as the MySQL root user. Find the password and use it to authenticate when prompted for a password.**
+
+The option -u root logs in as the MySQL root user. The option -p will prompt for a password during authentication.
+
+```
+~/startrek_payroll$ sudo docker exec -it startrek_payroll_mysql bash
+
+root@afc147c30e7c:/# mysql -u root -p
+Enter password: 
+
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 69
+Server version: 5.5.62 MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2018, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> 
+```
+**Capture a screenshot of the SQL shell.**
+
+### Challenge 4: Enumerating the Database Management System (DBMS)
+The exact syntax and database schema tables needed to execute a successful SQLi attack are dependant on the underlying DBMS. Therefore, enumerating the DMBS is a useful place to start learning SQL queries. Start by discovering the DBMS version and current user. Since we are building toward a SQLi attack, we will start by enumerating these details using SQL queries. Note, all SQL queries (ok, with a couple of exceptions) must end with a semi-colon. The command SELECT can be either uppercase or lowercase.
+
+SELECT version() reports the version.
+SELECT user() reports the current user.
+SELECT database()
+
+```
+mysql> SELECT version();
++-----------+
+| version() |
++-----------+
+| 5.5.62    |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT user();
++----------------+
+| user()         |
++----------------+
+| root@localhost |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> select db();
+ERROR 1305 (42000): FUNCTION db does not exist
+mysql> select database();
++------------+
+| database() |
++------------+
+| NULL       |
++------------+
+1 row in set (0.00 sec)
+
+```
+
+SQL SHOW commands will show available databases, tables, columns and other metadata. Use SHOW commands to enumerate mysql users. 
+
+```
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| payroll            |
+| performance_schema |
++--------------------+
+4 rows in set (0.00 sec)
+
+mysql> show tables in mysql;
++---------------------------+
+| Tables_in_mysql           |
++---------------------------+
+| columns_priv              |
+| db                        |
+| event                     |
+| func                      |
+| general_log               |
+| help_category             |
+| help_keyword              |
+| help_relation             |
+| help_topic                |
+| host                      |
+| ndb_binlog_index          |
+| plugin                    |
+| proc                      |
+| procs_priv                |
+| proxies_priv              |
+| servers                   |
+| slow_log                  |
+| tables_priv               |
+| time_zone                 |
+| time_zone_leap_second     |
+| time_zone_name            |
+| time_zone_transition      |
+| time_zone_transition_type |
+| user                      |
++---------------------------+
+24 rows in set (0.01 sec)
+
+mysql> show columns in mysql.user;
++------------------------+-----------------------------------+------+-----+---------+-------+
+| Field                  | Type                              | Null | Key | Default | Extra |
++------------------------+-----------------------------------+------+-----+---------+-------+
+| Host                   | char(60)                          | NO   | PRI |         |       |
+| User                   | char(16)                          | NO   | PRI |         |       |
+| Password               | char(41)                          | NO   |     |         |       |
+| Select_priv            | enum('N','Y')                     | NO   |     | N       |       |
+| Insert_priv            | enum('N','Y')                     | NO   |     | N       |       |
+| Update_priv            | enum('N','Y')                     | NO   |     | N       |       |
+| Delete_priv            | enum('N','Y')                     | NO   |     | N       |       |
+| Create_priv            | enum('N','Y')                     | NO   |     | N       |       |
+| Drop_priv              | enum('N','Y')                     | NO   |     | N       |       |
+| Reload_priv            | enum('N','Y')                     | NO   |     | N       |       |
+| Shutdown_priv          | enum('N','Y')                     | NO   |     | N       |       |
+| Process_priv           | enum('N','Y')                     | NO   |     | N       |       |
+| File_priv              | enum('N','Y')                     | NO   |     | N       |       |
+| Grant_priv             | enum('N','Y')                     | NO   |     | N       |       |
+| References_priv        | enum('N','Y')                     | NO   |     | N       |       |
+| Index_priv             | enum('N','Y')                     | NO   |     | N       |       |
+| Alter_priv             | enum('N','Y')                     | NO   |     | N       |       |
+| Show_db_priv           | enum('N','Y')                     | NO   |     | N       |       |
+| Super_priv             | enum('N','Y')                     | NO   |     | N       |       |
+| Create_tmp_table_priv  | enum('N','Y')                     | NO   |     | N       |       |
+| Lock_tables_priv       | enum('N','Y')                     | NO   |     | N       |       |
+| Execute_priv           | enum('N','Y')                     | NO   |     | N       |       |
+| Repl_slave_priv        | enum('N','Y')                     | NO   |     | N       |       |
+| Repl_client_priv       | enum('N','Y')                     | NO   |     | N       |       |
+| Create_view_priv       | enum('N','Y')                     | NO   |     | N       |       |
+| Show_view_priv         | enum('N','Y')                     | NO   |     | N       |       |
+| Create_routine_priv    | enum('N','Y')                     | NO   |     | N       |       |
+| Alter_routine_priv     | enum('N','Y')                     | NO   |     | N       |       |
+| Create_user_priv       | enum('N','Y')                     | NO   |     | N       |       |
+| Event_priv             | enum('N','Y')                     | NO   |     | N       |       |
+| Trigger_priv           | enum('N','Y')                     | NO   |     | N       |       |
+| Create_tablespace_priv | enum('N','Y')                     | NO   |     | N       |       |
+| ssl_type               | enum('','ANY','X509','SPECIFIED') | NO   |     |         |       |
+| ssl_cipher             | blob                              | NO   |     | NULL    |       |
+| x509_issuer            | blob                              | NO   |     | NULL    |       |
+| x509_subject           | blob                              | NO   |     | NULL    |       |
+| max_questions          | int(11) unsigned                  | NO   |     | 0       |       |
+| max_updates            | int(11) unsigned                  | NO   |     | 0       |       |
+| max_connections        | int(11) unsigned                  | NO   |     | 0       |       |
+| max_user_connections   | int(11) unsigned                  | NO   |     | 0       |       |
+| plugin                 | char(64)                          | YES  |     |         |       |
+| authentication_string  | text                              | YES  |     | NULL    |       |
++------------------------+-----------------------------------+------+-----+---------+-------+
+42 rows in set (0.00 sec)
+```
+**Capture a screenshot of the columns in table mysql.user. **
+
+### Challenge 5: SELECT statement
+
+The SELECT statement is used to query content from one or more tables. We enumerated the columns in the mysql.user table, so now let's see if we can extract user information from that table. We are interested in three _fields_ (columns) in mysql.user: user, host, and password. 
+
+Use a SELECT statement to get all users.
+
+```
+mysql> select user,host,password from mysql.user;
++------+-----------+-------------------------------------------+
+| user | host      | password                                  |
++------+-----------+-------------------------------------------+
+| root | localhost | *67A5195F64E08F5700B665061545D5473D77B5D7 |
+| root | %         | *67A5195F64E08F5700B665061545D5473D77B5D7 |
++------+-----------+-------------------------------------------+
+2 rows in set (0.00 sec)
+```
+
