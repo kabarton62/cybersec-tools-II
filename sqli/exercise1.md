@@ -299,10 +299,19 @@ mysql> show columns in mysql.user;
 
 The SELECT statement is used to query content from one or more tables. We enumerated the columns in the mysql.user table, so now let's see if we can extract user information from that table. We are interested in three _fields_ (columns) in mysql.user: user, host, and password. 
 
-Use a SELECT statement to get all users.
+Use a SELECT statement to get all users. The syntax for a SELECT statement is:
 
 ```
-mysql> select user,host,password from mysql.user;
+SELECT column1,column2,column3 FROM table
+
+or
+
+SELECT column1,column2,column3 FROM database.table
+```
+An example from our MySQL server:
+
+```
+mysql> SELECT user,host,password FROM mysql.user;
 +------+-----------+-------------------------------------------+
 | user | host      | password                                  |
 +------+-----------+-------------------------------------------+
