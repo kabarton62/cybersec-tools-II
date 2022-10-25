@@ -188,8 +188,6 @@ mysql> SELECT user();
 +----------------+
 1 row in set (0.00 sec)
 
-mysql> select db();
-ERROR 1305 (42000): FUNCTION db does not exist
 mysql> SELECT database();
 +------------+
 | database() |
