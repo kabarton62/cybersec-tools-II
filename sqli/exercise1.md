@@ -473,9 +473,21 @@ mysql> select username, salary from users where username = 'james_kirk' OR 1=1;
 +------------------+--------+
 7 rows in set (0.00 sec)
 ```
-Now, we make a slight modification to the SQL query by adding the rest of coded query, but we comment out the newly added part using **;#** or **;-- **. 
+Now, we make a slight modification to the SQL query by adding the rest of coded query, but we comment out the newly added part using ";#" or ";-- ". Note that there is a space following ";--". The space is required.
 
 **select username, salary from users where username = 'james_kirk' OR 1=1;#' and password = 'kobayashi_maru';**
 or
 **select username, salary from users where username = 'james_kirk' OR 1=1;-- ' and password = **'kobayashi_maru'**;**
 
+Since special characters such as space, #, --, and single quotation marks (') are not sanitized, a user could pass the following values in a login attempt:
+
+|||
+|---|---|
+|**User**|' OR 1=1;#|
+|**Password**|junk|
+
+If successful, we might expect the username and salary for all users in table users.
+
+Demonstrate SQLi attacks using both strings, "**' OR 1=1;#**" and "**' OR 1=1;-- **". 
+
+**Capture a screenshot of both SQLi attacks against the login page.**
