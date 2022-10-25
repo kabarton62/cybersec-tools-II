@@ -488,6 +488,6 @@ Since special characters such as space, #, --, and single quotation marks (') ar
 
 If successful, we might expect the username and salary for all users in table users.
 
-Demonstrate SQLi attacks using both strings, "**' OR 1=1;#**" and "**' OR 1=1;-- **". 
+Demonstrate SQLi attacks using both strings, **"**' OR 1=1;#**"** and **"**' OR 1=1;-- **"**. 
 
 **Capture a screenshot of both SQLi attacks against the login page.**
