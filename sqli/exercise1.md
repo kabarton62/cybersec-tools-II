@@ -189,7 +189,7 @@ mysql> SELECT user();
 
 mysql> select db();
 ERROR 1305 (42000): FUNCTION db does not exist
-mysql> select database();
+mysql> SELECT database();
 +------------+
 | database() |
 +------------+
@@ -202,7 +202,7 @@ mysql> select database();
 SQL SHOW commands will show available databases, tables, columns and other metadata. Use SHOW commands to enumerate mysql users. 
 
 ```
-mysql> show databases;
+mysql> SHOW databases;
 +--------------------+
 | Database           |
 +--------------------+
@@ -213,7 +213,7 @@ mysql> show databases;
 +--------------------+
 4 rows in set (0.00 sec)
 
-mysql> show tables in mysql;
+mysql> SHOW tables IN mysql;
 +---------------------------+
 | Tables_in_mysql           |
 +---------------------------+
@@ -244,7 +244,7 @@ mysql> show tables in mysql;
 +---------------------------+
 24 rows in set (0.01 sec)
 
-mysql> show columns in mysql.user;
+mysql> SHOW columns IN mysql.user;
 +------------------------+-----------------------------------+------+-----+---------+-------+
 | Field                  | Type                              | Null | Key | Default | Extra |
 +------------------------+-----------------------------------+------+-----+---------+-------+
@@ -320,4 +320,69 @@ mysql> SELECT user,host,password FROM mysql.user;
 +------+-----------+-------------------------------------------+
 2 rows in set (0.00 sec)
 ```
+Note in the example above, we are running a SQL query against a table in a specific database. We can do so because our current MySQL user is root. In most cases, your user will not be root when executing SQLi injection attacks and will not have permissions to read databases other than the current database. The following shows:
+1. Listing all databases.
+2. Selecting the **payroll** database.
+3. Listing all tables in the **payroll** database. The only table found was **users**.
+4. Listing all columns in the **users** table.
 
+```
+mysql> SHOW databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| payroll            |
+| performance_schema |
++--------------------+
+4 rows in set (0.00 sec)
+
+mysql> use payroll
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> SHOW tables;
++-------------------+
+| Tables_in_payroll |
++-------------------+
+| users             |
++-------------------+
+1 row in set (0.00 sec)
+
+mysql> SHOW columns IN users;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| username   | varchar(30) | NO   |     | NULL    |       |
+| first_name | varchar(30) | NO   |     | NULL    |       |
+| last_name  | varchar(30) | NO   |     | NULL    |       |
+| password   | varchar(40) | NO   |     | NULL    |       |
+| salary     | int(20)     | NO   |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+```
+Finally, we can discover **username** and **password** for every user in the payroll database.
+
+```
+mysql> SELECT username,password FROM users;
++------------------+------------------+
+| username         | password         |
++------------------+------------------+
+| james_kirk       | kobayashi_maru   |
+| mr_spock         | 0nlyL0g!c        |
+| leonard_mccoy    | hesDEADjim!      |
+| nyota_uhura      | StarShine        |
+| montgomery_scott | ScottyDoesntKnow |
+| hiraku_sulu      | parking-break-on |
+| pavel_chekov     | 99victorvictor2  |
++------------------+------------------+
+7 rows in set (0.01 sec)
+```
+
+Let's take a set of credentials for a spin and see if we can login with the stolen credentials. For example, we can login as james_kirk (Figure 3):
+
+<img src="../images/login_stolenCreds.png" width="800" height="900">
+
+**Figure 3, Payroll Login with Stolen Credentials**
