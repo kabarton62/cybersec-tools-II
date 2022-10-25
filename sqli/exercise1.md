@@ -161,6 +161,7 @@ Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 
 mysql> 
 ```
+
 **Capture a screenshot of the SQL shell.**
 
 ### Challenge 4: Enumerating the Database Management System (DBMS)
@@ -293,6 +294,7 @@ mysql> SHOW columns IN mysql.user;
 +------------------------+-----------------------------------+------+-----+---------+-------+
 42 rows in set (0.00 sec)
 ```
+
 **Capture a screenshot of the columns in table mysql.user. **
 
 ### Challenge 5: SELECT statement
@@ -389,7 +391,7 @@ Let's take a set of credentials for a spin and see if we can login with the stol
 
 **Capture a screenshot of a successful login using stolen credentials.**
 
-### Challenge 6: Examine web application source code
+### Challenge 6: Examine web application source code and demonstrate SQLi attack
 Next, we will walk through the web application to see where we might find SQLi vulnerabilities, starting with the HTTP POST form. The following section of source code creates the POST request when a user attempts to login. Two lines are important for our analysis (HTML tags are removed):
 
 input type="text" name="**user**"
