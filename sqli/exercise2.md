@@ -10,7 +10,7 @@
 
 Figure 1 illustrates DVWA security set to low.
 
-<img src="../images/sqli_1_start.png" width="800" height="900">
+<img src="../images/sqli_1_start.png" width="1000" height="800">
 
 **Figure 1, DVWA**
 
@@ -22,13 +22,13 @@ The SQL Injection point is the HTTP header, GET/POST request parameter, or other
 
 DVWA does not suppress SQL errors in the Low security setting. Therefore, we can demonstrate the existence of a SQLi vulnerability by forcing a SQL error. Note that user input entered in the form is reflected in the URL, as shown in Figure 2. The URL could be modified to test for SQLi vulnerability.
 
-<img src="../images/sqli_2_URL.png" width="800" height="900">
+<img src="../images/sqli_2_URL.png" width="1000" height="800">
 
 **Figure 2, User Input in the URL**
 
 Figure 3 shows a SQL error returned to the web application. A single-quotation mark was passed in the _id_ parameter and returned a SQL error. This indicates that a single-quotation mark can be used to escape the scripted SQL statement and that likely an attacker could craft their own SQL statement. This is the _SQL Injection point_.
 
-<img src="../images/sqli_3_sqlError.png" width="800" height="900">
+<img src="../images/sqli_3_sqlError.png" width="1000" height="800">
 
 **Figure 3, SQL Error Indicating SQL Injection Point**
 
@@ -69,7 +69,7 @@ or/**/'1'='1';#
 ```
 DVWA is vulnerable to a simple OR statement and will disclose all users. Figure 4 shows a succcessful SQLi attack using the string **'OR '1=1**.
 
-<img src="../images/sqli_4_sqiiProof.png" width="800" height="900">
+<img src="../images/sqli_4_sqiiProof.png" width="1000" height="800">
 
 **Figure 4, SQLi Proof**
 
