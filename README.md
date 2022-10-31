@@ -39,3 +39,6 @@ Exercise 3 introduces the Decoder and Comparer tools. Students [deploy an Ubuntu
 
 ### [Exercise 4-1](https://github.com/kabarton62/cybersec-tools-II/blob/main/sqli/exercise1.md)
 Exercise 1 introduces students who do not have experience with SQL queries to basic queries needed to understand SQL injection (SQLi).
+
+### [Exercise 4-2](https://github.com/kabarton62/cybersec-tools-II/blob/main/sqli/exercise2.md)
+Exercise 2 introduces students to manual SQLi techniques to discover SQLi points; enumerate the DBMS, db, user and tables; and to dump data from a SQL database.
