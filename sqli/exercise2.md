@@ -137,7 +137,7 @@ Modify the UNION SELECT statement from the prior challenge to dump username and 
 ### Challenge 7: Login as user 'pablo'
 Challenge 6 disclosed hashed passwords for each user. Passwords are hashed with MD5 before being stored in the dvwa database. Research how to crack hash values and crack the stolen passwords. Login as pablo.
 
-Capture a screenshot showing you are logged in as pablo (see Figure 5).
+**Capture a screenshot showing you are logged in as pablo (see Figure 5)**.
 
 <img src="../images/sqli_5_stolenCreds.png" width="1000" height="800">
 
