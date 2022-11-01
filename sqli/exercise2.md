@@ -124,4 +124,11 @@ Recall that we discovered DVWA uses MySQL 5.0.51a-3ubuntu5. Table 2 shows SELECT
 |Function|SELECT Statement|
 |---|---|
 |Show databases|SELECT schema_name FROM information_schema.schemata;|
-|Show tables not in the schema or mysql databases|SELECT table_schema,table_name FROM information_schema.tables WHERE table_schema != ‘mysql’ AND table_schema != ‘information_schema’|
+|Show tables in current database|SELECT table_name FROM information_schema.tables where table_schema=database();|
+|Show tables in specified database|SELECT table_name FROM information_schema.tables where table_schema="database name";|
+|Show columns in a table|SELECT column_name from information_schema.columns where table_name="users"|
+|Dump columns from a table|SELECT column1,column2 from table|
+
+Modify the UNION SELECT statement from the prior challenge to dump username and password for all DVWA users.
+
+**Capture a screenshot of all usernames and passwords.**
