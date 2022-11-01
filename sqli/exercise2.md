@@ -92,6 +92,12 @@ SELECT user,host,password FROM mysql.user ORDER BY 3;
 
 That's all well and good, but alone does not give use the information needed for a UNION SELECT statement in a SQLi attack. We need to know not only how many fields are in the SQL query response (i.e., at least 3 in this case), but also how many fields are not in the response (i.e., less than 4). This example has three fields. An attempt to sort the response by field 4 would create a SQL error. **A successful query to ORDER BY 3 and a failed query to ORDER BY 4 proves that the SQL query has 3 fields in the response. Therefore, our UNION SELECT statement must have three fields in the response**.
 
+The following SQLi string will order the DVWA response by field 1, which appears to be the first name.
+
+```
+'or 1=1 order by 2 #
+```
+
 **Enumerate the number of fields in the DVWA SQL query and capture a screenshot showing the first SQL error from ORDER BY statements.**
 
 ### Challenge 5:
