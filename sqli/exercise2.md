@@ -112,3 +112,4 @@ Modify the above query to enumerate the current user and database.
 |Show current user|SELECT user()|
 |Show current database|SELECT database()|
 
+**Capture a screenshot of the current database.**
