@@ -132,3 +132,13 @@ Recall that we discovered DVWA uses MySQL 5.0.51a-3ubuntu5. Table 2 shows SELECT
 Modify the UNION SELECT statement from the prior challenge to dump username and password for all DVWA users.
 
 **Capture a screenshot of all usernames and passwords from the dvwa database.**
+
+## Extra-Mile
+### Challenge 7: Login as user 'pablo'
+Challenge 6 disclosed hashed passwords for each user. Passwords are hashed with MD5 before being stored in the dvwa database. Research how to crack hash values and crack the stolen passwords. Login as pablo.
+
+Capture a screenshot showing you are logged in as pablo (see Figure 5).
+
+<img src="../images/sqli_5_stolenCreds.png" width="1000" height="800">
+
+**Figure 5, Logged with Stolen Credentials**
