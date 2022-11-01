@@ -100,4 +100,15 @@ The following SQLi string will order the DVWA response by field 1, which appears
 
 **Enumerate the number of fields in the DVWA SQL query and capture a screenshot showing the first SQL error from ORDER BY statements.**
 
-### Challenge 5:
+### Challenge 5: Enumerate the DBMS
+The following SQLi string will show the DBMS version.
+```
+'union select 1,@@version #
+```
+Modify the above query to enumerate the current user and database.
+
+|Function|SELECT Statement|
+|---|---|
+|Show current user|SELECT user()|
+|Show current database|SELECT database()|
+
