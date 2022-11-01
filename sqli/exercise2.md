@@ -105,14 +105,23 @@ The following SQLi string will show the DBMS version.
 ```
 'union select 1,@@version #
 ```
-Modify the above query to enumerate the current user and database.
+Using Table 1, modify the above query to enumerate the current user and database.
 
 |Function|SELECT Statement|
 |---|---|
 |Show current user|SELECT user()|
 |Show current database|SELECT database()|
 
+**Table 1, user() and database()**
+
 **Capture a screenshot of the current database.**
 
 ### Challenge 6: Enumerate tables and columns
 In a SQL shell, we would enumerate tables and columns using the **SHOW tables** and **SHOW columns in _table_** queries. However, we normally do not have the luxury of a SHOW statement in a SQLi attack, but we still need to enumerate tables and columns to fully exploit a database in a SQLi attack. Database details can be collected from the information schema database using SELECT statements. A [SQLi cheat sheet](https://pentestmonkey.net/cheat-sheet/sql-injection/mysql-sql-injection-cheat-sheet) can come in handy when attempting to enumerate database schema information.
+
+Recall that we discovered DVWA uses MySQL 5.0.51a-3ubuntu5. Table 2 shows SELECT statements used to enumerate databases, tables in a database, and columns in a table for MySQL >= 5.0. 
+
+|Function|SELECT Statement|
+|---|---|
+|Show databases|SELECT schema_name FROM information_schema.schemata;|
+|Show tables not in the schema or mysql databases|SELECT table_schema,table_name FROM information_schema.tables WHERE table_schema != ‘mysql’ AND table_schema != ‘information_schema’|
