@@ -131,4 +131,4 @@ Recall that we discovered DVWA uses MySQL 5.0.51a-3ubuntu5. Table 2 shows SELECT
 
 Modify the UNION SELECT statement from the prior challenge to dump username and password for all DVWA users.
 
-**Capture a screenshot of all usernames and passwords.**
+**Capture a screenshot of all usernames and passwords from the dvwa database.**
