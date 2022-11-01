@@ -76,3 +76,22 @@ DVWA is vulnerable to a simple OR statement and will disclose all users. Figure 
 
 **Capture a screenshot showing a successful SQLi attack against DVWA that discloses application users using a string other than "'OR '1=1".**
 
+## SQLi: Enumerate the DBMS and Database
+### Challenge 4: Discover the number of fields in a response using an ORDER BY statement
+
+Fully enumerating a DBMS and database through SQLi will require a UNION statement. However, for a UNION statement to work our queries must use exactly the same number of _fields_, or columns, as the SQL statement scripted in the web application. An ORDER BY statement sorts the response from a SQL query by a specified field. Consider the following SQL query.
+```
+SELECT user,host,password FROM mysql.user ORDER BY 1;
+```
+You might recognize the query as listing MySQL users in a MySQL DBMS. However, the query goes a step further and sorts the response in order of the first field. In this case, the first field is 'user'. The following queries sort the responses by the second and third fields, 'host' and 'password', respectively.
+
+```
+SELECT user,host,password FROM mysql.user ORDER BY 2;
+SELECT user,host,password FROM mysql.user ORDER BY 3;
+```
+
+That's all well and good, but alone does not give use the information needed for a UNION SELECT statement in a SQLi attack. We need to know not only how many fields are in the SQL query response (i.e., at least 3 in this case), but also how many fields are not in the response (i.e., less than 4). This example has three fields. An attempt to sort the response by field 4 would create a SQL error.** A successful query to ORDER BY 3 and a failed query to ORDER BY 4 proves that the SQL query has 3 fields in the response. Therefore, our UNION SELECT statement must have three fields in the response**.
+
+**Enumerate the number of fields in the DVWA SQL query and capture a screenshot showing the first SQL error from ORDER BY statements.**
+
+### Challenge 5:
