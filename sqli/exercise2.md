@@ -141,4 +141,4 @@ Capture a screenshot showing you are logged in as pablo (see Figure 5).
 
 <img src="../images/sqli_5_stolenCreds.png" width="1000" height="800">
 
-**Figure 5, Logged with Stolen Credentials**
+**Figure 5, Logged in with Stolen Credentials**
