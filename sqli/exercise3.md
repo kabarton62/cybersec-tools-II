@@ -235,7 +235,7 @@ drwxrwxr-x 22 www-data www-data 20480 Apr 16  2010 tikiwiki-old
 drwxr-xr-x  7 www-data www-data  4096 Apr 16  2010 twiki
 ```
 
-Some directories from the default writable directory list don't exist (/var/www/html, /var/www/htdocs), and we don't have write permissions to those that exist. However, we see there are directories owned by root where we have write permissions (/var/www/dav) and directories owned by www-data (/var/www/dvwa, /var/www/mutillidae, etc). Select one of the directories owned by www-data or owned by root by with write permissions for www-data and try to get an OS shell again.
+Some directories from the default writable directory list don't exist (/var/www/html, /var/www/htdocs), and we don't have write permissions to those that exist. However, we see there are directories owned by root where we have write permissions (/var/www/dav) and directories owned by www-data (/var/www/dvwa, /var/www/mutillidae, etc). Attempt directories that exist until you get an OS shell.
 
 **Capture a screenshot of a working shell. Run the id, hostname and ifconfig commands to demonstrate the shell functions.**
 
