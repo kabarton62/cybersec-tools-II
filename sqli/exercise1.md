@@ -1,4 +1,5 @@
-# <img src="https://www.tamusa.edu/brandguide/jpeglogos/tamusa_final_logo_bw1.jpg" width="100" height="50"> Introduction to Structured Query Language (SQL) for SQL injection (SQLi)
+# <img src="https://www.tamusa.edu/brandguide/jpeglogos/tamusa_final_logo_bw1.jpg" width="100" height="50"> 
+# Introduction to Structured Query Language (SQL) for SQL injection (SQLi)
 
 ## Deploy a SQLi Lab
 
