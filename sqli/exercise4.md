@@ -293,8 +293,13 @@ The **--dump-all** option will dump all tables in all databases, but doing so in
 
 The **-D** option enumerates a specific database. When combined with the **--dump** option, the **-D** option is useful for dumping tables in a specific database. 
 
-Dump the tables in the database **tikiwiki**.
+Dump the tables in the database **tikiwiki**. This scan will take time. Consider increasing the number of threads with the **--threads=** option. By default, sqlmap uses 1 thread. Consider trying 10 threads.
 
 > **Capture a screenshot of the tikiwiki table that reveals users and user login credentials.**
 
+### Challenge 5: Crawl, Level, and Risk Options
+**Crawl** enables sqlmap to crawl a website to discover and test possible injection points. This is useful in large applications that have dozens or hundreds of possible injection points. Depth defines how many directories deep the crawler will examine.
 
+**Level** defines the number of payloads used to test for SQLi vulnerabilities. Level can be set for 1-5, where **--level 1** is the default setting. Increasing level increases the number of payloads tested but also significantly increases the time required to test each possible injection point.
+
+Risk defines the types of payloads used by sqlmap. Some payloads have greater risk of negatively impacting 
