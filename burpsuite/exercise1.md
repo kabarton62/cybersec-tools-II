@@ -1,4 +1,6 @@
-# <img src="https://www.tamusa.edu/brandguide/jpeglogos/tamusa_final_logo_bw1.jpg" width="100" height="50"> Burp Suite - Getting Started
+<img src="https://www.tamusa.edu/brandguide/jpeglogos/tamusa_final_logo_bw1.jpg" width="200" height="100"> 
+
+# Burp Suite - Getting Started
 
 ## Configure External Browser to Proxy through Burp Suite
 ### Challenge 1: Configure Firefox ESR to proxy through Burp Suite
