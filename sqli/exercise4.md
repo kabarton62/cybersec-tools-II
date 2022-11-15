@@ -185,7 +185,7 @@ These statements confirm that the application is vulnerable to SQLi.
 ## Automating Blind SQLi with sqlmap
 ### Challenge 2: Detect the DBMS and Confirm SQLi Vulnerability
 
-Start with a basic scan, but first flush and purge sqlmap's cache.
+Start with a basic scan, but first flush and purge sqlmap's cache. The bold sections emphasize the results we are interested in.
 
 ```
 sqlmap --flush-session --purge
@@ -269,3 +269,4 @@ back-end DBMS: MySQL >= 5.0.12
 [*] ending @ 08:16:06 /2022-11-15/
 
 </pre>
+
