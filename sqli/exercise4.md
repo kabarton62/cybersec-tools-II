@@ -295,11 +295,40 @@ The **-D** option enumerates a specific database. When combined with the **--dum
 
 Dump the tables in the database **tikiwiki**. This scan will take time. Consider increasing the number of threads with the **--threads=** option. By default, sqlmap uses 1 thread. Consider trying 10 threads.
 
-> **Capture a screenshot of the tikiwiki table that reveals users and user login credentials.**
+> **Capture a screenshot of the tikiwiki table that shows tables from tikiwiki being dumped.**
 
-### Challenge 5: Crawl, Level, and Risk Options
+### Challenge 5: Tikiwiki login
+
+Dumped tables will be stored in .csv file in a subdirectory of your home directory. For example, **/home/username/.local/share/sqlmap/output/hostname_ip-address/dump/tikiwiki/**. Find login credentials for tikiwiki. Browse to the URI **/tikiwiki/** and follow the installation wizard to finish setting up tikiwiki. Database settings will be:
+
+|||
+|---|---|
+|**Host**|localhost|
+|**User**|root|
+|**Password**||
+|**Database**|tikiwiki|
+
+Use the stolen credentials to login to tikiwiki. You will be prompted to change the admin user's password. Change the password.
+
+Dump the tikiwiki users_users table a second time. Ensure fresh queries are run. The -T option is used to dump specific tables, rather than all tables in the database.
+
+Include the following options:
+
+```
+-D tikiwiki -T users_users --dump --fresh-queries
+```
+
+**Capture a screenshot of the new admin user password or hashed password.**
+
+
+### Challenge 6: Crawl, Level, and Risk Options
 **Crawl** enables sqlmap to crawl a website to discover and test possible injection points. This is useful in large applications that have dozens or hundreds of possible injection points. Depth defines how many directories deep the crawler will examine.
 
-**Level** defines the number of payloads used to test for SQLi vulnerabilities. Level can be set for 1-5, where **--level 1** is the default setting. Increasing level increases the number of payloads tested but also significantly increases the time required to test each possible injection point.
+**Level** defines the number of payloads used to test for SQLi vulnerabilities. **Level can be set for 1-5**, where **--level 1** is the default setting. Increasing level increases the number of payloads tested but also significantly increases the time required to test each possible injection point.
 
-Risk defines the types of payloads used by sqlmap. Some payloads have greater risk of negatively impacting 
+**Risk** defines the types of payloads used by sqlmap. Some payloads have greater risk of negatively impacting the targeted application, dbms or database. Increasing risk can help discover difficult SQLi exploits but also increases the possibility of interrupting the function of the application or database. **Risk options are 1-3** where the default is 1.
+
+1. Edit the request file to set the security cookie at **high**.
+2. Flush and purge cached sqlmap results: **sqlmap --flush-session --purge**
+3. Attempt to exploit the DVWA application with sqlmap with the security cookie set at high. Vary --level, --risk and other options to see if the URI /dvwa/vulnerabilities/sqli_blind/ can be exploited with sqlmap. Consider using additional threads to increase the rate of attack.
+4. **Report your findings. Were you able to exploit the application. What options did you attempt what results did you have with those options.**
