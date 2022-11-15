@@ -286,3 +286,15 @@ sqlmap can enumerate the current database, current user, and current user's priv
 The **--dbs** option will list all databases that the current user has permissions to read or modify. Enumerate all databases that the current user can access.
 
 **Capture a screenshot of the sqlmap results showing all databases that the current user can access.**
+
+### Challenge 4: Dump tables from a Database other than the Current Database
+
+The **--dump-all** option will dump all tables in all databases, but doing so includes the schema. This slow and may not have great value. There are times when tables in a specific database need to be dumped but there is no interest in dumping all tables from all databases. 
+
+The **-D** option enumerates a specific database. When combined with the **--dump** option, the **-D** option is useful for dumping tables in a specific database. 
+
+Dump the tables in the database **tikiwiki**.
+
+**Capture a screenshot of the tikiwiki table that reveals users and user login credentials.**
+
+
