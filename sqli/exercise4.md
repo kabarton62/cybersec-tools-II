@@ -279,13 +279,13 @@ The results demonstrate:
 
 sqlmap can enumerate the current database, current user, and current user's privileges with the options **--current-db**, **--current-user**, and **--privileges**. Enumerate the database, user and user privileges for DVWA.
 
-**Capture a screenshot of the sqlmap results showing the current database, current user and current user's privileges.**
+> **Capture a screenshot of the sqlmap results showing the current database, current user and current user's privileges.**
 
 ### Challenge 4: Enumerate all Databases available to the Current User
 
 The **--dbs** option will list all databases that the current user has permissions to read or modify. Enumerate all databases that the current user can access.
 
-**Capture a screenshot of the sqlmap results showing all databases that the current user can access.**
+> **Capture a screenshot of the sqlmap results showing all databases that the current user can access.**
 
 ### Challenge 4: Dump tables from a Database other than the Current Database
 
@@ -295,6 +295,6 @@ The **-D** option enumerates a specific database. When combined with the **--dum
 
 Dump the tables in the database **tikiwiki**.
 
-**Capture a screenshot of the tikiwiki table that reveals users and user login credentials.**
+> **Capture a screenshot of the tikiwiki table that reveals users and user login credentials.**
 
 
