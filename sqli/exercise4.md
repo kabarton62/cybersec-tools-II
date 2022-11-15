@@ -152,3 +152,8 @@ Options:
 
     --- truncated ---                                                                         
 ```
+## The Target
+
+This exercise uses DVWA's **SQL Injection (Blind)** page (URI /dvwa/vulnerabilities/sqli_blind/) and **Security Level = Medium**.
+
+### Challenge 1: Prepare DVWA
