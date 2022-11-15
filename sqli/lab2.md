@@ -4,7 +4,7 @@
 
 ## Deploy the Target
 
-The application is packaged as a Docker application. Clone and download a copy for the application
+The application is packaged as a Docker container. Clone and download a copy of the application:
 
     git clone https://github.com/kabarton62/sqliStore.git
 
