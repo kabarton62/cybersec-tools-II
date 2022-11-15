@@ -3,7 +3,7 @@
 # More SQLi with sqlmap
 
 ## sqlmap Options
-There is no shortage of sqlmap options. The -hh option will list all options. The following list has been truncated but some interesting options have been retained in the list.
+There is no shortage of sqlmap options. The -hh option will list all options. The following list has been truncated but some interesting options have been retained in the list. We will not cover all of these options, but let's look at few.
 ```
 $ sqlmap -hh 
         ___
