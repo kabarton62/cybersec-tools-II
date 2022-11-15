@@ -1,4 +1,6 @@
-# <img src="https://www.tamusa.edu/brandguide/jpeglogos/tamusa_final_logo_bw1.jpg" width="100" height="50"> Introduction to SQL injection (SQLi)
+<img src="https://www.tamusa.edu/brandguide/jpeglogos/tamusa_final_logo_bw1.jpg" width="200" height="100"> 
+
+# Introduction to SQL injection (SQLi)
 
 ## Deploy a SQLi Lab
 
@@ -74,7 +76,7 @@ DVWA is vulnerable to a simple OR statement and will disclose all users. Figure 
 **Figure 4, SQLi Proof**
 
 
-**Capture a screenshot showing a successful SQLi attack against DVWA that discloses application users using a string other than "'OR '1=1".**
+> Capture a screenshot showing a successful SQLi attack against DVWA that discloses application users using a string other than "'OR '1=1".
 
 ## SQLi: Enumerate the DBMS and Database
 ### Challenge 4: Discover the number of fields in a response using an ORDER BY statement
@@ -98,7 +100,7 @@ The following SQLi string will order the DVWA response by field 1, which appears
 'or 1=1 order by 2 #
 ```
 
-**Enumerate the number of fields in the DVWA SQL query and capture a screenshot showing the first SQL error from ORDER BY statements.**
+> Enumerate the number of fields in the DVWA SQL query and capture a screenshot showing the first SQL error from ORDER BY statements.
 
 ### Challenge 5: Enumerate the DBMS
 The following SQLi string will show the DBMS version.
@@ -114,7 +116,7 @@ Using Table 1, modify the above query to enumerate the current user and database
 
 **Table 1, user() and database()**
 
-**Capture a screenshot of the current database.**
+> Capture a screenshot of the current database.
 
 ### Challenge 6: Enumerate tables and columns
 In a SQL shell, we would enumerate tables and columns using the **SHOW tables** and **SHOW columns in _table_** queries. However, we normally do not have the luxury of a SHOW statement in a SQLi attack, but we still need to enumerate tables and columns to fully exploit a database in a SQLi attack. Database details can be collected from the information schema database using SELECT statements. A [SQLi cheat sheet](https://pentestmonkey.net/cheat-sheet/sql-injection/mysql-sql-injection-cheat-sheet) can come in handy when attempting to enumerate database schema information.
@@ -131,13 +133,13 @@ Recall that we discovered DVWA uses MySQL 5.0.51a-3ubuntu5. Table 2 shows SELECT
 
 Modify the UNION SELECT statement from the prior challenge to dump username and password for all DVWA users.
 
-**Capture a screenshot of all usernames and passwords from the dvwa database.**
+> Capture a screenshot of all usernames and passwords from the dvwa database.
 
 ## Extra-Mile
 ### Challenge 7: Login as user 'pablo'
 Challenge 6 disclosed hashed passwords for each user. Passwords are hashed with MD5 before being stored in the dvwa database. Research how to crack hash values and crack the stolen passwords. Login as pablo.
 
-**Capture a screenshot showing you are logged in as pablo (see Figure 5)**.
+> Capture a screenshot showing you are logged in as pablo (see Figure 5).
 
 <img src="../images/sqli_5_stolenCreds.png" width="1000" height="800">
 
