@@ -1,4 +1,6 @@
-# <img src="https://www.tamusa.edu/brandguide/jpeglogos/tamusa_final_logo_bw1.jpg" width="100" height="50"> Web Application Enumeration
+<img src="https://www.tamusa.edu/brandguide/jpeglogos/tamusa_final_logo_bw1.jpg" width="200" height="100"> 
+
+# Web Application Enumeration
 
 ## Web application resources
 [Mozilla](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Identifying_resources_on_the_Web) defines a _resource_ as a directory or file (document, photo or anything else) that is the target of an HTTP request. An HTTP request to a resource that does not exist will result in a HTTP 404 Not Found response code. A request to any resource that exists will result in some other HTTP response code. Examples of common response codes for resources that exist include:
