@@ -76,7 +76,7 @@ DVWA is vulnerable to a simple OR statement and will disclose all users. Figure 
 **Figure 4, SQLi Proof**
 
 
-> Capture a screenshot showing a successful SQLi attack against DVWA that discloses application users using a string other than "'OR '1=1".
+> ❗Capture a screenshot showing a successful SQLi attack against DVWA that discloses application users using a string other than "'OR '1=1".
 
 ## SQLi: Enumerate the DBMS and Database
 ### Challenge 4: Discover the number of fields in a response using an ORDER BY statement
