@@ -40,18 +40,18 @@ Note the mariadb database is restored each time the docker container is started 
 
 Use sqlmap to enumerate the dbms, current user and current database. 
 
-> **Capture a screenshot that shows the dbms, current user and current database.
+> Capture a screenshot that shows the dbms, current user and current database.
 
 ### Challenge 5: Enumerate Databases
 
 Use sqlmap to enumerate the databases the current user can access.
 
-> **Capture a screenshot that shows the databases the current user can access.
+> Capture a screenshot that shows the databases the current user can access.
 
 ### Challenge 6: Enumerate MySQL Users
 
 Use sqlmap to enumerate MySQL users. Attempt to crack all passwords for discovered MySQL users.
 
-> **Capture a screenshot that shows the MySQL users and cracked passwords.
+> Capture a screenshot that shows the MySQL users and cracked passwords.
 
 
