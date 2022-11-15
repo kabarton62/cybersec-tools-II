@@ -35,3 +35,11 @@ Do not expose sqliStore to the internet, it is an insecure application and can l
 Use it in an isolated test lab environment meant for security testing and learning. 
  
 Note the mariadb database is restored each time the docker container is started up.     
+
+### Challenge 4: Enumerate dbms, Current User and Current Database
+
+Use sqlmap to enumerate the dbms, current user and current database. 
+
+> **Capture a screenshot that shows the dbms, current user and current database.
+
+### Challenge 5:
