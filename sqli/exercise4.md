@@ -330,5 +330,6 @@ Include the following options:
 
 1. Edit the request file to set the security cookie at **high**.
 2. Flush and purge cached sqlmap results: **sqlmap --flush-session --purge**
-3. Attempt to exploit the DVWA application with sqlmap with the security cookie set at high. Vary --level, --risk and other options to see if the URI /dvwa/vulnerabilities/sqli_blind/ can be exploited with sqlmap. Consider using additional threads to increase the rate of attack.
-4. **Report your findings. Were you able to exploit the application. What options did you attempt what results did you have with those options.**
+3. The --dbms option can be used when the backend dbms is known. This reduces the number of queries run to detect the dbms. We know the backend dbms is mysql, so include the option **--dbms mysql** to reduce the number of queries run.
+4. Attempt to exploit the DVWA application with sqlmap with the security cookie set at high. Vary --level, --risk and other options to see if the URI /dvwa/vulnerabilities/sqli_blind/ can be exploited with sqlmap. Consider using additional threads to increase the rate of attack.
+5. **Report your findings. Were you able to exploit the application. What options did you attempt what results did you have with those options.**
