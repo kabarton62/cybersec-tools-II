@@ -270,3 +270,19 @@ back-end DBMS: MySQL >= 5.0.12
 
 </pre>
 
+The results demonstrate:
+1. The parameter **id** in the targeted URI is vulnerable to time-based SQLi.
+2. The query that demonstrated time-based SQLi was **100 AND (SELECT 4544 FROM (SELECT(SLEEP(5)))tHeh)**.
+3. The query returns 2 columns. Note that the values included in the UNION ALL SELECT query are random ASCII Hex values.
+
+### Challenge 3: Enumerate Current User and Database
+
+sqlmap can enumerate the current database, current user, and current user's privileges with the options **--current-db**, **--current-user**, and **--privileges**. Enumerate the database, user and user privileges for DVWA.
+
+**Capture a screenshot of the sqlmap results showing the current database, current user and current user's privileges.**
+
+### Challenge 4: Enumerate all Databases available to the Current User
+
+The **--dbs** option will list all databases that the current user has permissions to read or modify. Enumerate all databases that the current user can access.
+
+**Capture a screenshot of the sqlmap results showing all databases that the current user can access.**
