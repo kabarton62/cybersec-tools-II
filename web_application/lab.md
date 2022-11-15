@@ -1,4 +1,6 @@
-# <img src="https://www.tamusa.edu/brandguide/jpeglogos/tamusa_final_logo_bw1.jpg" width="100" height="50"> Web Applications - osTicket
+<img src="https://www.tamusa.edu/brandguide/jpeglogos/tamusa_final_logo_bw1.jpg" width="200" height="100"> 
+
+# Web Applications - osTicket
 
 ## Challenge 1: Get osTicket v1.15.8
 1. Download the osTicket v1.15.8 from [here](https://osticket.com/download/). Click the red icon. You will be directed to osTicket's GitHub repository. From the GitHub repository, copy the link to the .zip file under Assets.
