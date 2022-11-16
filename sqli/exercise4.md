@@ -287,7 +287,7 @@ The **--dbs** option will list all databases that the current user has permissio
 
 > :anger: Capture a screenshot of the sqlmap results showing all databases that the current user can access.
 
-### Challenge 4: Dump tables from a Database other than the Current Database
+### Challenge 5: Dump tables from a Database other than the Current Database
 
 The **--dump-all** option will dump all tables in all databases, but doing so includes the schema. This slow and may not have great value. There are times when tables in a specific database need to be dumped but there is no interest in dumping all tables from all databases. 
 
@@ -297,7 +297,7 @@ Dump the tables in the database **tikiwiki**. This scan will take time. Consider
 
 > :anger: Capture a screenshot of the tikiwiki table that shows tables from tikiwiki being dumped.
 
-### Challenge 5: Tikiwiki login
+### Challenge 6: Tikiwiki login
 
 Dumped tables will be stored in .csv file in a subdirectory of your home directory. For example, **/home/username/.local/share/sqlmap/output/hostname_ip-address/dump/tikiwiki/**. Find login credentials for tikiwiki. Browse to the URI **/tikiwiki/** and follow the installation wizard to finish setting up tikiwiki. Database settings will be:
 
@@ -321,7 +321,7 @@ Include the following options:
 > :anger: Capture a screenshot of the new admin user password or hashed password.
 
 
-### Challenge 6: Crawl, Level, and Risk Options
+### Challenge 7: Crawl, Level, and Risk Options
 **Crawl** enables sqlmap to crawl a website to discover and test possible injection points. This is useful in large applications that have dozens or hundreds of possible injection points. Depth defines how many directories deep the crawler will examine.
 
 **Level** defines the number of payloads used to test for SQLi vulnerabilities. **Level can be set for 1-5**, where **--level 1** is the default setting. Increasing level increases the number of payloads tested but also significantly increases the time required to test each possible injection point.
