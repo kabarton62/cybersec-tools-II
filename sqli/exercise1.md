@@ -19,7 +19,7 @@ sudo apt update && sudo apt install git -y
 git clone https://github.com/thomaslaurenson/startrek_payroll.git
 cd startrek_payroll
 ```
-> Clone the thomaslaurenson/startrek_payroll repository and capture a screenshot of the contents of the repository.
+> :anger: Clone the thomaslaurenson/startrek_payroll repository and capture a screenshot of the contents of the repository.
 
 ### Challenge 2: All that Stuff in this Repo!
 GitHub content is normally safe, but GitHub repositories could also be used to distribute malicious or harmful content. It is a good practice to examine content in a repository you do not own or control before running scripts or deploying applications, so let's look at what is in the repository.
@@ -132,7 +132,7 @@ Verify the project is running by browsing to the application. See Figure 2.
 
 **Figure 2, Payroll Login**
 
-> Capture a screenshot of the Payroll Login page.
+> :anger: Capture a screenshot of the Payroll Login page.
 
 ## SQL Query
 ### Challenge 3: Getting a SQL Shell
@@ -164,7 +164,7 @@ Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 mysql> 
 ```
 
-> Capture a screenshot of the SQL shell.
+> :anger: Capture a screenshot of the SQL shell.
 
 ### Challenge 4: Enumerating the Database Management System (DBMS)
 The exact syntax and database schema tables needed to execute a successful SQLi attack are dependant on the underlying DBMS. Therefore, enumerating the DMBS is a useful place to start learning SQL queries. Start by discovering the DBMS version and current user. Since we are building toward a SQLi attack, we will start by enumerating these details using SQL queries. Note, all SQL queries (ok, with a couple of exceptions) must end with a semi-colon. The command SELECT can be either uppercase or lowercase.
@@ -295,7 +295,7 @@ mysql> SHOW columns IN mysql.user;
 42 rows in set (0.00 sec)
 ```
 
-> Capture a screenshot of the columns in table mysql.user. 
+> :anger: Capture a screenshot of the columns in table mysql.user. 
 
 ### Challenge 5: SELECT statement
 
@@ -389,7 +389,7 @@ Let's take a set of credentials for a spin and see if we can login with the stol
 
 **Figure 3, Payroll Login with Stolen Credentials**
 
-> Capture a screenshot of a successful login using stolen credentials.
+> :anger: Capture a screenshot of a successful login using stolen credentials.
 
 ### Challenge 6: Examine web application source code and demonstrate SQLi attack
 Next, we will walk through the web application to see where we might find SQLi vulnerabilities, starting with the HTTP POST form. The following section of source code creates the POST request when a user attempts to login. Two lines are important for our analysis (HTML tags are removed):
@@ -492,4 +492,4 @@ If successful, we might expect the username and salary for all users in table us
 
 Demonstrate SQLi attacks using both strings, **"**' OR 1=1;#**"** and **"**' OR 1=1;-- **"**. 
 
-> Capture a screenshot of both SQLi attacks against the login page.
+> :anger: Capture a screenshot of both SQLi attacks against the login page.
