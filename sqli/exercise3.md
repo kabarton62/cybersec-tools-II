@@ -78,7 +78,7 @@ back-end DBMS: MySQL >= 4.1
 [*] ending @ 11:41:26 /2022-11-07/
 ```
 
-**Capture a screenshot of a simple sqlmap attack against DVWA's SQL Injection page with cookies included using --cookie option.**
+> :anger: Capture a screenshot of a simple sqlmap attack against DVWA's SQL Injection page with cookies included using --cookie option.
 
 The second technique is to save the GET request from Burp Suite to a file and read the file into sqlmap. See the folloiwng example. The GET request, with cookies, is stored in dvwa.txt and read into sqlmap using the **-r** option.
 
@@ -157,7 +157,7 @@ Table: guestbook
 
 ```
 
-**Capture a screenshot of the dumped tables.**
+> :anger: Capture a screenshot of the dumped tables.
 
 ### Challenge 3: Password Cracking with sqlmap
 
@@ -165,7 +165,7 @@ You were likely prompted by sqlmap to store and crack hashed passwords. If you f
 
 After successfully cracking the passwords, login with username **pablo**.
 
-**Capture a screenshot of the home page that shows the username is pablo.**
+> :anger: apture a screenshot of the home page that shows the username is pablo.
 
 ### Challenge 4: sqlmap -> OS Shell
 
@@ -239,5 +239,5 @@ drwxr-xr-x  7 www-data www-data  4096 Apr 16  2010 twiki
 
 Some directories from the default writable directory list don't exist (/var/www/html, /var/www/htdocs), and we don't have write permissions to those that exist. However, we see there are directories owned by root where we have write permissions (/var/www/dav) and directories owned by www-data (/var/www/dvwa, /var/www/mutillidae, etc). Attempt directories that exist until you get an OS shell.
 
-**Capture a screenshot of a working shell. Run the id, hostname and ifconfig commands to demonstrate the shell functions.**
+> :anger: Capture a screenshot of a working shell. Run the id, hostname and ifconfig commands to demonstrate the shell functions.
 
