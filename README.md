@@ -1,7 +1,9 @@
-# <img src="https://www.tamusa.edu/brandguide/jpeglogos/tamusa_final_logo_bw1.jpg" width="100" height="50"> cybersec-tools-II
+<img src="https://www.tamusa.edu/brandguide/jpeglogos/tamusa_final_logo_bw1.jpg" width="200" height="100"> 
+
+# cybersec-tools-II
 
 
----
+
 ## Part 1, Web Applications: [web_application](https://github.com/kabarton62/cybersec-tools-II/tree/main/web_application)
 
 ### [Exercise 1-1](https://github.com/kabarton62/cybersec-tools-II/blob/main/web_application/exercise.md) 
