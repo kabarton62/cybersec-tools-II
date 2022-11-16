@@ -279,13 +279,13 @@ The results demonstrate:
 
 sqlmap can enumerate the current database, current user, and current user's privileges with the options **--current-db**, **--current-user**, and **--privileges**. Enumerate the database, user and user privileges for DVWA.
 
-> **Capture a screenshot of the sqlmap results showing the current database, current user and current user's privileges.**
+> :anger: Capture a screenshot of the sqlmap results showing the current database, current user and current user's privileges.
 
 ### Challenge 4: Enumerate all Databases available to the Current User
 
 The **--dbs** option will list all databases that the current user has permissions to read or modify. Enumerate all databases that the current user can access.
 
-> **Capture a screenshot of the sqlmap results showing all databases that the current user can access.**
+> :anger: Capture a screenshot of the sqlmap results showing all databases that the current user can access.
 
 ### Challenge 4: Dump tables from a Database other than the Current Database
 
@@ -295,7 +295,7 @@ The **-D** option enumerates a specific database. When combined with the **--dum
 
 Dump the tables in the database **tikiwiki**. This scan will take time. Consider increasing the number of threads with the **--threads=** option. By default, sqlmap uses 1 thread. Consider trying 10 threads.
 
-> **Capture a screenshot of the tikiwiki table that shows tables from tikiwiki being dumped.**
+> :anger: Capture a screenshot of the tikiwiki table that shows tables from tikiwiki being dumped.
 
 ### Challenge 5: Tikiwiki login
 
@@ -318,7 +318,7 @@ Include the following options:
 -D tikiwiki -T users_users --dump --fresh-queries
 ```
 
-**Capture a screenshot of the new admin user password or hashed password.**
+> :anger: Capture a screenshot of the new admin user password or hashed password.
 
 
 ### Challenge 6: Crawl, Level, and Risk Options
@@ -333,4 +333,4 @@ Include the following options:
 3. The --dbms option can be used when the backend dbms is known. This reduces the number of queries run to detect the dbms. We know the backend dbms is mysql, so include the option **--dbms mysql** to reduce the number of queries run.
 4. Attempt to exploit the DVWA application with sqlmap with the security cookie set at high. Vary --level, --risk and other options to see if the URI /dvwa/vulnerabilities/sqli_blind/ can be exploited with sqlmap. Consider using additional threads to increase the rate of attack.
 
-> **Report your findings. Were you able to exploit the application? What options did you attempt what results did you have with those options?**
+> :anger: Report your findings. Were you able to exploit the application? What options did you attempt what results did you have with those options?
