@@ -3,7 +3,7 @@
 # Web Applications - osTicket
 
 ## Challenge 1: Get osTicket v1.15.8
-1. Download the osTicket v1.15.8 from [here](https://osticket.com/download/). Click the red icon. You will be directed to osTicket's GitHub repository. From the GitHub repository, copy the link to the .zip file under Assets.
+1. Download the osTicket v1.15.8 from [here](https://github.com/osTicket/osTicket/releases/download/v1.15.8/osTicket-v1.15.8.zip). Click the red icon. You will be directed to osTicket's GitHub repository. From the GitHub repository, copy the link to the .zip file under Assets.
 2. Download the .zip archive directly to your GCP instance.
 3. Extract all file in the .zip archive. Two directories will be extracted scripts/ and upload/.
 
